@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 import { HeaderConst, StyleConst } from '../../../../../config/Const';
@@ -286,11 +294,26 @@ class DeckMenu extends Component {
 
   renderContent = () => {
     const { id, deckinfo, v, user } = this.state;
+    const renderAttribution = () => {
+      if (deckinfo.th.user.name !== 'me') {
+        return (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(deckinfo.th.user.link)}
+          >
+            <Text style={{ color: Color.font5 }}>
+              {`Photo by ${deckinfo.th.user.name} / Unsplash`}
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+      return null;
+    };
     return (
       <View>
         <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
         <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
         <UserIcon user={user} size={28} />
+        {renderAttribution()}
       </View>
     );
   };

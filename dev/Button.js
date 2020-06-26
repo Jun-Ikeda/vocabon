@@ -106,6 +106,13 @@ const Button = [
       console.log({ id });
     },
   },
+  {
+    title: 'CurrentUser',
+    onPress: async () => {
+      const user = await User.authentication.getCurrentUser();
+      console.log({ user });
+    },
+  },
   //   {
   //     title: 'State',
   //     onPress: () => {
