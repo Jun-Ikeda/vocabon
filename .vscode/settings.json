@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    "**/.expo": true,
+    "**/.expo-shared": true,
+    "**/web-build": true
+  },
+  "extensions.ignoreRecommendations": true,
+  "files.autoSave": "off",
+  "debug.allowBreakpointsEverywhere": true,
+  "macros": {
+    "formatDocumentComplete": [
+      "eslint.executeAutofix",
+      "editor.action.formatDocument"
+    ]
+  }
+}

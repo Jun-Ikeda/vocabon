@@ -1,0 +1,56 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "node": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["off"],
+    "react/forbid-prop-types": ["off"],
+    "react/require-default-props": ["off"],
+    "react/sort-comp": ["off"],
+    "class-methods-use-this": ["off"],
+    "no-use-before-define": ["off"],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "max-len": ["off"],
+    "no-shadow": ["off"],
+    "no-nested-ternary": ["off"],
+    "no-plusplus": ["off"],
+    "no-multi-assign": ["off"],
+    "react/prefer-stateless-function": ["off"],
+    "linebreak-style": ["off"],
+    "comma-spacing": [2, { "before": false, "after": true }],
+    "react/destructuring-assignment": ["warn"],
+    "lines-between-class-members": ["warn"],
+    "implicit-arrow-linebreak": ["off"],
+    "react/jsx-curly-newline": ["off"],
+    "operator-linebreak": ["off"],
+    "no-console": ["off"],
+    "arrow-parens": ["off"],
+    "import/no-cycle": ["warn"],
+    "object-curly-newline": ["off"],
+    "react/jsx-props-no-spreading": ["off"],
+    "max-classes-per-file": ["warn", 1],
+    "arrow-body-style": ["warn"],
+    "no-restricted-syntax": ["warn"],
+    "import/no-mutable-exports": ["warn"],
+    "camelcase": [
+      "warn",
+      {
+        "ignoreDestructuring": true,
+        "allow": ["^UNSAFE_"]
+      }
+    ]
+  }
+}
