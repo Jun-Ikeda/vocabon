@@ -302,7 +302,7 @@ class DeckMenu extends Component {
           <TouchableOpacity
             onPress={() => Linking.openURL(deckinfo.th.user.link)}
           >
-            <Text style={{ color: Color.font5 }}>
+            <Text style={{ color: Color.font5, textAlign: 'right' }}>
               {`Photo by ${deckinfo.th.user.name} / Unsplash`}
             </Text>
           </TouchableOpacity>
@@ -312,10 +312,14 @@ class DeckMenu extends Component {
     };
     return (
       <View>
-        <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
-        <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
-        <UserIcon user={user} size={28} />
         {renderAttribution()}
+        <View style={{ flexDirection: 'row' }}>
+          <View>
+            <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
+            <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
+          </View>
+          <UserIcon user={user} size={28} />
+        </View>
       </View>
     );
   };

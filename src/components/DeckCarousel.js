@@ -90,7 +90,11 @@ class DeckCarousel extends Component {
             },
           ]}
           onPress={() => {
-            navigation.navigate('deckmenu', { deck: item, user: user[id], v: v[id] });
+            navigation.navigate('deckmenu', {
+              deck: item,
+              user: user[id],
+              v: v[id],
+            });
           }}
         >
           <Image
@@ -164,8 +168,8 @@ class DeckCarousel extends Component {
       //       callback: v =>
       //         this.setState(prev => {
       //           prev.v[child] = v; /* .push(v); */
-                console.log({ v: prev.v });
-                // console.log({ [child]: v });
+      // console.log({ v: prev.v });
+      // console.log({ [child]: v });
       //           return { v: prev.v };
       //         }),
       //     });
