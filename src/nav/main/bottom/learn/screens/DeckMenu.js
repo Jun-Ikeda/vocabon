@@ -66,8 +66,10 @@ class DeckMenu extends Component {
   async UNSAFE_componentWillMount() {
     const { navigation } = this.props;
     const deck = navigation.getParam('deck');
+    const user = navigation.getParam('user');
+    console.log({ deck });
     const v = navigation.getParam('v');
-    const user = await User.load({ uid: Object.values(deck)[0].user });
+    // const user = await User.load({ uid: Object.values(deck)[0].user });
     console.log({ user });
     bottomRef.setTabVisible({ visible: false });
     this.setState({
@@ -288,7 +290,7 @@ class DeckMenu extends Component {
         </View>
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

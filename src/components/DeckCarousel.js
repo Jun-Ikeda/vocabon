@@ -5,6 +5,9 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Color from '../config/Color';
 import Deck from '../config/Firebase/Deck';
+import User from '../config/Firebase/User';
+
+import UserIcon from './UserIcon';
 
 const style = StyleSheet.create({
   carouselContainer: {
@@ -24,6 +27,7 @@ class DeckCarousel extends Component {
       layout: { height: 100, width: 100 },
       active: 0,
       v: {},
+      user: {},
     };
   }
 
@@ -68,6 +72,7 @@ class DeckCarousel extends Component {
     const {
       layout: { width },
       v,
+      user,
     } = this.state;
     try {
       // const cardIndex = index % data.length;
@@ -84,9 +89,9 @@ class DeckCarousel extends Component {
               borderRadius: width * 0.05,
             },
           ]}
-          onPress={() =>
-            navigation.navigate('deckmenu', { deck: item, v: v[id] })
-          }
+          onPress={() => {
+            navigation.navigate('deckmenu', { deck: item, user: user[id], v: v[id] });
+          }}
         >
           <Image
             source={{ uri: `https://images.unsplash.com/${deckinfo.th.uri}` }}
@@ -100,19 +105,22 @@ class DeckCarousel extends Component {
           />
           <View style={{ padding: width * 0.03 }}>
             <Text style={{ fontSize: 18 }}>{deckinfo.ti}</Text>
-            <View style={{ padding: 5 }}>
-              <Text style={{ fontSize: 12, color: Color.font5 }}>
-                {`${deckinfo.num} words ${v[id]} views`}
-              </Text>
-              <Text style={{ fontSize: 12, color: Color.font5 }}>
-                {`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}
-              </Text>
+            <View style={{ padding: 5, flexDirection: 'row' }}>
+              <View>
+                <Text style={{ fontSize: 12, color: Color.font5 }}>
+                  {`${deckinfo.num} words ${v[id]} views`}
+                </Text>
+                <Text style={{ fontSize: 12, color: Color.font5 }}>
+                  {`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}
+                </Text>
+              </View>
+              <UserIcon user={user[id]} size={32} />
             </View>
           </View>
         </TouchableOpacity>
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };
@@ -121,12 +129,12 @@ class DeckCarousel extends Component {
     const { data } = this.props;
     // console.log({ data });
     if (data !== prevProps.data) {
-      console.log('props updated');
       try {
         for (const child of data) {
           const id = Object.keys(child)[0];
+          const deckinfo = Object.values(child)[0];
           Deck.setListenerV({
-            deckid: Object.keys(child)[0],
+            deckid: id,
             callback: v => {
               this.setState(prev => {
                 const newV = { ...prev.v };
@@ -134,6 +142,13 @@ class DeckCarousel extends Component {
                 return { v: newV };
               });
             },
+          });
+          User.load({ uid: deckinfo.user }).then(user => {
+            this.setState(prev => {
+              const newUsers = { ...prev.user };
+              newUsers[id] = user;
+              return { user: newUsers };
+            });
           });
         }
         return null;
@@ -149,8 +164,8 @@ class DeckCarousel extends Component {
       //       callback: v =>
       //         this.setState(prev => {
       //           prev.v[child] = v; /* .push(v); */
-      //           // console.log({ v: prev.v });
-      //           console.log({ [child]: v });
+                console.log({ v: prev.v });
+                // console.log({ [child]: v });
       //           return { v: prev.v };
       //         }),
       //     });

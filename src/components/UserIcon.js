@@ -34,11 +34,16 @@ class UserIcon extends Component {
   }
 
   renderContent = () => {
-    const {
-      user: { background },
-    } = this.props;
-    const isColor = Functions.isColor(background);
-    return isColor ? this.renderInitial() : this.renderBackground();
+    try {
+      const {
+        user: { background },
+      } = this.props;
+      const isColor = Functions.isColor(background);
+      return isColor ? this.renderInitial() : this.renderBackground();
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   };
 
   renderBackground = () => {
