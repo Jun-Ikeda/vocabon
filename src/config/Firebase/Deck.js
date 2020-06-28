@@ -17,7 +17,6 @@ const create = async ({ title, learn, understand }) => {
       }),
     )
     .then(async () => {
-      console.log('storage uploaded');
       card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
     })
     .catch(error => console.log(error));
@@ -27,6 +26,7 @@ const create = async ({ title, learn, understand }) => {
     smp: [],
     style: 0,
     th: { uri: '', user: { name: '', link: '' } },
+    tag: {},
     ti: title,
     lang1: learn,
     lang2: understand,
@@ -37,6 +37,7 @@ const create = async ({ title, learn, understand }) => {
 
   await save({ deckid, data: deckData, expires: null, merge: false });
   await Function.v.init({ collection: 'Deck', id: deckid });
+  await Function.rate.init({ collection: 'Deck', id: deckid });
 
   await User.save({
     uid: auth.uid,
@@ -97,8 +98,20 @@ const load = async ({ deckid, expires = false }) => {
   return result;
 };
 
+const loadAll = async ({ ids, expires = false }) => {
+  const array = [];
+  for (const child in ids) {
+    const data = await load({ deckid: child, expires });
+    array.push({ [child]: data });
+  }
+  return array;
+};
+
 const setListenerV = ({ deckid, callback }) => {
   Function.v.setListener({ collection: 'Deck', id: deckid, callback });
 };
 
-export default { create, save, update, load, setListenerV };
+const loadV = async ({ deckid }) =>
+  Function.v.load({ collection: 'Deck', id: deckid });
+
+export default { create, save, update, load, setListenerV, loadAll, loadV };

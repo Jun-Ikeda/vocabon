@@ -52,7 +52,6 @@ class DeckCarousel extends Component {
             sliderWidth={width * 1.0}
             // containerCustomStyle={{ flex: 1, backgroundColor: "#eee" }}
             onSnapToItem={index => this.setState({ active: index })} // for pagination
-            loop
           />
           <Pagination
             dotsLength={data.length}
@@ -90,7 +89,7 @@ class DeckCarousel extends Component {
             },
           ]}
           onPress={() => {
-            navigation.navigate('deckmenu', {
+            navigation.push('deckmenu', {
               deck: item,
               user: user[id],
               v: v[id],
@@ -137,15 +136,20 @@ class DeckCarousel extends Component {
         for (const child of data) {
           const id = Object.keys(child)[0];
           const deckinfo = Object.values(child)[0];
-          Deck.setListenerV({
-            deckid: id,
-            callback: v => {
-              this.setState(prev => {
-                const newV = { ...prev.v };
-                newV[id] = v;
-                return { v: newV };
-              });
-            },
+          // Deck.setListenerV({
+          //   deckid: id,
+          //   callback: v => {
+          //     this.setState(prev => {
+          //       const newV = { ...prev.v };
+          //       newV[id] = v;
+          //       return { v: newV };
+          //     });
+          //   },
+          // });
+          this.setState(async prev => {
+            const v = await Deck.loadV({ deckid: id });
+            prev.v[id] = v;
+            return { v: prev.v };
           });
           User.load({ uid: deckinfo.user }).then(user => {
             this.setState(prev => {

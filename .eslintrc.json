@@ -29,7 +29,7 @@
     "no-plusplus": ["off"],
     "no-multi-assign": ["off"],
     "react/prefer-stateless-function": ["off"],
-    "linebreak-style": ["on"],
+    "linebreak-style": ["off"],
     "comma-spacing": [2, { "before": false, "after": true }],
     "react/destructuring-assignment": ["warn"],
     "lines-between-class-members": ["warn"],
@@ -51,8 +51,6 @@
         "ignoreDestructuring": true,
         "allow": ["^UNSAFE_"]
       }
-    ],
-    "react-native/no-unused-styles": ["warn"],
-    "react-native/no-inline-styles": ["warn"]
+    ]
   }
 }

@@ -18,9 +18,9 @@ const style = StyleSheet.create({
 
 export default class Gesture extends Component {
   render() {
-    const { children } = this.props;
+    const { children, style: propsStyle } = this.props;
     return (
-      <View style={style.container}>
+      <View style={[style.container, propsStyle]}>
         <GestureRecognizer
           onSwipeLeft={this.OnSwipeLeft}
           onSwipeRight={this.OnSwipeRight}

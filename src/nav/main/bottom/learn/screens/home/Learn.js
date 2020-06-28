@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 
 import User from '../../../../../../config/Firebase/User';
 import Storage from '../../../../../../config/Storage';
@@ -55,18 +56,7 @@ class Learn extends Component {
               const {
                 local: { decks },
               } = myAccount;
-              const array = [];
-              for (const child in decks) {
-                if (child) {
-                  const data = await Deck.load({
-                    deckid: child,
-                    expires: null,
-                  });
-                  array.push({ [child]: data });
-                  console.log({ array });
-                }
-              }
-              // console.log({ obj });
+              const array = await Deck.loadAll({ ids: decks, expires: null });
               await this.setState({ myDecks: array });
             })
             .catch(error => console.log(error));
@@ -79,13 +69,13 @@ class Learn extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, isFocused } = this.props;
     const {
       layout: { width },
       myDecks,
     } = this.state;
     return (
-      <Gesture>
+      <Gesture style={{ opacity: isFocused ? 1 : 0 }}>
         {this.renderHeader()}
         <View
           style={style.container}
@@ -121,4 +111,4 @@ class Learn extends Component {
     );
   };
 }
-export default Learn;
+export default withNavigationFocus(Learn);

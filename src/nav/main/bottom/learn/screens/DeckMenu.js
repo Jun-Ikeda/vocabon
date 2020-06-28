@@ -7,8 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 import { HeaderConst, StyleConst } from '../../../../../config/Const';
 import Color from '../../../../../config/Color';
@@ -34,7 +36,7 @@ const style = StyleSheet.create({
   },
   deckinfoContainer: {
     flex: 1,
-    backgroundColor: Color.background1,
+    // backgroundColor: Color.background1,
   },
   headerContainer: {},
   titleContainer: {
@@ -44,7 +46,47 @@ const style = StyleSheet.create({
   animateImage: {
     width: 'auto',
     ...StyleConst.absoluteFullScreen,
+    // position: 'absolute',
+    // top: 0,
     resizeMode: 'cover',
+  },
+  usericon: {},
+  infoContainer: { flex: 1 },
+  contentContaierSmall: {
+    flexDirection: 'row',
+    flex: 1,
+    // backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  contentContaier: {
+    backgroundColor: Color.background1,
+    padding: 5,
+  },
+  photographerButton: {
+    alignItems: 'flex-end',
+    // backgroundColor: 'red',
+    flex: 1,
+  },
+  gesture: {
+    // flex: 1,
+    ...StyleConst.absoluteFullScreen,
+  },
+  deckButtonContainer: {
+    flexDirection: 'row',
+  },
+  deckButton: {
+    // borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  deckButtonTitle: {
+    fontSize: 15,
+  },
+  deckButtonIcon: {
+    fontSize: 20,
   },
 });
 
@@ -52,6 +94,7 @@ class DeckMenu extends Component {
   constructor(props) {
     super(props);
     this.AnimatedImageValue = new Animated.Value(0);
+    this.scrollview = null;
     this.state = {
       id: '',
       deckinfo: {},
@@ -181,6 +224,7 @@ class DeckMenu extends Component {
           />
         )}
         onPressLeft={() => navigation.goBack()}
+        onLongPressLeft={() => navigation.popToTop()}
         style={style.headerContainer}
       />
     );
@@ -194,6 +238,7 @@ class DeckMenu extends Component {
         header: { max },
         title: { height: titleHeight, width: titleWidth },
       } = this.state;
+      const { navigation } = this.props;
       const animateKeyArray = [
         { key: 'AnimateImageHeight', outputRange: [max, headerMinPadding] },
         {
@@ -225,7 +270,7 @@ class DeckMenu extends Component {
       });
       const renderImage = () => (
         <View style={StyleConst.absoluteFullScreen}>
-          <Animated.Image
+          <Image
             source={{ uri: `https://images.unsplash.com/${deckinfo.th.uri}` }}
             style={style.animateImage}
           />
@@ -237,6 +282,7 @@ class DeckMenu extends Component {
           />
         </View>
       );
+
       const renderTitle = () => (
         <Animated.View
           style={[
@@ -273,6 +319,10 @@ class DeckMenu extends Component {
               },
             ])}
             style={style.deckinfoContainer}
+            ref={scrollview => {
+              this.scrollview = scrollview;
+            }}
+            overScrollMode="never"
           >
             {renderContent()}
           </ScrollView>
@@ -283,26 +333,53 @@ class DeckMenu extends Component {
               height: AnimateKey.AnimateImageHeight,
             }}
           >
-            {renderImage()}
-            {renderTitle()}
-            {this.renderBasicHeader()}
+            <GestureRecognizer
+              onSwipeUp={() => {
+                this.scrollview.scrollTo({
+                  x: 0,
+                  y: max - headerMinPadding,
+                  animated: true,
+                });
+              }}
+              onSwipeDown={() => navigation.goBack()}
+              config={{
+                velocityThreshold: 0.01,
+                gestureIsClickThreshold: 0.1,
+                directionalOffsetThreshold: 80,
+              }}
+              style={StyleConst.absoluteFullScreen}
+            >
+              {renderImage()}
+              {renderTitle()}
+              {this.renderBasicHeader()}
+            </GestureRecognizer>
           </Animated.View>
         </View>
       );
     } catch (error) {
+      return null;
       // console.log(error);
     }
   };
 
   renderContent = () => {
-    const { id, deckinfo, v, user } = this.state;
+    const {
+      id,
+      deckinfo,
+      v,
+      user,
+      layout: { width },
+    } = this.state;
+    const { navigation } = this.props;
     const renderAttribution = () => {
       if (deckinfo.th.user.name !== 'me') {
         return (
           <TouchableOpacity
+            style={style.photographerButton}
             onPress={() => Linking.openURL(deckinfo.th.user.link)}
+            pointerEvents="box-none"
           >
-            <Text style={{ color: Color.font5, textAlign: 'right' }}>
+            <Text style={{ color: Color.font5 /* textAlign: 'right' */ }}>
               {`Photo by ${deckinfo.th.user.name} / Unsplash`}
             </Text>
           </TouchableOpacity>
@@ -310,15 +387,77 @@ class DeckMenu extends Component {
       }
       return null;
     };
+    const renderDeckButton = () => {
+      const buttons = [
+        {
+          title: 'Play',
+          icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
+          onPress: () => {
+            navigation.navigate('');
+          },
+        },
+        {
+          title: 'Edit',
+          icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
+          onPress: () => {
+            navigation.navigate('deckedit', { id, deckinfo });
+          },
+        },
+        {
+          title: 'Bookmark',
+          icon: () => (
+            <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
+          ),
+          onPress: () => {
+            navigation.navigate('');
+          },
+        },
+        {
+          title: 'More',
+          icon: () => (
+            <Icon.Feather name="chevron-down" style={style.deckButtonIcon} />
+          ),
+          onPress: () => {
+            navigation.navigate('');
+          },
+        },
+      ];
+      return buttons.map(button => (
+        <TouchableOpacity
+          style={[style.deckButton, { height: width * 0.15 }]}
+          onPress={button.onPress}
+        >
+          {button.icon()}
+          <Text style={style.deckButtonTitle}>{button.title}</Text>
+        </TouchableOpacity>
+      ));
+    };
     return (
-      <View>
+      <View
+        style={[
+          style.contentContaier,
+          {
+            borderBottomLeftRadius: width * 0.08,
+            borderBottomRightRadius: width * 0.08,
+          },
+        ]}
+      >
         {renderAttribution()}
-        <View style={{ flexDirection: 'row' }}>
-          <View>
+        <View style={style.deckButtonContainer}>{renderDeckButton()}</View>
+        <View style={style.contentContaierSmall}>
+          <View style={style.infoContainer}>
+            <Text>{deckinfo.ti}</Text>
             <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
             <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
           </View>
-          <UserIcon user={user} size={28} />
+          <TouchableOpacity
+            pointerEvents="box-none"
+            onPress={() =>
+              navigation.push('usermenu', { user, uid: deckinfo.user })
+            }
+          >
+            <UserIcon style={style.usericon} user={user} size={48} />
+          </TouchableOpacity>
         </View>
       </View>
     );

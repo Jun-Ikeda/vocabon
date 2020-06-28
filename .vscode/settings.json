@@ -12,5 +12,6 @@
       "eslint.executeAutofix",
       "editor.action.formatDocument"
     ]
-  }
+  },
+  "eslint.enable": true
 }

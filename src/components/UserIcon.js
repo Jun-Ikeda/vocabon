@@ -7,6 +7,9 @@ import { Functions } from '../config/Const';
 const style = StyleSheet.create({
   container: {
     // ...StyleConst.absoluteFullScreen,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -22,9 +25,6 @@ class UserIcon extends Component {
             height: size,
             width: size,
             borderRadius: size / 2,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
           },
         ]}
       >

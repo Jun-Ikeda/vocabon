@@ -84,6 +84,9 @@ export default class Header extends Component {
       onPressTitle,
       rightStyle,
       onPressRight,
+      onLongPressLeft,
+      onLongPressTitle,
+      onLongPressRight,
     } = this.props;
     try {
       return renderAll();
@@ -105,14 +108,18 @@ export default class Header extends Component {
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
             ]}
             onPress={onPressLeft}
-            pointerEvents={onPressLeft ? 'box-none' : 'none'}
+            pointerEvents={onPressLeft || onLongPressLeft ? 'box-none' : 'none'}
+            onLongPress={onLongPressLeft}
           >
             {this.renderComponents('left')}
           </TouchableOpacity>
           <TouchableOpacity
             style={[style.title, titleStyle]}
             onPress={onPressTitle}
-            pointerEvents={onPressTitle ? 'box-none' : 'none'}
+            pointerEvents={
+              onPressTitle || onLongPressTitle ? 'box-none' : 'none'
+            }
+            onLongPress={onLongPressTitle}
           >
             {this.renderComponents('title')}
           </TouchableOpacity>
@@ -123,7 +130,10 @@ export default class Header extends Component {
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
             ]}
             onPress={onPressRight}
-            pointerEvents={onPressRight ? 'box-none' : 'none'}
+            pointerEvents={
+              onPressRight || onLongPressRight ? 'box-none' : 'none'
+            }
+            onLongPress={onLongPressRight}
           >
             {this.renderComponents('right')}
           </TouchableOpacity>

@@ -203,7 +203,35 @@ const v = {
     });
   },
 };
-const Function = { load, save, update, remove, array, up, v };
+const rate = {
+  init: async ({ collection, id }) => {
+    await database.ref(`${collection}/${id}/rate`).set({ sum: 0, num: 0 });
+  },
+  add: async ({ collection, id, rate }) => {
+    // console.log(
+    //   `Firebase.v.add({collection: ${collection}, id: ${id}}) starts`,
+    // );
+    await database.ref(`${collection}/${id}/rate`).transaction(rate => {
+      const newSum = rate.sum + rate;
+      const newNum = rate.num + 1;
+      return { sum: newSum, num: newNum };
+    });
+    // console.log(`Firebase.v.add({collection: ${collection}, id: ${id}}) ends`);
+  },
+  load: async ({ collection, id }) => {
+    // console.log(
+    //   `Firebase.v.load({collection: ${collection}, id: ${id}}) starts`,
+    // );
+    let data;
+    await database.ref(`${collection}/${id}/rate`).once('value', snapshot => {
+      data = snapshot.val();
+    });
+    // console.log(`Firebase.v.load({collection: ${collection}, id: ${id}}) ends`);
+    return data;
+  },
+};
+
+const Function = { load, save, update, remove, array, up, v, rate };
 
 export default firebase;
 export { database, storage, auth, firestore, Function };

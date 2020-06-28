@@ -75,7 +75,8 @@ const login = async ({ email, password, init = true, callback = () => {} }) => {
   });
 };
 
-const update = ({ uid, updated, expires }) => Function.update({ collection: 'User', id: uid, updated, expires });
+const update = ({ uid, updated, expires }) =>
+  Function.update({ collection: 'User', id: uid, updated, expires });
 
 const save = async ({ uid, data, merge = true, expires = false }) => {
   const params = { collection: 'User', id: uid, data, merge };
@@ -121,6 +122,9 @@ const updateListener = ({ uid, callback }) => {
   Function.up.setListener({ collection: 'User', id: uid, callback });
 };
 
+const loadV = async ({ uid }) =>
+  Function.v.load({ collection: 'User', id: uid });
+
 export default {
   create,
   update,
@@ -131,4 +135,5 @@ export default {
   remove,
   authentication,
   updateListener,
+  loadV,
 };
