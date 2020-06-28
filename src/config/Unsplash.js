@@ -38,7 +38,7 @@ export const getRandomImage = async ({ word = '' }) => {
     .photos(searchWord, random2, 1)
     .then(toJson)
     .then(json => {
-      console.log({ result: json.results[0] });
+      // console.log({ result: json.results[0] });
       const uri = json.results[0].urls.regular;
       const shortened = uri.replace('https://images.unsplash.com/', '');
       const user = {
@@ -46,7 +46,7 @@ export const getRandomImage = async ({ word = '' }) => {
         link: json.results[0].user.links.html,
       };
       result = { uri: shortened, user };
-      console.log(result);
+      // console.log(result);
     });
   return result;
 };

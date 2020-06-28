@@ -33,7 +33,7 @@ export const Functions = {
     return height > width;
   },
   returnHyphenBar: num => {
-    console.log();
+    // console.log();
     let str = '';
     for (let i = 0; i < num; i++) {
       str += '-';

@@ -177,7 +177,7 @@ class ResetPassword extends Component {
       .sendPasswordResetEmail(email)
       .then(() => {
         this.setState({ isModalSentSuccessVisible: true });
-        console.log(this.state.isModalSentSuccessVisible);
+        // console.log(this.state.isModalSentSuccessVisible);
       })
       .catch(error => {
         this.setState({ errorMessage: error, isModalErrorVisible: true });

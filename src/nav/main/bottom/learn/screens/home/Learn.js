@@ -59,7 +59,7 @@ class Learn extends Component {
               const array = await Deck.loadAll({ ids: decks, expires: null });
               await this.setState({ myDecks: array });
             })
-            .catch(error => console.log(error));
+            .catch(/* error => console.log(error) */);
         },
       });
       // await User.load({ uid: auth.uid, expires: null }).then(user => {
@@ -90,9 +90,9 @@ class Learn extends Component {
             style={{ width }}
             navigation={navigation}
           />
-          <TouchableOpacity onPress={() => console.log(this.state)}>
+          {/* <TouchableOpacity onPress={() => console.log(this.state)}>
             <Text style={{ color: 'white' }}>aaaaaaaa</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </Gesture>
     );

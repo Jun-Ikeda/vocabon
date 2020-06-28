@@ -57,7 +57,7 @@ const create = async ({ email, password, name }) => {
 const login = async ({ email, password, init = true, callback = () => {} }) => {
   await auth.signInWithEmailAndPassword(email, password).then(async user => {
     const { uid, emailVerified } = user.user;
-    console.log('loggedin');
+    // console.log('loggedin');
 
     if (init) {
       await load({ uid, expires: null });
@@ -90,19 +90,18 @@ const load = async ({ uid, expires = false }) => {
 };
 
 const sendEmail = async () => {
-  auth.currentUser
-    .sendEmailVerification()
-    .then(async () => console.log('email has been sent'));
+  auth.currentUser.sendEmailVerification();
+  // .then(async () => console.log('email has been sent'));
 };
 
 const remove = async ({ email, password }) => {
-  console.log({ email, password });
+  // console.log({ email, password });
   await login({
     email,
     password,
     init: false,
     callback: async user => {
-      console.log('93');
+      // console.log('93');
       const { uid } = user.user;
       await Storage.Function.init({ key: 'auth' });
       await Function.remove({ collection: 'User', id: uid });

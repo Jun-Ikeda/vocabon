@@ -110,10 +110,10 @@ class DeckMenu extends Component {
     const { navigation } = this.props;
     const deck = navigation.getParam('deck');
     const user = navigation.getParam('user');
-    console.log({ deck });
+    // console.log({ deck });
     const v = navigation.getParam('v');
     // const user = await User.load({ uid: Object.values(deck)[0].user });
-    console.log({ user });
+    // console.log({ user });
     bottomRef.setTabVisible({ visible: false });
     this.setState({
       id: Object.keys(deck)[0],

@@ -36,7 +36,7 @@
     "implicit-arrow-linebreak": ["off"],
     "react/jsx-curly-newline": ["off"],
     "operator-linebreak": ["off"],
-    "no-console": ["off"],
+    "no-console": ["warn"],
     "arrow-parens": ["off"],
     "import/no-cycle": ["warn"],
     "object-curly-newline": ["off"],

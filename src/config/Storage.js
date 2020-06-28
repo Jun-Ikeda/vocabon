@@ -46,9 +46,9 @@ const KeyOnlyInitData = [
 
 const Function = {
   init: async ({ key = null }) => {
-    console.log('Storage.init()');
+    // console.log('Storage.init()');
     if (key === null) {
-      console.log('key is null');
+      // console.log('key is null');
       await AsyncStorage.clear();
       for (let i = 0; i < KeyOnlyInitData.length; i++) {
         // eslint-disable-next-line no-await-in-loop
@@ -56,7 +56,7 @@ const Function = {
       }
     } else {
       const param = KeyOnlyInitData.filter(param => param.key === key);
-      console.log({ param });
+      // console.log({ param });
       await Storage.save(param[0]);
     }
     // console.log(`Storage.init() ends`);
@@ -67,7 +67,7 @@ const Function = {
     const KeyOnly = KeyOnlyInitData.map(data => data.key);
     const params = KeyOnly.includes(key) ? { key } : { key, id };
     const result = await Storage.load(params);
-    console.log('local loaded ', { key, id, data: result });
+    // console.log('local loaded ', { key, id, data: result });
     return result;
   },
 
@@ -88,13 +88,13 @@ const Function = {
       params = { key, id };
     } */
     await Storage.save({ ...param, data: result });
-    console.log('local saved ', { key, id, data: result });
+    // console.log('local saved ', { key, id, data: result });
     if (expires === false) {
-      console.log('expires in a day');
+      // console.log('expires in a day');
     } else if (expires === null) {
-      console.log('never expires');
+      // console.log('never expires');
     } else {
-      console.log(`expires in ${expires} ms `);
+      // console.log(`expires in ${expires} ms `);
     }
   },
 
@@ -102,7 +102,7 @@ const Function = {
     const KeyOnly = KeyOnlyInitData.map(data => data.key);
     const params = KeyOnly.includes(key) ? { key } : { key, id };
     await Storage.remove(params);
-    console.log('local removed ', { key, id });
+    // console.log('local removed ', { key, id });
   },
 
   transaction: async ({ key, id, callback, expires, merge = true }) => {

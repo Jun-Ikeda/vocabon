@@ -118,7 +118,7 @@ class EmailVerify extends Component {
       email,
       password,
       init: false,
-      callback: () => console.log('re-logined'),
+      // callback: () => console.log('re-logined'),
     });
     const { emailVerified } = User.authentication.getCurrentUser();
     if (emailVerified) {
@@ -177,9 +177,11 @@ class EmailVerify extends Component {
       this.stop();
       Storage.Function.save({ key: 'auth', data: { emailverified: true } });
       this.setState({ isModalGetStarted: true });
-    } else {
-      console.log('not verified');
+      return null;
     }
+    return null;
+    // console.log('not verified');
+
     // User.login({
     //   email,
     //   password,
@@ -211,7 +213,7 @@ class EmailVerify extends Component {
 
   stop = () => {
     this.setState({ remain: 0 });
-    Timer.stop(() => console.log('canceled'));
+    Timer.stop(/* () => console.log('canceled') */);
   };
 
   triggeredFunction = async () => {

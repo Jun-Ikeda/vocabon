@@ -39,7 +39,7 @@ export default class Gesture extends Component {
     try {
       bottomRef.OnSwipeLeft();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -47,7 +47,7 @@ export default class Gesture extends Component {
     try {
       bottomRef.OnSwipeRight();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 }

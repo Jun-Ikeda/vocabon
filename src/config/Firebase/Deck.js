@@ -19,7 +19,7 @@ const create = async ({ title, learn, understand }) => {
     .then(async () => {
       card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
     })
-    .catch(error => console.log(error));
+    .catch(() => null /* console.log(error) */);
   // const up = Date.now();
   const deckData = {
     num: 0,
@@ -80,7 +80,7 @@ const update = ({ deckid, updated, expires }) =>
 const save = async ({ deckid, data, merge = true, expires = false }) => {
   const params = { collection: 'Deck', id: deckid, data, merge };
   const param = expires === false ? { ...params } : { ...params, expires };
-  console.log({ param });
+  // console.log({ param });
   await Function.save(param);
   /* collection,
   id,
@@ -101,8 +101,10 @@ const load = async ({ deckid, expires = false }) => {
 const loadAll = async ({ ids, expires = false }) => {
   const array = [];
   for (const child in ids) {
-    const data = await load({ deckid: child, expires });
-    array.push({ [child]: data });
+    if (child) {
+      const data = await load({ deckid: child, expires });
+      array.push({ [child]: data });
+    }
   }
   return array;
 };

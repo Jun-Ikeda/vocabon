@@ -41,7 +41,7 @@ class UserIcon extends Component {
       const isColor = Functions.isColor(background);
       return isColor ? this.renderInitial() : this.renderBackground();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };
@@ -70,7 +70,7 @@ class UserIcon extends Component {
         </View>
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };
@@ -99,7 +99,7 @@ class UserIcon extends Component {
         </View>
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };

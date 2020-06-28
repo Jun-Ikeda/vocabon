@@ -10,7 +10,7 @@ const Timer = {
       try {
         setState(data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     const limit = await Storage.Function.load({ key: 'timerLimit' });
@@ -21,7 +21,7 @@ const Timer = {
         let remain = limit - Date.now();
         timer = setInterval(() => {
           trySetState(Math.floor(remain / 1000));
-          console.log(`reamin is ${remain}`);
+          // console.log(`reamin is ${remain}`);
           if (Math.floor(remain / 1000) <= 0) {
             Timer.stop(_function);
           }
@@ -38,7 +38,7 @@ const Timer = {
       try {
         setState(data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     const limit = Date.now() + duaration;
@@ -47,7 +47,7 @@ const Timer = {
     timer = setInterval(() => {
       remain -= 1000;
       trySetState(Math.floor(remain / 1000));
-      console.log(`reamin is ${remain}`);
+      // console.log(`reamin is ${remain}`);
       if (Math.floor(remain / 1000) <= 0) {
         Timer.stop(_function);
       }
@@ -56,12 +56,12 @@ const Timer = {
 
   stop: _function => {
     clearInterval(timer);
-    console.log('stop was called');
+    // console.log('stop was called');
     Storage.Function.save({ key: 'timerLimit', data: 0, merge: false });
     try {
       _function();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   },
 
