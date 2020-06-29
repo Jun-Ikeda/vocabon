@@ -70,7 +70,7 @@ class DeckEdit extends Component {
 
   returnTags = () => {
     const { deckinfo } = this.state;
-    const tags = Object.values(deckinfo.tag).reduce((a, b) => `${a}, ${b}`);
+    const tags = Object.keys(deckinfo.tag).reduce((a, b) => `${a}, ${b}`, '');
     return tags;
   };
 
@@ -78,7 +78,12 @@ class DeckEdit extends Component {
     const {
       deckinfo: { smp },
     } = this.state;
-    return null;
+    return smp.map(word => (
+      <View>
+        <Text>{word.i1}</Text>
+        <Text>{word.i2}</Text>
+      </View>
+    ));
   };
 }
 
