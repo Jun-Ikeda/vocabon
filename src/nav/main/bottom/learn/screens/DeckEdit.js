@@ -34,6 +34,7 @@ class DeckEdit extends Component {
     const id = navigation.getParam('id');
     const deckinfo = navigation.getParam('deckinfo');
     this.setState({ id, deckinfo });
+    console.log({ id, deckinfo });
   }
 
   render() {
@@ -55,8 +56,29 @@ class DeckEdit extends Component {
           <Text>Title</Text>
           <Text>{deckinfo.ti}</Text>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>Tag</Text>
+          <Text>{this.returnTags()}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>Sample word</Text>
+          <Text>{this.returnSampleWord()}</Text>
+        </TouchableOpacity>
       </View>
     );
+  };
+
+  returnTags = () => {
+    const { deckinfo } = this.state;
+    const tags = Object.values(deckinfo.tag).reduce((a, b) => `${a}, ${b}`);
+    return tags;
+  };
+
+  returnSampleWord = () => {
+    const {
+      deckinfo: { smp },
+    } = this.state;
+    return null;
   };
 }
 
