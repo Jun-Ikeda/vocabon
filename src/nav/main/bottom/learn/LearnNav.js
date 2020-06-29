@@ -9,7 +9,7 @@ import {
 import Learn from './screens/home/Learn';
 import DeckMenu from './screens/DeckMenu';
 import UserMenu from './screens/UserMenu';
-import DeckEdit from './screens/DeckEdit';
+import DeckEdit from './screens/deckedit/DeckEdit';
 
 const StackNavigator = createStackNavigator(
   {
