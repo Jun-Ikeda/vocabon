@@ -6,13 +6,22 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import Icon from '../../../../../../components/Icon';
+
 import Color from '../../../../../../config/Color';
+import { Functions } from '../../../../../../config/Const';
+
+import Header from '../../../../../../components/Header';
+import Icon from '../../../../../../components/Icon';
+import Deck from '../../../../../../config/Firebase/Deck';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.background1,
+  },
+  headerIcon: {
+    color: Color.font2,
+    fontSize: 25,
   },
   itemName: {
     flexDirection: 'row',
@@ -25,12 +34,13 @@ class DeckEdit extends Component {
     this.state = {
       id: '',
       deckinfo: {},
+      isupdated: false,
     };
   }
 
   UNSAFE_componentWillMount() {
     const { navigation } = this.props;
-    const {} = this.state;
+    const { } = this.state;
     const id = navigation.getParam('id');
     const deckinfo = navigation.getParam('deckinfo');
     this.setState({ id, deckinfo });
@@ -39,10 +49,14 @@ class DeckEdit extends Component {
 
   render() {
     const { navigation } = this.props;
-    const {} = this.state;
+    const { } = this.state;
     return (
       <View style={style.container}>
-        <Text>This is DeckEdit screen!</Text>
+        <Header
+          renderLeft={() => <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />}
+          renderTitle={() => <Text>Edit</Text>}
+          onPressLeft={this.goBack}
+        />
         {this.renderItems()}
       </View>
     );
@@ -50,19 +64,26 @@ class DeckEdit extends Component {
 
   renderItems = () => {
     const { id, deckinfo } = this.state;
+    const { navigation } = this.props;
     return (
       <View>
-        <TouchableOpacity style={style.itemName}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('deckedittitleinput', { ti: deckinfo.ti, updateDeckInfo: this.updateDeckInfo.bind(this) })}
+          style={style.itemName}
+        >
           <Text>Title</Text>
           <Text>{deckinfo.ti}</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text>Tag</Text>
-          <Text>{this.returnTags()}</Text>
+          {this.returnTags()}
         </TouchableOpacity>
         <TouchableOpacity>
           <Text>Sample word</Text>
-          <Text>{this.returnSampleWord()}</Text>
+          {this.returnSampleWord()}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => console.log({ state: this.state })}>
+          <Text>state</Text>
         </TouchableOpacity>
       </View>
     );
@@ -70,8 +91,11 @@ class DeckEdit extends Component {
 
   returnTags = () => {
     const { deckinfo } = this.state;
-    const tags = Object.keys(deckinfo.tag).reduce((a, b) => `${a}, ${b}`, '');
-    return tags;
+    const tags = Object.keys(deckinfo.tag);
+    // const tags = Object.keys(deckinfo.tag).reduce((a, b) => `${a}, ${b}`, '');
+    console.log(tags);
+    const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
+    return <Text>{tagString}</Text>;
   };
 
   returnSampleWord = () => {
@@ -85,6 +109,25 @@ class DeckEdit extends Component {
       </View>
     ));
   };
+
+  updateDeckInfo = newDeckinfo => {
+    // const { deckinfo } = this.state;
+    // const merged = Functions.deepMerge(deckinfo, newDeckinfo)
+    this.setState(({ deckinfo }) => {
+      const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
+      return { deckinfo: mergedDeckInfo };
+    });
+    this.setState({ isupdated: true })
+  }
+
+  goBack = async () => {
+    const { isupdated, id, deckinfo } = this.state;
+    const { navigation } = this.props;
+    if (isupdated) {
+      await Deck.save({ deckid: id, data: deckinfo });
+    }
+    navigation.goBack();
+  }
 }
 
 export default DeckEdit;
