@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 
 import Color from '../../../../../../config/Color';
 
@@ -31,7 +37,9 @@ class DeckInfoInput extends Component {
     return (
       <View style={style.container}>
         <Header
-          renderLeft={() => <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />}
+          renderLeft={() => (
+            <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />
+          )}
           renderTitle={() => <Text>Test</Text>}
           onPressLeft={() => navigation.goBack()}
         />
@@ -49,10 +57,10 @@ class DeckInfoInput extends Component {
   save = () => {
     const { title } = this.state;
     const { navigation } = this.props;
-    const updateDeckInfo = navigation.getParam('updateDeckInfo')
-    updateDeckInfo({ ti: title })
-    navigation.goBack()
-  }
+    const updateDeckInfo = navigation.getParam('updateDeckInfo');
+    updateDeckInfo({ ti: title });
+    navigation.goBack();
+  };
 
   componentDidMount() {
     const { navigation } = this.props;

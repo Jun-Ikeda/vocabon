@@ -40,7 +40,7 @@ class DeckEdit extends Component {
 
   UNSAFE_componentWillMount() {
     const { navigation } = this.props;
-    const { } = this.state;
+    const {} = this.state;
     const id = navigation.getParam('id');
     const deckinfo = navigation.getParam('deckinfo');
     this.setState({ id, deckinfo });
@@ -49,11 +49,13 @@ class DeckEdit extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { } = this.state;
+    const {} = this.state;
     return (
       <View style={style.container}>
         <Header
-          renderLeft={() => <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />}
+          renderLeft={() => (
+            <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />
+          )}
           renderTitle={() => <Text>Edit</Text>}
           onPressLeft={this.goBack}
         />
@@ -68,7 +70,12 @@ class DeckEdit extends Component {
     return (
       <View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('deckedittitleinput', { ti: deckinfo.ti, updateDeckInfo: this.updateDeckInfo.bind(this) })}
+          onPress={() =>
+            navigation.navigate('deckedittitle', {
+              ti: deckinfo.ti,
+              updateDeckInfo: this.updateDeckInfo.bind(this),
+            })
+          }
           style={style.itemName}
         >
           <Text>Title</Text>
@@ -82,8 +89,9 @@ class DeckEdit extends Component {
           <Text>Sample word</Text>
           {this.returnSampleWord()}
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log({ state: this.state })}>
-          <Text>state</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('addwords')}>
+          <Text>{`${deckinfo.num} words`}</Text>
+          <Text>Add words</Text>
         </TouchableOpacity>
       </View>
     );
@@ -117,8 +125,8 @@ class DeckEdit extends Component {
       const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
       return { deckinfo: mergedDeckInfo };
     });
-    this.setState({ isupdated: true })
-  }
+    this.setState({ isupdated: true });
+  };
 
   goBack = async () => {
     const { isupdated, id, deckinfo } = this.state;
@@ -127,7 +135,7 @@ class DeckEdit extends Component {
       await Deck.save({ deckid: id, data: deckinfo });
     }
     navigation.goBack();
-  }
+  };
 }
 
 export default DeckEdit;

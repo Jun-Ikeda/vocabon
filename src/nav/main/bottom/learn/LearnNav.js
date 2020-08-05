@@ -10,7 +10,8 @@ import Learn from './screens/home/Learn';
 import DeckMenu from './screens/DeckMenu';
 import UserMenu from './screens/UserMenu';
 import DeckEdit from './screens/deckedit/DeckEdit';
-import DeckEditTitleInput from './screens/deckedit/DeckEditTitleInput';
+import DeckEditTitle from './screens/deckedit/DeckEditTitle';
+import AddWords from './screens/deckedit/AddWords';
 
 const StackNavigator = createStackNavigator(
   {
@@ -18,7 +19,8 @@ const StackNavigator = createStackNavigator(
     deckmenu: { screen: DeckMenu },
     usermenu: { screen: UserMenu },
     deckedit: { screen: DeckEdit },
-    deckedittitleinput: { screen: DeckEditTitleInput },
+    deckedittitle: { screen: DeckEditTitle },
+    addwords: { screen: AddWords },
   },
   {
     headerMode: 'none',
