@@ -13,6 +13,6 @@
       "editor.action.formatDocument"
     ]
   },
-  "eslint.enable": true,
+  "eslint.enable": false,
   "eslint.lintTask.enable": true
 }
