@@ -23,17 +23,16 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 
 const load = async ({ collection, id, expires }) => {
-  // console.log(`Firebase.load({collection: ${collection}, id: ${id}}) starts`);
-
   const data = await Storage.Function.load({ key: collection, id });
   const updated = await up.load({ collection, id });
   let result;
 
   // console.log({ data, updated, up: data.up });
   if (data && updated === data.up) {
-    // console.log('not updated');
+    console.log(`not loaded { collection: ${collection}, id: ${id} }`);
     result = data.data;
   } else {
+    console.log(`loaded { collection: ${collection}, id: ${id} }`);
     // console.log('updated');
     result = await update({ collection, id, updated, expires });
   }
@@ -42,6 +41,7 @@ const load = async ({ collection, id, expires }) => {
 };
 
 const update = async ({ collection, id, updated, expires }) => {
+  // console.log(`Firebase.update({collection: ${collection}, id: ${id})`);
   const result = await firestore
     .collection(collection)
     .doc(id)
@@ -68,7 +68,7 @@ const save = async ({
   merge = true,
   expires = false,
 }) => {
-  // console.log(`Firebase.save({collection: ${collection}, id: ${id}}) starts`);
+  console.log(`Firebase.save({collection: ${collection}, id: ${id}}) starts`);
 
   await firestore
     .collection(collection)
@@ -230,6 +230,8 @@ const rate = {
     return data;
   },
 };
+
+
 
 const Function = { load, save, update, remove, array, up, v, rate };
 

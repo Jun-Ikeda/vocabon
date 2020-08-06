@@ -9,6 +9,7 @@ const create = async ({ title, learn, understand }) => {
   const auth = await Storage.Function.load({ key: 'auth' });
   const deckid = UUID.generate();
   let card = '';
+  const cardData = [];
   await storage
     .ref(`Deck/${deckid}.json`)
     .put(
@@ -20,7 +21,6 @@ const create = async ({ title, learn, understand }) => {
       card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
     })
     .catch(() => null /* console.log(error) */);
-  // const up = Date.now();
   const deckData = {
     num: 0,
     smp: [],
@@ -33,7 +33,7 @@ const create = async ({ title, learn, understand }) => {
     user: auth.uid,
     card,
   };
-  const cardData = [];
+  // const up = Date.now();
 
   await save({ deckid, data: deckData, expires: null, merge: false });
   await Function.v.init({ collection: 'Deck', id: deckid });

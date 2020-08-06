@@ -23,6 +23,15 @@ const style = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
   },
+  inputContainer: {
+    borderWidth: 1,
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+  },
 });
 
 class AddWords extends Component {
@@ -33,6 +42,7 @@ class AddWords extends Component {
       def: '',
       eg: '',
       cf: '',
+      bundle: []
     };
   }
 
@@ -43,7 +53,6 @@ class AddWords extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { word, def, eg, cf } = this.state;
     return (
       <View style={style.container}>
         <Header
@@ -53,17 +62,36 @@ class AddWords extends Component {
           onPressLeft={() => navigation.goBack()}
           renderTitle={() => <Text>Add Words</Text>}
         />
-        <TextInput
-          onChangeText={word => this.setState({ word })}
-          value={word}
-        />
-        <TextInput onChangeText={def => this.setState({ def })} value={def} />
-        <TextInput onChangeText={eg => this.setState({ eg })} value={eg} />
-        <TextInput onChangeText={cf => this.setState({ cf })} value={cf} />
+        {this.renderTextInputs()}
         {this.renderButtons()}
       </View>
     );
   }
+
+  renderTextInputs = () => {
+    const { word, def, eg, cf } = this.state;
+    const inputs = [
+      { title: 'Word', setState: word => this.setState({ word }), value: word },
+      {
+        title: 'Definition',
+        setState: def => this.setState({ def }),
+        value: def,
+      },
+      { title: 'Example', setState: eg => this.setState({ eg }), value: eg },
+      { title: 'cf', setState: cf => this.setState({ cf }), value: cf },
+    ];
+
+    return (
+      <View>
+        {inputs.map(input => (
+          <View style={style.inputContainer}>
+            <Text>{input.title}</Text>
+            <TextInput onChangeText={input.setState} value={input.value} />
+          </View>
+        ))}
+      </View>
+    );
+  };
 
   renderButtons = () => {
     const buttons = [
@@ -73,7 +101,7 @@ class AddWords extends Component {
     return (
       <View style={style.buttonsContainer}>
         {buttons.map(button => (
-          <TouchableOpacity onPress={button.onPress}>
+          <TouchableOpacity onPress={button.onPress} style={style.button}>
             <Text>{button.title}</Text>
           </TouchableOpacity>
         ))}
