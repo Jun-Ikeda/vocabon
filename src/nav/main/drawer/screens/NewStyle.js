@@ -49,6 +49,7 @@ export default class NewStyle extends Component {
       </View>
     );
   }
+
   cancel = () => {
     navigateNav('bottom');
   };

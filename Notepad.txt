@@ -1,5 +1,98 @@
-no-console
 
-edit on github
+const number1 = 1;
+const number2 = 2;
 
-edit from surface
+export number1
+export number2
+
+import { number1, number2 } from '上のファイル'
+
+
+export default number1 < いっこだけ
+import Num from ''　//名前変えてもいい
+
+export TestComponent
+import { TestComponent } from ''
+
+const object = {
+    number1: 1,
+    number2: 2,
+    number3: 3
+}
+
+const complicatedFunction = ({ collection, id, updated, expires }) => {
+
+}
+complicatedFunction({collection: 'User', id: })
+
+const simpleFunction = (a,b) => {
+    return a - b
+}
+simpleFunction(3,2) 
+
+fuction = async () = {
+    const data = await firebase.firestore().get()
+    console.log(data)
+}
+
+
+
+class Header extends Component {
+
+}
+全画面表示されたり、<Header />
+
+const Nav = createSwitchNavigator({
+    screenA: Nav
+    screenB: Component
+})
+
+<Nav />
+
+// ---------------------------------------------------------
+
+// class A extends Component {
+//   render() {
+//     return (
+//       <View>
+//         <Text>This is Screen A</Text>
+//         <TouchableOpacity onPress={this.gotoB}>
+//           <Text>GO to B </Text>
+//         </TouchableOpacity>
+//       </View>
+//     )
+//   }
+//   gotoB = () => {
+//     this.props.navigation.navigate('screenB')
+//   }
+// }
+
+// class B extends Component {
+//   render() {
+//     return (
+//       <View>
+//         <Text>This is Screen B</Text>
+//       </View>
+//     )
+//   }
+// }
+
+// const Nav = createStackNavigator({
+//   screenA: A,
+//   screenB: B
+// })
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <View>
+//         <Nav />
+//       </View>
+//     )
+//   }
+// }
+// ---------------------------------------------------------
+
+Storage, Firebase
+
+

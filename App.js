@@ -7,6 +7,12 @@ import Nav from './src/nav/Nav';
 
 import { Functions } from './src/config/Const';
 
+// --------------------------------------------
+
+// import PracticeNav from './dev/Practice/PracticeNavigator';
+
+// --------------------------------------------
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -22,6 +28,7 @@ export default class App extends Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={style.container}>
+          {/* <PracticeNav /> */}
           <Nav />
         </View>
         <ControlPanel />
