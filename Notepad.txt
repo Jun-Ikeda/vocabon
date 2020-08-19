@@ -96,3 +96,76 @@ const Nav = createSwitchNavigator({
 Storage, Firebase
 
 
+Cloud Firestore
+// 検索が容易
+{
+    User: {
+        [それぞれのユーザーID]: {
+            name: '',
+            local: [自分で作ったデッキのID一覧],
+            favorite: [お気に入りのデッキのID一覧],
+            recent: [最近見たデッキのID一覧],
+            background: [ユーザーアイコンの背景]
+        },
+        [ユーザーID]: {...},
+        .
+        .
+        .
+    }, 
+    Deck: {
+        [それぞれのデッキID]: {
+            th: [サムネイルに関する情報],
+            ti: [タイトルに関する情報],
+            lang1: [母国語],
+            lang2: [学ぶ言語],
+            user: [作成者のユーザーID]
+            .
+            .
+            .
+        }
+    },
+//    Word: {
+//        apple: {
+//            def: [リンゴ, 林檎, ],
+//            ie: ['~~~~~~~', '~~~~~~']
+//        }
+//    }
+}
+
+Realtime Database
+// 小さくて頻繁に取り出すデータ
+{
+    Deck: {
+        [デッキのID]: {
+            up: ,
+            v:
+            rate: 
+        }
+    }
+}
+
+Firebase Storage
+// 大きいデータ
+
+
+Deckに関する情報
+    再生回数とか、評価とか、最終更新日とか頻繁に更新する小さいデータ
+    　＞Realtime databaseに保存されてて、ローカルには残されてない
+    デッキ情報（作成者とか、サムネイルとか、)
+    　＞Firestoreに保存されている。ローカルのStorageにも保存されてる。
+    具体的な単語データ
+    　＞今のところ、Firebase Storageに保存する予定
+
+Userに関する情報
+    再生回数とか、最終更新日とか頻繁に更新する小さいデータ
+    　＞Realtime databaseに保存されてて、ローカルには残されてない
+    ユーザー情報（お気に入りのデッキのID、自分のデッキのIDなど)
+    　＞Firestoreに保存されている。ローカルのStorageにも保存されてる。
+    ユーザーアイコンの画像など
+    　＞FirebaseStorageに保存する予定
+    
+自分しかしれない情報（emailなど）
+    　＞Userとは別に保存
+    Fire auth, (firestoreとかとは違う)
+    ローカルStorageにもkeyがUserではなく、authとして保存
+

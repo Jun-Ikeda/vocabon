@@ -13,10 +13,11 @@ class Ikeda extends Component {
       <View style={style.container}>
         <Text>I am Jun Ikeda.</Text>
         <Text>I am probably the best React Native Programmer of us</Text>
-
         <TouchableOpacity onPress={this.gotoKochiya}>
           <Text>Go to Kochiya</Text>
         </TouchableOpacity>
+        <TouchableOpacity />
+
       </View>
     );
   }

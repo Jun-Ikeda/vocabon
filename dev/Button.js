@@ -7,6 +7,7 @@ import UUID from '../src/config/UUID';
 
 import { TimerProcess } from '../src/components/Timer';
 import User from '../src/config/Firebase/User';
+import Deck from '../src/config/Firebase/Deck';
 import { getRandomImage } from '../src/config/Unsplash';
 
 const Button = [
@@ -46,7 +47,7 @@ const Button = [
     title: 'firestore',
     onPress: async () => {
       const data = await Function.load({ collection: 'Deck', id: 'demP-3mL0' });
-      alert(data.ti);
+      console.log(data.ti);
     },
   },
   {
@@ -95,8 +96,7 @@ const Button = [
     onPress: async () => {
       const url = 'https://unsplash.com/photos/qInt-Ni5oEQ';
       Linking.openURL(url).catch(err =>
-        console.error('URLを開けませんでした。', err),
-      );
+        console.error('URLを開けませんでした。', err));
     },
   },
   {
@@ -113,6 +113,87 @@ const Button = [
       console.log({ user });
     },
   },
+  {
+    title: 'Ikeda Test',
+    onPress: async () => {
+      // auth情報をローカルのStorageから取得
+      // authは基本的には更新されないものなので、Firabaseから取ってくることはない
+      const auth = await Storage.Function.load({ key: 'auth' });
+      console.log(auth);
+
+      // User情報をローカルのStorageから取得
+      // User情報は、UID[ユーザーのID]を指定すれば自分以外も読み込める。
+      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(User);
+
+      // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
+      // const UserII = await User.load({ uid: auth.uid });
+      const UserII = await Function.load({ collection: 'User', id: auth.uid });
+      console.log(UserII);
+
+      // Deck情報をローカルのStorageから取得
+      // Deck情報は、deckid[デッキのID]を指定すればなんでも読める
+      // const Deck  = await Storage.Function.load({key: 'Deck', id: 保留}),
+      // console.log(Deck);
+
+      // Deck情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
+      // const DeckII = await Deck.load({deckid: 保留});
+      // console.log(DeckII)
+    },
+  },
+
+  {
+    title: 'Suzuki Test',
+    onPress: async () => {
+      // auth情報をローカルのStorageから取得
+      // authは基本的には更新されないものなので、Firabaseから取ってくることはない取得
+      // await使うのにはasyncを書く必要
+      const auth = await Storage.Function.load({ key: 'auth' });
+      console.log(auth);
+
+      // User情報をローカルのStorageから取得
+      // User情報は、UID[ユーザーのID]を指定すれば自分以外も読み込める。
+      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(User);
+
+      // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
+      const UserII = await User.load({ uid: auth.uid });
+      console.log(UserII);
+    },
+  },
+
+  {
+    title: 'Kochiya Test',
+    onPress: async () => {
+      // await使うためにはasyncを書く必要あり
+      const auth = await Storage.Function.load({ key: 'auth' });
+      // auth情報をローカルのStorageから取得
+      // authは基本的には更新されないものなので、Firabaseから取ってくることはないを取得
+      console.log(auth);
+
+      // User情報をローカルのStorageから取得
+      // User情報は、UIDを指定すれば自分以外も読み込める。
+      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(User);
+
+      // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
+      const UserII = await User.load({ uid: auth.uid });
+      console.log(UserII);
+    },
+  },
+
+  {
+    title: 'Okuda Test',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+      console.log(auth);
+      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(User);
+      const UserII = await User.load({ uid: auth.uid });
+      console.log(UserII);
+    },
+  },
+
   //   {
   //     title: 'State',
   //     onPress: () => {
