@@ -16,8 +16,6 @@ class Ikeda extends Component {
         <TouchableOpacity onPress={this.gotoKochiya}>
           <Text>Go to Kochiya</Text>
         </TouchableOpacity>
-        <TouchableOpacity />
-
       </View>
     );
   }

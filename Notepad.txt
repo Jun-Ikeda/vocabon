@@ -155,6 +155,7 @@ Deckに関する情報
     　＞Firestoreに保存されている。ローカルのStorageにも保存されてる。
     具体的な単語データ
     　＞今のところ、Firebase Storageに保存する予定
+    const deck = Deck.load({ deckid: [デッキのID ]});
 
 Userに関する情報
     再生回数とか、最終更新日とか頻繁に更新する小さいデータ
@@ -162,10 +163,57 @@ Userに関する情報
     ユーザー情報（お気に入りのデッキのID、自分のデッキのIDなど)
     　＞Firestoreに保存されている。ローカルのStorageにも保存されてる。
     ユーザーアイコンの画像など
-    　＞FirebaseStorageに保存する予定
+    　＞Firebase Storageに保存する予定
+    const user = User.load({ uid: [ユーザーのID] });
     
 自分しかしれない情報（emailなど）
     　＞Userとは別に保存
     Fire auth, (firestoreとかとは違う)
     ローカルStorageにもkeyがUserではなく、authとして保存
+    const auth = Storage.Function.load({ key: 'auth' });
+
+
+ArrayとObjectについて
+Array ~ 配列
+    const array = ['リンゴ', 'バナナ', 'パイナップル','ドラゴンフルーツ']
+    console.log(array[0]) > リンゴ
+    console.log(array[1]) > バナナ
+    console.log(array[2]) > パイナップル
+
+    array.push('ぶどう') 追加する
+    javascript 配列って調べれば出てくる
+    
+Object ~ オブジェクト
+    const object = [
+        string: 'value',
+        num: π,
+        function: () => {
+            console.log('daijfdaiojfida');
+        },
+        function2: () => console.log('message'),
+        array = [1, 2, 3],
+    ]
+
+    console.log(object.string) > value
+    console.log(object.num) > π
+    object.function() > daijfdaiojfida
+    object.function2() > message
+    console.log(array[1]) > 2
+
+console.log(Object.values(object))
+['value', π, ()=>{console.log()} ...]
+
+console.log(Object.keys(object));
+['string', 'num', 'function', 'function2', 'array']
+
+// ------------------------------------
+
+local: {
+    deck: {
+        [ID]: true,
+        [別のID]: true
+    }
+}
+
+// ------------------------------------
 

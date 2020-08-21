@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import { AsyncStorage, Linking } from 'react-native';
+import Unsplash, { toJson } from 'unsplash-js';
+
 import Storage from '../src/config/Storage';
 import { Function } from '../src/config/Firebase/Firebase';
 import UUID from '../src/config/UUID';
@@ -8,7 +10,7 @@ import UUID from '../src/config/UUID';
 import { TimerProcess } from '../src/components/Timer';
 import User from '../src/config/Firebase/User';
 import Deck from '../src/config/Firebase/Deck';
-import { getRandomImage } from '../src/config/Unsplash';
+// import { getRandomImage } from '../src/config/Unsplash';
 
 const Button = [
   {
@@ -87,25 +89,22 @@ const Button = [
   {
     title: 'Unsplash',
     onPress: async () => {
-      const th = await getRandomImage({ word: '' });
-      console.log(th);
+      Unsplash.search.users('Masataka Suzuki', 1)
+        .then(toJson)
+        .then(json => {
+        // Your code
+          console.log(json);
+        });
     },
   },
   {
     title: 'Linking',
     onPress: async () => {
-      const url = 'https://unsplash.com/photos/qInt-Ni5oEQ';
-      Linking.openURL(url).catch(err =>
-        console.error('URLを開けませんでした。', err));
-    },
-  },
-  {
-    title: 'UUID',
-    onPress: async () => {
       const id = UUID.generate();
       console.log({ id });
     },
   },
+
   {
     title: 'CurrentUser',
     onPress: async () => {
@@ -123,13 +122,12 @@ const Button = [
 
       // User情報をローカルのStorageから取得
       // User情報は、UID[ユーザーのID]を指定すれば自分以外も読み込める。
-      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
-      console.log(User);
+      /* const userI = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(userI); */
 
       // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
-      // const UserII = await User.load({ uid: auth.uid });
-      const UserII = await Function.load({ collection: 'User', id: auth.uid });
-      console.log(UserII);
+      const userII = await User.load({ uid: auth.uid });
+      console.log(userII);
 
       // Deck情報をローカルのStorageから取得
       // Deck情報は、deckid[デッキのID]を指定すればなんでも読める
@@ -137,8 +135,27 @@ const Button = [
       // console.log(Deck);
 
       // Deck情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
-      // const DeckII = await Deck.load({deckid: 保留});
-      // console.log(DeckII)
+      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      console.log(deckII);
+    },
+  },
+
+  {
+    title: 'Edit User Ikeda',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+
+      User.save({ uid: auth.uid, data: { background: '#3d7a4e' } });
+    },
+  },
+
+  {
+    title: 'Edit Deck Ikeda',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+      const user = await User.load({ uid: auth.uid });
+
+      Deck.save({ deckid: Object.keys(user.local.decks)[3], data: { ti: 'Renamed by Ikeda' } });
     },
   },
 
@@ -151,14 +168,38 @@ const Button = [
       const auth = await Storage.Function.load({ key: 'auth' });
       console.log(auth);
 
-      // User情報をローカルのStorageから取得
-      // User情報は、UID[ユーザーのID]を指定すれば自分以外も読み込める。
-      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
-      console.log(User);
+      // // User情報をローカルのStorageから取得
+      // // User情報は、UID[ユーザーのID]を指定すれば自分以外も読み込める。
+      // const user = await Storage.Function.load({ key: 'User', id: auth.uid });
+      // console.log(user);
+
+      // 上の関数ではなく下の関数を使う
 
       // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
-      const UserII = await User.load({ uid: auth.uid });
-      console.log(UserII);
+      const userII = await User.load({ uid: auth.uid });
+      console.log(userII);
+
+      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      console.log(deckII);
+    },
+  },
+
+  {
+    title: 'Edit User Suzuki',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+
+      User.save({ uid: auth.uid, data: { background: 'blue' } });
+    },
+  },
+
+  {
+    title: 'Edit Deck Suzuki',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+      const user = await User.load({ uid: auth.uid });
+
+      Deck.save({ deckid: Object.keys(user.local.decks)[0], data: { ti: 'Renamed by Suzuki' } });
     },
   },
 
@@ -171,14 +212,30 @@ const Button = [
       // authは基本的には更新されないものなので、Firabaseから取ってくることはないを取得
       console.log(auth);
 
-      // User情報をローカルのStorageから取得
-      // User情報は、UIDを指定すれば自分以外も読み込める。
-      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
-      console.log(User);
+      const userII = await User.load({ uid: auth.uid });
+      console.log(userII);
 
-      // User情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
-      const UserII = await User.load({ uid: auth.uid });
-      console.log(UserII);
+      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      console.log(deckII);
+    },
+  },
+
+  {
+    title: 'Edit User Kochiya',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+
+      User.save({ uid: auth.uid, data: { background: 'yellow' } });
+    },
+  },
+
+  {
+    title: 'Edit Deck Kochiya',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+      const user = await User.load({ uid: auth.uid });
+
+      Deck.save({ deckid: Object.keys(user.local.decks)[2], data: { ti: 'Renamed by Kochiya' } });
     },
   },
 
@@ -187,10 +244,50 @@ const Button = [
     onPress: async () => {
       const auth = await Storage.Function.load({ key: 'auth' });
       console.log(auth);
-      const User = await Storage.Function.load({ key: 'User', id: auth.uid });
-      console.log(User);
+      /* const user = await Storage.Function.load({ key: 'User', id: auth.uid });
+      console.log(user); */
       const UserII = await User.load({ uid: auth.uid });
       console.log(UserII);
+
+      const deckII = await Deck.load({ deckid: Object.keys(UserII.local.decks)[0] });
+      console.log(deckII);
+    },
+  },
+
+  {
+    title: 'Edit User Okuda',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+
+      User.save({ uid: auth.uid, data: { background: 'maroon' } });
+    },
+  },
+
+  {
+    title: 'Edit Deck Okuda',
+    onPress: async () => {
+      const auth = await Storage.Function.load({ key: 'auth' });
+      const user = await User.load({ uid: auth.uid });
+
+      Deck.save({ deckid: Object.keys(user.local.decks)[0], data: { ti: 'Renamed by Okuda' } });
+      /*
+      local: {
+        decks: {
+          BaB*dai: true,
+          e}dfpso: true
+        }
+      }
+
+      user.local.decks <=> {
+        BaB*dai: true,
+        e}dfpso: true
+      }
+
+      Object.keys(user.local.decks) => [
+        BaB*dai,
+        e}dfpso
+      ]
+      */
     },
   },
 

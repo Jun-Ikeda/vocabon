@@ -232,7 +232,6 @@ const rate = {
 };
 
 
-
 const Function = { load, save, update, remove, array, up, v, rate };
 
 export default firebase;
