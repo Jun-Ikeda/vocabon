@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 import { AsyncStorage, Linking } from 'react-native';
-import Unsplash, { toJson } from 'unsplash-js';
 
 import Storage from '../src/config/Storage';
 import { Function } from '../src/config/Firebase/Firebase';
@@ -10,7 +9,7 @@ import UUID from '../src/config/UUID';
 import { TimerProcess } from '../src/components/Timer';
 import User from '../src/config/Firebase/User';
 import Deck from '../src/config/Firebase/Deck';
-// import { getRandomImage } from '../src/config/Unsplash';
+import Unsplash, { getRandomImage, toJson } from '../src/config/Unsplash';
 
 const Button = [
   {
