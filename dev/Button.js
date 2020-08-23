@@ -88,10 +88,11 @@ const Button = [
   {
     title: 'Unsplash',
     onPress: async () => {
-      Unsplash.search.users('Masataka Suzuki', 1)
+      Unsplash.search
+        .users('Masataka Suzuki', 1)
         .then(toJson)
         .then(json => {
-        // Your code
+          // Your code
           console.log(json);
         });
     },
@@ -109,6 +110,15 @@ const Button = [
     onPress: async () => {
       const user = await User.authentication.getCurrentUser();
       console.log({ user });
+    },
+  },
+  {
+    title: 'Card.load',
+    onPress: () => {
+      Deck.Card.load({
+        uri:
+          'https://firebasestorage.googleapis.com/v0/b/vocabon02.appspot.com/o/Deck%2F%26xG04nlKZM.json?alt=media&token=72ef862e-31bf-4190-81af-994ffe682996',
+      });
     },
   },
   {
@@ -134,7 +144,9 @@ const Button = [
       // console.log(Deck);
 
       // Deck情報を、最終更新まで追い付いていたらローカルから読み、新しい更新があった、もしくは一度も読み込んだことがない場合はFirestoreから読む（ローカルの更新もする）
-      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      const deckII = await Deck.load({
+        deckid: Object.keys(userII.local.decks)[0],
+      });
       console.log(deckII);
     },
   },
@@ -154,7 +166,10 @@ const Button = [
       const auth = await Storage.Function.load({ key: 'auth' });
       const user = await User.load({ uid: auth.uid });
 
-      Deck.save({ deckid: Object.keys(user.local.decks)[3], data: { ti: 'Renamed by Ikeda' } });
+      Deck.save({
+        deckid: Object.keys(user.local.decks)[3],
+        data: { ti: 'Renamed by Ikeda' },
+      });
     },
   },
 
@@ -178,7 +193,9 @@ const Button = [
       const userII = await User.load({ uid: auth.uid });
       console.log(userII);
 
-      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      const deckII = await Deck.load({
+        deckid: Object.keys(userII.local.decks)[0],
+      });
       console.log(deckII);
     },
   },
@@ -198,7 +215,10 @@ const Button = [
       const auth = await Storage.Function.load({ key: 'auth' });
       const user = await User.load({ uid: auth.uid });
 
-      Deck.save({ deckid: Object.keys(user.local.decks)[0], data: { ti: 'Renamed by Suzuki' } });
+      Deck.save({
+        deckid: Object.keys(user.local.decks)[0],
+        data: { ti: 'Renamed by Suzuki' },
+      });
     },
   },
 
@@ -214,7 +234,9 @@ const Button = [
       const userII = await User.load({ uid: auth.uid });
       console.log(userII);
 
-      const deckII = await Deck.load({ deckid: Object.keys(userII.local.decks)[0] });
+      const deckII = await Deck.load({
+        deckid: Object.keys(userII.local.decks)[0],
+      });
       console.log(deckII);
     },
   },
@@ -234,7 +256,10 @@ const Button = [
       const auth = await Storage.Function.load({ key: 'auth' });
       const user = await User.load({ uid: auth.uid });
 
-      Deck.save({ deckid: Object.keys(user.local.decks)[2], data: { ti: 'Renamed by Kochiya' } });
+      Deck.save({
+        deckid: Object.keys(user.local.decks)[2],
+        data: { ti: 'Renamed by Kochiya' },
+      });
     },
   },
 
@@ -248,7 +273,9 @@ const Button = [
       const UserII = await User.load({ uid: auth.uid });
       console.log(UserII);
 
-      const deckII = await Deck.load({ deckid: Object.keys(UserII.local.decks)[0] });
+      const deckII = await Deck.load({
+        deckid: Object.keys(UserII.local.decks)[0],
+      });
       console.log(deckII);
     },
   },
@@ -268,7 +295,10 @@ const Button = [
       const auth = await Storage.Function.load({ key: 'auth' });
       const user = await User.load({ uid: auth.uid });
 
-      Deck.save({ deckid: Object.keys(user.local.decks)[0], data: { ti: 'Renamed by Okuda' } });
+      Deck.save({
+        deckid: Object.keys(user.local.decks)[0],
+        data: { ti: 'Renamed by Okuda' },
+      });
       /*
       local: {
         decks: {

@@ -6,9 +6,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import Header from '../../../../../../components/Header';
-import Icon from '../../../../../../components/Icon';
-import Color from '../../../../../../config/Color';
+import Header from '../../../../../../../components/Header';
+import Icon from '../../../../../../../components/Icon';
+import Color from '../../../../../../../config/Color';
+import Deck from '../../../../../../../config/Firebase/Deck';
 // import { TextInput } from 'react-native-gesture-handler';
 
 const style = StyleSheet.create({
@@ -42,7 +43,7 @@ class AddWords extends Component {
       def: '',
       eg: '',
       cf: '',
-      bundle: []
+      bundle: [],
     };
   }
 
@@ -94,9 +95,38 @@ class AddWords extends Component {
   };
 
   renderButtons = () => {
+    const bundleNext = () => {
+      const { word, def, cf, eg, bundle } = this.state;
+      bundle.push({
+        word,
+        def,
+        cf,
+        eg,
+        er: 0,
+        mark: [],
+      });
+      console.log({ bundle });
+      this.setState({
+        word: '',
+        def: '',
+        cf: '',
+        eg: '',
+        bundle,
+      });
+    };
+    const bundleSave = () => {
+      bundleNext();
+      const { bundle } = this.state;
+      const { navigation } = this.props;
+      const deckid = navigation.getParam('deckid');
+      const uri = navigation.getParam('uri');
+      console.log({ uri });
+      Deck.Card.save({ deckid, uri, data: bundle });
+      navigation.goBack();
+    };
     const buttons = [
-      { title: 'Save', onPress: () => console.log('save') },
-      { title: 'Next', onPress: () => console.log('next') },
+      { title: 'Save', onPress: bundleSave },
+      { title: 'Next', onPress: bundleNext },
     ];
     return (
       <View style={style.buttonsContainer}>

@@ -95,7 +95,7 @@ const remove = async ({ collection, id }) => {
   Storage.Function.remove({ key: collection, id });
 };
 
-const array = {
+/* const array = {
   add: ({ collection, id, path, data, callback, expires }) => {
     // console.log(
     // `Firebase.array.add({collection: ${collection}, id: ${id}}) starts`,
@@ -141,7 +141,7 @@ const array = {
     // `Firebase.array.remove({collection: ${collection}, id: ${id}}) ends`,
     // );
   },
-};
+}; */
 const up = {
   update: ({ collection, id }) => {
     // console.log(
@@ -231,8 +231,7 @@ const rate = {
   },
 };
 
-
-const Function = { load, save, update, remove, array, up, v, rate };
+const Function = { load, save, update, remove, /* array, */ up, v, rate };
 
 export default firebase;
 export { database, storage, auth, firestore, Function };

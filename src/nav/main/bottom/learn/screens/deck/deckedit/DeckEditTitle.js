@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import Color from '../../../../../../config/Color';
+import Color from '../../../../../../../config/Color';
 
-import Header from '../../../../../../components/Header';
-import Icon from '../../../../../../components/Icon';
+import Header from '../../../../../../../components/Header';
+import Icon from '../../../../../../../components/Icon';
 
 const style = StyleSheet.create({
   container: {

@@ -12,15 +12,15 @@ import {
 import * as Animatable from 'react-native-animatable';
 import GestureRecognizer from 'react-native-swipe-gestures';
 
-import { HeaderConst, StyleConst } from '../../../../../config/Const';
-import Color from '../../../../../config/Color';
-import User from '../../../../../config/Firebase/User';
+import { HeaderConst, StyleConst } from '../../../../../../config/Const';
+import Color from '../../../../../../config/Color';
+import User from '../../../../../../config/Firebase/User';
 
-import Header from '../../../../../components/Header';
-import Icon from '../../../../../components/Icon';
-import UserIcon from '../../../../../components/UserIcon';
+import Header from '../../../../../../components/Header';
+import Icon from '../../../../../../components/Icon';
+import UserIcon from '../../../../../../components/UserIcon';
 
-import { bottomRef } from '../../BottomNav';
+import { bottomRef } from '../../../BottomNav';
 
 const AnimatedIonicons = Animatable.createAnimatableComponent(Icon.Ionicons);
 
@@ -333,7 +333,7 @@ class DeckMenu extends Component {
               height: AnimateKey.AnimateImageHeight,
             }}
           >
-            <GestureRecognizer
+            {/* <GestureRecognizer
               onSwipeUp={() => {
                 this.scrollview.scrollTo({
                   x: 0,
@@ -348,11 +348,13 @@ class DeckMenu extends Component {
                 directionalOffsetThreshold: 80,
               }}
               style={StyleConst.absoluteFullScreen}
-            >
+            > */}
+            <View style={StyleConst.absoluteFullScreen}>
               {renderImage()}
               {renderTitle()}
               {this.renderBasicHeader()}
-            </GestureRecognizer>
+              {/* </GestureRecognizer> */}
+            </View>
           </Animated.View>
         </View>
       );

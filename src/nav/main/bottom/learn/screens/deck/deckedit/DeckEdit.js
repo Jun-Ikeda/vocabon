@@ -7,12 +7,12 @@ import {
   TextInput,
 } from 'react-native';
 
-import Color from '../../../../../../config/Color';
-import { Functions } from '../../../../../../config/Const';
+import Color from '../../../../../../../config/Color';
+import { Functions } from '../../../../../../../config/Const';
 
-import Header from '../../../../../../components/Header';
-import Icon from '../../../../../../components/Icon';
-import Deck from '../../../../../../config/Firebase/Deck';
+import Header from '../../../../../../../components/Header';
+import Icon from '../../../../../../../components/Icon';
+import Deck from '../../../../../../../config/Firebase/Deck';
 
 const style = StyleSheet.create({
   container: {
@@ -89,9 +89,13 @@ class DeckEdit extends Component {
           <Text>Sample word</Text>
           {this.returnSampleWord()}
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('addwords')}>
-          <Text>{`${deckinfo.num} words`}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('addwords', { deckid: id , uri: deckinfo.card })
+          }
+        >
           <Text>Add words</Text>
+          <Text>{`${deckinfo.num} words`}</Text>
         </TouchableOpacity>
       </View>
     );

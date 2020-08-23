@@ -10,17 +10,19 @@ const create = async ({ title, learn, understand }) => {
   const deckid = UUID.generate();
   let card = '';
   const cardData = [];
-  await storage
-    .ref(`Deck/${deckid}.json`)
-    .put(
-      new Blob([JSON.stringify(cardData)], {
-        type: 'application/json',
-      }),
-    )
-    .then(async () => {
-      card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
-    })
-    .catch(() => null /* console.log(error) */);
+  await Card.save({ deckid, merge: false, data: cardData });
+  card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
+  // await storage
+  //   .ref(`Deck/${deckid}.json`)
+  //   .put(
+  //     new Blob([JSON.stringify(cardData)], {
+  //       type: 'application/json',
+  //     }),
+  //   )
+  //   .then(async () => {
+  //     card = await storage.ref(`Deck/${deckid}.json`).getDownloadURL();
+  //   })
+  //   .catch(() => null /* console.log(error) */);
   const deckData = {
     num: 0,
     smp: [],
@@ -116,4 +118,39 @@ const setListenerV = ({ deckid, callback }) => {
 const loadV = async ({ deckid }) =>
   Function.v.load({ collection: 'Deck', id: deckid });
 
-export default { create, save, update, load, setListenerV, loadAll, loadV };
+const Card = {
+  load: async ({ uri }) => fetch(uri)
+    .then(response => response.json())
+    .then(card => {
+      console.log(card);
+      return card;
+    })
+    .catch(error => console.error(error)),
+  save: async ({ deckid, uri, data, merge = true }) => {
+    const card = merge
+      ? await Card.load({ uri }).then(card => card.concat(data))
+      : data;
+    await storage
+      .ref(`Deck/${deckid}.json`)
+      .put(
+        new Blob([JSON.stringify(card)], {
+          type: 'application/json',
+        }),
+      )
+      .catch(() => null /* console.log(error) */);
+    // if(merge) {
+    //   const card = await Card.load({uri});
+    // }
+  },
+};
+
+export default {
+  create,
+  save,
+  update,
+  load,
+  setListenerV,
+  loadAll,
+  loadV,
+  Card,
+};

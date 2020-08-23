@@ -7,11 +7,11 @@ import {
 } from 'react-navigation-stack';
 
 import Learn from './screens/home/Learn';
-import DeckMenu from './screens/DeckMenu';
+import DeckMenu from './screens/deck/DeckMenu';
 import UserMenu from './screens/UserMenu';
-import DeckEdit from './screens/deckedit/DeckEdit';
-import DeckEditTitle from './screens/deckedit/DeckEditTitle';
-import AddWords from './screens/deckedit/AddWords';
+import DeckEdit from './screens/deck/deckedit/DeckEdit';
+import DeckEditTitle from './screens/deck/deckedit/DeckEditTitle';
+import AddWords from './screens/deck/deckedit/AddWords';
 
 const StackNavigator = createStackNavigator(
   {
