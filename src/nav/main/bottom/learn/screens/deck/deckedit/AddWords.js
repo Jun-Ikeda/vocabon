@@ -82,6 +82,26 @@ class AddWords extends Component {
       { title: 'cf', setState: cf => this.setState({ cf }), value: cf },
     ];
 
+    /*
+    const array = [1,2,3,4]
+    array.map(num => {
+      console.log(num)
+    }) 
+
+    this.setState({word: 'nantyarakantyara'})
+    const string = 'text messgage'
+    const object = { string }
+    console.log(object.string)
+    ( word ) => this.setState({ word })
+    testFunction = ( word ) => { 
+      console.log();
+    }
+    function testFunction(word) {
+      this.setState
+    }
+    <TextInput onChangeText={word => this.setState({ word })} value={this.state.word} />
+    */
+
     return (
       <View>
         {inputs.map(input => (

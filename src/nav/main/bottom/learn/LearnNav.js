@@ -12,6 +12,7 @@ import UserMenu from './screens/UserMenu';
 import DeckEdit from './screens/deck/deckedit/DeckEdit';
 import DeckEditTitle from './screens/deck/deckedit/DeckEditTitle';
 import AddWords from './screens/deck/deckedit/AddWords';
+import DeckPlay from './screens/deck/deckplay/DeckPlay';
 
 const StackNavigator = createStackNavigator(
   {
@@ -21,6 +22,7 @@ const StackNavigator = createStackNavigator(
     deckedit: { screen: DeckEdit },
     deckedittitle: { screen: DeckEditTitle },
     addwords: { screen: AddWords },
+    deckplay: { screen: DeckPlay },
   },
   {
     headerMode: 'none',

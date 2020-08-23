@@ -217,3 +217,34 @@ local: {
 
 // ------------------------------------
 
+mergeについて
+mergeする場合
+const object1 = {
+    key1: 1,
+    key2: 'value2',
+    key3: [ 1, 2, 3 ]
+}
+const object2 = {
+    key4: 4,
+    key5: 'value5',
+    key6: ['apple', 'grape']
+}
+object1が現在保存されているデータだとしてobject2が更新内容だとする
+
+object2をマージ　結合・合併される
+const object3 = {
+    key1: 1,
+    key2: 'value2',
+    key3: [ 1, 2, 3 ],
+    key4: 4,
+    key5: 'value5',
+    key6: ['apple', 'grape']
+}
+マージせずに更新する場合＞上書き保存される
+const object3 = {
+    key4: 4,
+    key5: 'value5',
+    key6: ['apple', 'grape']
+}
+
+

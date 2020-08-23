@@ -126,10 +126,23 @@ const Card = {
       return card;
     })
     .catch(error => console.error(error)),
+    /*
+    const response = await fetch(uri);
+    const card = response.json()
+     */
   save: async ({ deckid, uri, data, merge = true }) => {
     const card = merge
       ? await Card.load({ uri }).then(card => card.concat(data))
       : data;
+    // const A = boolean ? B : C
+    /* 
+    let A = ''
+    if (true of false) {
+      A = B
+    } else {
+      A = C
+    }
+    */
     await storage
       .ref(`Deck/${deckid}.json`)
       .put(

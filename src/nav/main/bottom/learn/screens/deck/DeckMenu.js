@@ -395,7 +395,7 @@ class DeckMenu extends Component {
           title: 'Play',
           icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
           onPress: () => {
-            navigation.navigate('');
+            navigation.navigate('deckplay', { id, deckinfo });
           },
         },
         {
