@@ -86,14 +86,15 @@ class AddWords extends Component {
     const array = [1,2,3,4]
     array.map(num => {
       console.log(num)
-    }) 
+    })
+    array.map(() => {})
 
     this.setState({word: 'nantyarakantyara'})
     const string = 'text messgage'
     const object = { string }
     console.log(object.string)
     ( word ) => this.setState({ word })
-    testFunction = ( word ) => { 
+    testFunction = ( word ) => {
       console.log();
     }
     function testFunction(word) {
@@ -138,8 +139,10 @@ class AddWords extends Component {
       bundleNext();
       const { bundle } = this.state;
       const { navigation } = this.props;
-      const deckid = navigation.getParam('deckid');
-      const uri = navigation.getParam('uri');
+      const deckid = navigation.getParam('id');
+      const deckinfo = navigation.getParam('deckinfo');
+      // navigation.navigate('addwords', { deckid, uri });
+      const uri = deckinfo.card;
       console.log({ uri });
       Deck.Card.save({ deckid, uri, data: bundle });
       navigation.goBack();
@@ -159,5 +162,21 @@ class AddWords extends Component {
     );
   };
 }
+
+/*
+基本のアロー関数
+() => {}
+
+処理が一個だけの場合の省略
+() => console.log('aaaa')
+
+リターンしかしない場合
+a => {
+  return a / 100
+}
+
+a => a/100
+
+*/
 
 export default AddWords;

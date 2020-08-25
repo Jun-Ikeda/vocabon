@@ -49,6 +49,7 @@ class DeckPlay extends Component {
     const { navigation } = this.props;
     // const navigation = this.props.navigation
     const deckinfo = navigation.getParam('deckinfo');
+    console.log({ uri: deckinfo.card });
     const card = await Deck.Card.load({ uri: deckinfo.card });
     this.setState({ card });
     console.log(card);
@@ -58,7 +59,7 @@ class DeckPlay extends Component {
     <View>
       <Text>Content</Text>
     </View>
-  )
+  );
 }
 
 export default DeckPlay;

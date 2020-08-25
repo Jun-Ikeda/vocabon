@@ -89,14 +89,14 @@ class DeckEdit extends Component {
           <Text>Sample word</Text>
           {this.returnSampleWord()}
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() =>
             navigation.navigate('addwords', { deckid: id , uri: deckinfo.card })
           }
         >
           <Text>Add words</Text>
           <Text>{`${deckinfo.num} words`}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   };

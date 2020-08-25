@@ -29,6 +29,7 @@ const headerMinPadding = HeaderConst.heightMin + HeaderConst.paddingTopByOS();
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Color.primary5,
   },
   headerIcon: {
     fontSize: 25,
@@ -403,6 +404,15 @@ class DeckMenu extends Component {
           icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
           onPress: () => {
             navigation.navigate('deckedit', { id, deckinfo });
+          },
+        },
+        {
+          title: 'Add Words',
+          icon: () => (
+            <Icon.AntDesign name="pluscircleo" style={style.deckButtonIcon} />
+          ),
+          onPress: () => {
+            navigation.navigate('addwords', { id, deckinfo });
           },
         },
         {
