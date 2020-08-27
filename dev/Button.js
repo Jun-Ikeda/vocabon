@@ -321,9 +321,13 @@ const Button = [
   },
   {
     title: 'Deck load',
-    onPress: () => {
-      Deck.Card.load({});
-    }
+    onPress: async () => {
+      const cards = await Deck.Card.load({
+        uri:
+          'https://firebasestorage.googleapis.com/v0/b/vocabon02.appspot.com/o/Deck%2FXyQ%3DSdI3k~.json?alt=media&token=29b890b2-9505-47a2-bcc4-68b0cba11f7d',
+      });
+      console.log(cards);
+    },
   },
 
   //   {
