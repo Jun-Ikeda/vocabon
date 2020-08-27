@@ -163,20 +163,4 @@ class AddWords extends Component {
   };
 }
 
-/*
-基本のアロー関数
-() => {}
-
-処理が一個だけの場合の省略
-() => console.log('aaaa')
-
-リターンしかしない場合
-a => {
-  return a / 100
-}
-
-a => a/100
-
-*/
-
 export default AddWords;

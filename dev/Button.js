@@ -319,6 +319,12 @@ const Button = [
       */
     },
   },
+  {
+    title: 'Deck load',
+    onPress: () => {
+      Deck.Card.load({});
+    }
+  },
 
   //   {
   //     title: 'State',

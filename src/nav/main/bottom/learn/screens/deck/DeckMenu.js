@@ -29,7 +29,7 @@ const headerMinPadding = HeaderConst.heightMin + HeaderConst.paddingTopByOS();
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.primary5,
+    // backgroundColor: Color.primary5,
   },
   headerIcon: {
     fontSize: 25,
