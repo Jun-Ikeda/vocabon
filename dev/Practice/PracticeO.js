@@ -17,7 +17,7 @@ class Okuda extends Component {
   gotoIkeda = () => {
     const { navigation } = this.props;
     navigation.navigate('ikeda');
-  }
+  };
 }
 
 const style = StyleSheet.create({
@@ -25,6 +25,5 @@ const style = StyleSheet.create({
     flex: 1,
   },
 });
-
 
 export default Okuda;

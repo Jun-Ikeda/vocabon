@@ -151,11 +151,12 @@ Firebase Storage
 Deckに関する情報
     再生回数とか、評価とか、最終更新日とか頻繁に更新する小さいデータ
     　＞Realtime databaseに保存されてて、ローカルには残されてない
-    デッキ情報（作成者とか、サムネイルとか、)
+    デッキ情報（作成者とか、サムネイルとか、タイトル)
     　＞Firestoreに保存されている。ローカルのStorageにも保存されてる。
+    const deck = Deck.load({ deckid: [デッキのID ]});
     具体的な単語データ
     　＞今のところ、Firebase Storageに保存する予定
-    const deck = Deck.load({ deckid: [デッキのID ]});
+    const cards = Deck.Card.load({ uri: '' });
 
 Userに関する情報
     再生回数とか、最終更新日とか頻繁に更新する小さいデータ
@@ -170,7 +171,7 @@ Userに関する情報
     　＞Userとは別に保存
     Fire auth, (firestoreとかとは違う)
     ローカルStorageにもkeyがUserではなく、authとして保存
-    const auth = Storage.Function.load({ key: 'auth' });
+    const auth = await Storage.Function.load({ key: 'auth' });
 
 
 ArrayとObjectについて
@@ -182,9 +183,13 @@ Array ~ 配列
 
     array.push('ぶどう') 追加する
     javascript 配列って調べれば出てくる
+
+    ・mapについて
+    const array = ['リンゴ', 'バナナ', 'パイナップル','ドラゴンフルーツ']
+    array.map(fruit => console.log(fruit))
     
 Object ~ オブジェクト
-    const object = [
+    const object = {
         string: 'value',
         num: π,
         function: () => {
@@ -192,13 +197,13 @@ Object ~ オブジェクト
         },
         function2: () => console.log('message'),
         array = [1, 2, 3],
-    ]
+    }
 
     console.log(object.string) > value
     console.log(object.num) > π
     object.function() > daijfdaiojfida
     object.function2() > message
-    console.log(array[1]) > 2
+    console.log(object.array[1]) > 2
 
 console.log(Object.values(object))
 ['value', π, ()=>{console.log()} ...]
@@ -218,6 +223,20 @@ const object = { num, stirng }
 省略しても
 console.log(object.string)とかすれば message desuyoがでる
 
+中身変更方法
+object.string = 'kaemashita';
+
+キーの参照について
+普通はobject.num で 値を読み込む
+object: {
+    diaogeiad: { title: 'Deck 1'},
+    inlpd: { title: 'Deck 2'},
+    ifonaie: { title: 'Deck 3'}
+}
+const id = Storage.Function.load({diaogeiad}) //中身がdaijfioaだったら
+oject[id] > { title: 'Deck 1' }
+
+
 // ------------------------------------
 
 local: {
@@ -231,12 +250,12 @@ local: {
 
 mergeについて
 mergeする場合
-const object1 = {
+const object1 = { // もともとあったやつ
     key1: 1,
     key2: 'value2',
     key3: [ 1, 2, 3 ]
 }
-const object2 = {
+const object2 = { // 更新内容
     key4: 4,
     key5: 'value5',
     key6: ['apple', 'grape']
@@ -259,9 +278,12 @@ const object3 = {
     key6: ['apple', 'grape']
 }
 
-
+// ------------------------------------------
+アロー関数について、補足
 基本のアロー関数
-() => {}
+const addition = (a, b) => {
+    return a + b;
+}
 
 処理が一個だけの場合の省略
 () => console.log('aaaa')
@@ -272,3 +294,18 @@ a => {
 }
 
 a => a/100
+
+ex)
+renderSomething = () => {
+    return (
+        <View>
+            <Text>message </Text>
+        </View>
+    )
+}
+↓省略
+renderSomething = () => (
+    <View>
+        <Text>message </Text>
+    </View>
+)
