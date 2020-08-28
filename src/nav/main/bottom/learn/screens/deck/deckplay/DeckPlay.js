@@ -22,7 +22,7 @@ class DeckPlay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      card: [],
+      cards: [],
     };
   }
   //   async UNSAFE_componentWillMount() {
@@ -49,17 +49,23 @@ class DeckPlay extends Component {
     const { navigation } = this.props;
     // const navigation = this.props.navigation
     const deckinfo = navigation.getParam('deckinfo');
-    console.log({ uri: deckinfo.card });
-    const card = await Deck.Card.load({ uri: deckinfo.card });
-    this.setState({ card });
-    console.log(card);
+    console.log({ uri: deckinfo.cards });
+    const cards = await Deck.Card.load({ uri: deckinfo.card });
+    this.setState({ cards });
+    console.log(cards);
   }
 
-  renderContent = () => (
-    <View>
-      <Text>Content</Text>
-    </View>
-  );
+  renderContent = () => {
+    const { cards } = this.state;
+    return cards.map(card => (
+      <View>
+        <Text>{card.word}</Text>
+        <Text>{card.def}</Text>
+        <Text>{card.eg}</Text>
+        <Text>{card.cf}</Text>
+      </View>
+    ));
+  }
 }
 
 export default DeckPlay;
