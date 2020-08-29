@@ -5,6 +5,7 @@ import CardFlip from 'react-native-card-flip';
 
 import Color from '../../../../../../../config/Color';
 import Deck from '../../../../../../../config/Firebase/Deck';
+import { StyleConst } from '../../../../../../../config/Const';
 
 import Header from '../../../../../../../components/Header';
 import Icon from '../../../../../../../components/Icon';
@@ -24,8 +25,12 @@ const style = StyleSheet.create({
   },
   card: {
     backgroundColor: 'orange',
-    height: 200,
-    width: 100,
+    // position: 'absolute',
+    // right: 30,
+    // left: 30,
+    // top: 20,
+    // bottom: 40,
+    ...StyleConst.absoluteFullScreen,
   },
 });
 
@@ -125,7 +130,7 @@ class DeckPlay extends Component {
 
 export default DeckPlay;
 
-/* 
+/*
 Card(配列型)を取得 > this.setState
 
 <CardStack>

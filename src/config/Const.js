@@ -89,6 +89,12 @@ export const Functions = {
     }
     return data;
   },
+
+  onLayoutContainer: e => {
+    const { layout } = e.nativeEvent;
+    const { height, width } = layout;
+    return { height, width };
+  },
 };
 
 export const behaviorOfKeyAvoidView = Platform.OS === 'ios' ? 'padding' : null;

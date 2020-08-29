@@ -3,6 +3,8 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
+    alignItems: 'center',
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: 'white',
@@ -11,10 +13,19 @@ const style = StyleSheet.create({
 
 class SettingItem extends Component {
   render() {
-    const { title, renderIcon, onPress } = this.props;
+    const { title, renderIcon, onPress /* layout */ } = this.props;
+    // const responsiveStyle = {
+    //   container: {
+    //     // height: layout.height - 40,
+    //     width: layout.width - 40,
+    //   },
+    // };
     try {
       return (
-        <TouchableOpacity style={style.container} onPress={onPress}>
+        <TouchableOpacity
+          style={[style.container]}
+          onPress={onPress}
+        >
           {renderIcon()}
           <Text style={{ color: 'white' }}>{title}</Text>
         </TouchableOpacity>
