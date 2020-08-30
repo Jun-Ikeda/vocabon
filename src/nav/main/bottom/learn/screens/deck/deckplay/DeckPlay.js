@@ -25,7 +25,7 @@ const style = StyleSheet.create({
 class DeckPlay extends Component {
   constructor(props) {
     super(props);
-    this.swiper = {};
+    this.CardsRef = {};
     this.state = {
       cards: [],
       // layout: { height: 0, width: 0 },
@@ -49,12 +49,8 @@ class DeckPlay extends Component {
           renderTitle={() => <Text>Play your deck</Text>}
         />
         {this.renderContent()}
-        <TouchableOpacity
-          onPress={() => {
-            this.swiper.swipeLeft();
-          }}
-        >
-          <Text>Left</Text>
+        <TouchableOpacity onPress={() => this.CardsRef.swiperRef.goBackFromTop()}>
+          <Text>aaa</Text>
         </TouchableOpacity>
       </View>
     );
@@ -79,7 +75,7 @@ class DeckPlay extends Component {
 
   renderContent = () => {
     const { cards } = this.state;
-    return <Cards card={cards} />;
+    return <Cards card={cards} ref={cardsRef => { this.CardsRef = cardsRef; }} />;
     // try {
     //   return cards.map(card => (
     //     <View>
