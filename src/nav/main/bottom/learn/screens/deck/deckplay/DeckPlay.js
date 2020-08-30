@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import CardStack, { Card } from 'react-native-card-stack-swiper';
-import CardFlip from 'react-native-card-flip';
 
 import Color from '../../../../../../../config/Color';
 import Deck from '../../../../../../../config/Firebase/Deck';
-import { StyleConst } from '../../../../../../../config/Const';
+import { StyleConst, Functions } from '../../../../../../../config/Const';
 
 import Header from '../../../../../../../components/Header';
 import Icon from '../../../../../../../components/Icon';
+import { Function } from '../../../../../../../config/Firebase/Firebase';
+
+import Cards from './Cards';
 
 const style = StyleSheet.create({
   container: {
@@ -19,19 +20,6 @@ const style = StyleSheet.create({
     color: Color.font2,
     fontSize: 25,
   },
-  content: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-  card: {
-    backgroundColor: 'orange',
-    // position: 'absolute',
-    // right: 30,
-    // left: 30,
-    // top: 20,
-    // bottom: 40,
-    ...StyleConst.absoluteFullScreen,
-  },
 });
 
 class DeckPlay extends Component {
@@ -40,6 +28,7 @@ class DeckPlay extends Component {
     this.swiper = {};
     this.state = {
       cards: [],
+      // layout: { height: 0, width: 0 },
     };
   }
   //   async UNSAFE_componentWillMount() {
@@ -47,7 +36,9 @@ class DeckPlay extends Component {
   //   }
 
   render() {
+    // const { layout } = this.state;
     const { navigation } = this.props;
+    // const { height, width } = layout;
     return (
       <View style={style.container}>
         <Header
@@ -58,24 +49,6 @@ class DeckPlay extends Component {
           renderTitle={() => <Text>Play your deck</Text>}
         />
         {this.renderContent()}
-        <CardStack
-          style={style.content}
-          ref={swiper => {
-            this.swiper = swiper;
-          }}
-          onSwipedLeft={() => console.log('left')}
-          onSwipedRight={() => console.log('right')}
-        >
-          <Card style={[style.card, style.card1]}>
-            <Text style={style.label}>A</Text>
-          </Card>
-          <Card style={[style.card, style.card2]}>
-            <Text style={style.label}>B</Text>
-          </Card>
-          <Card style={[style.card, style.card1]}>
-            <Text style={style.label}>C</Text>
-          </Card>
-        </CardStack>
         <TouchableOpacity
           onPress={() => {
             this.swiper.swipeLeft();
@@ -106,19 +79,20 @@ class DeckPlay extends Component {
 
   renderContent = () => {
     const { cards } = this.state;
-    try {
-      return cards.map(card => (
-        <View>
-          <Text>{card.word}</Text>
-          <Text>{card.def}</Text>
-          <Text>{card.eg}</Text>
-          <Text>{card.cf}</Text>
-        </View>
-      ));
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    return <Cards card={cards} />;
+    // try {
+    //   return cards.map(card => (
+    //     <View>
+    //       <Text>{card.word}</Text>
+    //       <Text>{card.def}</Text>
+    //       <Text>{card.eg}</Text>
+    //       <Text>{card.cf}</Text>
+    //     </View>
+    //   ));
+    // } catch (error) {
+    //   console.log(error);
+    //   return null;
+    // }
     /*
     cards: [
       { word: 'austere', def: '禁欲的', eg: '', cf: 'apathy' },
