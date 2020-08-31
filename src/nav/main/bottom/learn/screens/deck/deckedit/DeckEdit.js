@@ -12,12 +12,13 @@ import { Functions } from '../../../../../../../config/Const';
 
 import Header from '../../../../../../../components/Header';
 import Icon from '../../../../../../../components/Icon';
+import ItemWithIcon from '../../../../../../../components/item/ItemWithIcon';
 import Deck from '../../../../../../../config/Firebase/Deck';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.background1,
+    backgroundColor: Color.background2,
   },
   headerIcon: {
     color: Color.font2,
@@ -25,6 +26,31 @@ const style = StyleSheet.create({
   },
   itemName: {
     flexDirection: 'row',
+  },
+  textStyle: {
+    color: Color.font2,
+  },
+  itemsContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginVertical: 50,
+    marginHorizontal: 30,
+    // borderWidth: 2,
+    // borderColor: 'white',
+  },
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    // justifyContent: 'center',
+    // borderBottomWidth: 2,
+    // borderBottomColor: 'black',
+    // borderBottomEndRadius: 50,
+    // borderBottomStartRadius: 50,
+  },
+  buttonIcon: {
+    fontSize: 20,
+    paddingHorizontal: 50,
+    color: Color.background4,
   },
 });
 
@@ -68,35 +94,36 @@ class DeckEdit extends Component {
     const { id, deckinfo } = this.state;
     const { navigation } = this.props;
     return (
-      <View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('deckedittitle', {
-              ti: deckinfo.ti,
-              updateDeckInfo: this.updateDeckInfo.bind(this),
-            })
-          }
-          style={style.itemName}
-        >
-          <Text>Title</Text>
-          <Text>{deckinfo.ti}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Tag</Text>
-          {this.returnTags()}
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Sample word</Text>
-          {this.returnSampleWord()}
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('addwords', { deckid: id , uri: deckinfo.card })
-          }
-        >
-          <Text>Add words</Text>
-          <Text>{`${deckinfo.num} words`}</Text>
-        </TouchableOpacity> */}
+      <View style={style.itemsContainer}>
+        <View style={style.itemContainer}>
+          <ItemWithIcon
+            title="Title"
+            onPress={() =>
+              navigation.navigate('deckedittitle', {
+                ti: deckinfo.ti,
+                updateDeckInfo: this.updateDeckInfo.bind(this),
+              })
+            }
+            textStyle={style.textStyle}
+            icon={{
+              collection: 'MaterialCommunityIcons',
+              name: 'format-title',
+              style: style.buttonIcon,
+            }}
+          />
+        </View>
+        <View style={style.itemContainer}>
+          <ItemWithIcon
+            title="Tags"
+            onPress={this.returnTags()}
+            textStyle={style.textStyle}
+            icon={{
+              collection: 'Ionicons',
+              name: 'md-pricetags',
+              style: style.buttonIcon,
+            }}
+          />
+        </View>
       </View>
     );
   };
@@ -125,11 +152,11 @@ class DeckEdit extends Component {
   updateDeckInfo = newDeckinfo => {
     // const { deckinfo } = this.state;
     // const merged = Functions.deepMerge(deckinfo, newDeckinfo)
-    this.setState(({ deckinfo }) => {
+    this.setate(({ deckinfo }) => {
       const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
       return { deckinfo: mergedDeckInfo };
     });
-    this.setState({ isupdated: true });
+    this.setate({ isupdated: true });
   };
 
   goBack = async () => {

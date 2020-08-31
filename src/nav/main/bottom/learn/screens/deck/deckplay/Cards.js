@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import SwipeCards from 'react-native-swipeable-cards';
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Functions } from '../../../../../../../config/Const';
 
 import EachCard from './card/EachCard';
@@ -12,26 +11,6 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
   },
-  cardstack: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-  cardContainer: {
-    // backgroundColor: 'orange',
-    // right: 20,
-    // left: 20,
-  },
-  cardflip: {
-    flex: 1,
-    // backgroundColor: 'yellow',
-  },
-  card: {
-    right: 0,
-    left: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: 'green',
-  },
 });
 
 class Cards extends Component {
@@ -40,7 +19,7 @@ class Cards extends Component {
     this.swiperRef = {};
     this.state = {
       layout: { height: 0, width: 0 },
-      tekito: '',
+      isFront: true,
     };
   }
 
@@ -52,28 +31,15 @@ class Cards extends Component {
           this.setState({ layout: Functions.onLayoutContainer(e) })
         }
       >
-        {/* <CardStack
-          style={style.cardstack}
-          ref={swiperRef => {
-            this.swiperRef = swiperRef;
-          }}
-
-          onSwipedRight={(index) => console.log(index)}
-          onSwipedLeft={(index) => console.log(index)}
-        > */}
         {this.renderCards()}
-        <TouchableOpacity onPress={() => this.setState({ tekito: 'aaa' })}>
-          <Text>tekito</Text>
-        </TouchableOpacity>
-        {/* </CardStack> */}
       </View>
     );
   }
 
   renderCards = () => {
-    // const { layout } = this.state;
-    // const { height, width } = layout;
-    const { cards } = this.props;
+    const { layout, isFront } = this.state;
+    const { height, width } = layout;
+    const { cards, navigation } = this.props;
     const cardsForWeb = [
       {
         word: 'austere',
@@ -105,49 +71,29 @@ class Cards extends Component {
     return (
       <SwipeCards
         cards={cardsDev}
-        renderCard={(cardData) => <EachCard {...cardData} />}
-        renderNoMoreCards={() => <NoMoreCards />}
+        renderCard={cardData => (
+          <EachCard
+            {...cardData}
+            layout={{ height, width }}
+            isFront={isFront}
+            onFliped={() => this.setState(prev => ({ isFront: !prev.isFront }))}
+          />
+        )}
+        renderNoMoreCards={() => <NoMoreCards navigation={navigation} />}
         onSwipeRight={this.handleYup}
         onSwipeLeft={this.handleNope}
         onSwipeUp={this.handleMaybe}
-        ref={swiperRef => { this.swiperRef = swiperRef; }}
+        // showRightOverlay={false}
+        // showLeftOverlay={false}
+        overlayRightText="😃"
+        overlayLeftText="🤔"
+        stackOffsetX=""
+        ref={swiperRef => {
+          this.swiperRef = swiperRef;
+        }}
         hasMaybeAction
       />
     );
-    // return cardsDev.map((card, index) => (
-    // <Card
-    //   style={[
-    //     style.cardContainer,
-    //     { height: height - 40, width: width - 40, left: 20, top: 20 },
-    //   ]}
-    // >
-    //   <CardFlip
-    //     style={style.cardflip}
-    //     ref={card => {
-    //       this[`card${index}`] = card;
-    //     }}
-    //   >
-    //     <TouchableOpacity
-    //       style={[style.card, { height: height - 40, width: width - 40 }]}
-    //       onPress={
-    //          () => this[`card${index}`].flip()
-    //         // () => console.log('pressed')
-    //       }
-    //     >
-    //       <Text style={style.label}>{card.word}</Text>
-    //     </TouchableOpacity>
-    //     <TouchableOpacity
-    //       style={[style.card, { height: height - 40, width: width - 40 }]}
-    //       onPress={
-    //         () => this[`card${index}`].flip()
-    //         // () => console.log('pressed')
-    //       }
-    //     >
-    //       <Text style={style.label}>{card.def}</Text>
-    //     </TouchableOpacity>
-    //   </CardFlip>
-    // </Card>
-    // ));
   };
 
   onSwipeRight(card) {

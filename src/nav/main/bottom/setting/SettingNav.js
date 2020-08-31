@@ -24,15 +24,3 @@ const StackNavigator = createStackNavigator(
 );
 
 export default StackNavigator;
-
-/* const AppContainer = createAppContainer(StackNavigator);
-
-export default class LearnNav extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <AppContainer />
-      </View>
-    );
-  }
-} */

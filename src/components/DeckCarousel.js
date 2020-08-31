@@ -34,7 +34,7 @@ class DeckCarousel extends Component {
   render() {
     const { data } = this.props;
     const {
-      layout: { /* height,  */ width },
+      layout: { width },
       active,
     } = this.state;
     try {
@@ -50,8 +50,7 @@ class DeckCarousel extends Component {
             renderItem={this.renderItem}
             itemWidth={width * 0.6}
             sliderWidth={width * 1.0}
-            // containerCustomStyle={{ flex: 1, backgroundColor: "#eee" }}
-            onSnapToItem={index => this.setState({ active: index })} // for pagination
+            onSnapToItem={index => this.setState({ active: index })}
           />
           <Pagination
             dotsLength={data.length}
@@ -74,8 +73,6 @@ class DeckCarousel extends Component {
       user,
     } = this.state;
     try {
-      // const cardIndex = index % data.length;
-      // const id = Object.keys(data)[cardIndex];
       const id = Object.keys(item)[0];
       const deckinfo = Object.values(item)[0];
       return (
@@ -122,8 +119,7 @@ class DeckCarousel extends Component {
           </View>
         </TouchableOpacity>
       );
-    } catch (error) {
-      // console.log(error);
+    } catch (e) {
       return null;
     }
   };
@@ -136,20 +132,11 @@ class DeckCarousel extends Component {
         for (const child of data) {
           const id = Object.keys(child)[0];
           const deckinfo = Object.values(child)[0];
-          // Deck.setListenerV({
-          //   deckid: id,
-          //   callback: v => {
-          //     this.setState(prev => {
-          //       const newV = { ...prev.v };
-          //       newV[id] = v;
-          //       return { v: newV };
-          //     });
-          //   },
-          // });
           this.setState(async prev => {
+            const prevState = prev;
             const v = await Deck.loadV({ deckid: id });
-            prev.v[id] = v;
-            return { v: prev.v };
+            prevState.v[id] = v;
+            return { v: prevState.v };
           });
           User.load({ uid: deckinfo.user }).then(user => {
             this.setState(prev => {

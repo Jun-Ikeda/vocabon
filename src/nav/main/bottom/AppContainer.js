@@ -18,7 +18,7 @@ export const BottomTabs = {
     setting: SettingNav,
     template: Template,
   },
-  names: ['learn', 'setting', 'template'],
+  names: ['learn', 'setting', 'browse'],
   icon: [
     () => (
       <Icon.MaterialCommunityIcons
@@ -34,7 +34,13 @@ export const BottomTabs = {
         style={{ color: Color.font3 }}
       />
     ),
-    () => <Icon.Ionicons name="unknown" />,
+    () => (
+      <Icon.MaterialCommunityIcons
+        name="web"
+        size={28}
+        style={{ color: Color.font3 }}
+      />
+    ),
   ],
 };
 // //24337d

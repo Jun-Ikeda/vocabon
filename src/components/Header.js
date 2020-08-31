@@ -7,8 +7,6 @@ const style = StyleSheet.create({
   container: {
     left: 0,
     right: 0,
-    // backgroundColor: 'red',
-    // position: 'absolute',
     top: 0,
   },
   padding: {
@@ -18,51 +16,21 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   left: {
-    // backgroundColor: 'red',
-    // width: 48,
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    // backgroundColor: 'green',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   right: {
-    // backgroundColor: 'blue',
-    // width: 48,
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
 
 export default class Header extends Component {
-  /* static defaultProps = {
-    onPressLeft: () => console.log('onPressLeft is called'),
-    onPressTitle: () => console.log('onPressTitle is called'),
-    onPressRight: () => console.log('onPressRight is called'),
-    renderAll: () => (
-      <View
-        style={[
-          style.headerContainer,
-          {
-            height:
-              HeaderConst.heightMin,
-          },
-        ]}>
-        <TouchableOpacity style={style.left} onPress={this.props.onPressLeft}>
-          {this.props.renderLeft()}
-        </TouchableOpacity>
-        <TouchableOpacity style={style.title} onPress={this.props.onPressTitle}>
-          {this.props.onPressTitle()}
-        </TouchableOpacity>
-        <TouchableOpacity style={style.right} onPress={this.props.onPressRight}>
-          {this.props.renderRight()}
-        </TouchableOpacity>
-      </View>
-    ),
-  }; */
   render() {
     const { style: propsStyle } = this.props;
     return (
@@ -143,7 +111,6 @@ export default class Header extends Component {
   };
 
   renderComponents = part => {
-    // const { renderLeft, renderTitle, renderRight } = this.props;
     try {
       const { renderLeft, renderTitle, renderRight } = this.props;
       switch (part) {
@@ -159,24 +126,5 @@ export default class Header extends Component {
     } catch (error) {
       return null;
     }
-    // let renderFunction;
-    // try {
-    //   switch (part) {
-    //     case 'left':
-    //       renderFunction = this.props.renderLeft;
-    //       break;
-    //     case 'title':
-    //       renderFunction = this.props.renderTitle;
-    //       break;
-    //     case 'right':
-    //       renderFunction = this.props.renderRight;
-    //       break;
-    //     default:
-    //       renderFunction = () => <TouchableWithoutFeedback />;
-    //   }
-    // } catch (error) {
-    //   renderFunction = () => <TouchableWithoutFeedback />;
-    // }
-    // return renderFunction();
   };
 }

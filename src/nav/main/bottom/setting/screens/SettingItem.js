@@ -1,37 +1,30 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import ItemWithIcon from '../../../../../components/item/ItemWithIcon';
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: 'white',
+    // borderWidth: 1,
+    // borderColor: 'white',
+    height: 60,
   },
 });
 
 class SettingItem extends Component {
   render() {
-    const { title, renderIcon, onPress /* layout */ } = this.props;
-    // const responsiveStyle = {
-    //   container: {
-    //     // height: layout.height - 40,
-    //     width: layout.width - 40,
-    //   },
-    // };
+    const { title, icon, onPress /* layout */ } = this.props;
     try {
       return (
-        <TouchableOpacity
-          style={[style.container]}
+        <ItemWithIcon
+          title={title}
           onPress={onPress}
-        >
-          {renderIcon()}
-          <Text style={{ color: 'white' }}>{title}</Text>
-        </TouchableOpacity>
+          icon={icon}
+          containerStyle={style.container}
+        />
       );
     } catch (error) {
-      console.log(error);
       return null;
     }
   }

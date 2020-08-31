@@ -51,7 +51,6 @@ const style = StyleSheet.create({
     marginVertical: 20,
   },
   modalConfirmDeleteAccountContainer: {
-    // alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
@@ -118,7 +117,6 @@ class EmailVerify extends Component {
       email,
       password,
       init: false,
-      // callback: () => console.log('re-logined'),
     });
     const { emailVerified } = User.authentication.getCurrentUser();
     if (emailVerified) {
@@ -137,7 +135,6 @@ class EmailVerify extends Component {
     const { auth } = this.state;
     return (
       <View style={style.container}>
-        {/* the main content */}
         <View>
           <Image source={EmailImage} style={style.image} />
           <View>
@@ -159,7 +156,6 @@ class EmailVerify extends Component {
             <Text style={style.textDeleteAcount}>Wrong email address?</Text>
           </TouchableOpacity>
         </View>
-        {/* render modals */}
         {this.renderModal()}
       </View>
     );
@@ -180,23 +176,6 @@ class EmailVerify extends Component {
       return null;
     }
     return null;
-    // console.log('not verified');
-
-    // User.login({
-    //   email,
-    //   password,
-    //   init: false,
-    //   callback: user => {
-    //     console.log('re-loggedin');
-    //     console.log({ emailVerified: user.user.emailVerified });
-    //     if (user.user.emailVerified) {
-    //       TimerProcess.clearInterval({ key: 'checkEmailVerified' });
-    //       this.stop();
-    //       Storage.Function.save({ key: 'auth', data: { emailverified: true } });
-    //       this.setState({ isModalGetStarted: true });
-    //     }
-    //   },
-    // });
   };
 
   initTimer = () => {
@@ -213,7 +192,7 @@ class EmailVerify extends Component {
 
   stop = () => {
     this.setState({ remain: 0 });
-    Timer.stop(/* () => console.log('canceled') */);
+    Timer.stop();
   };
 
   triggeredFunction = async () => {
@@ -226,9 +205,6 @@ class EmailVerify extends Component {
     const {
       auth: { email, password },
     } = this.state;
-    // const { email, password } = await Storage.Function.load({
-    //   key: 'auth',
-    // });
     await User.remove({ email, password });
   };
 

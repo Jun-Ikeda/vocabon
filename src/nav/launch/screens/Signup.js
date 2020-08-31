@@ -26,17 +26,14 @@ let TimerPasswrodHidden;
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: Color.primary1,
   },
   mainContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth: 2,
   },
   form: {
     width: 270,
-    // borderWidth: 2,
   },
   textinput: {
     flex: 1,
@@ -50,7 +47,6 @@ const style = StyleSheet.create({
     paddingVertical: 20,
     height: 170,
     justifyContent: 'space-between',
-    // borderWidth: 2,
   },
   buttonSignUpLogIn: {
     alignSelf: 'center',
@@ -88,13 +84,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // modal4Container: {
-  //   alignSelf: 'center',
-  //   backgroundColor: Color.background2,
-  //   padding: 10,
-  //   width: 200,
-  //   borderRadius: 10,
-  // },
   modal4Image: {
     height: 100,
     width: 100,
@@ -114,7 +103,6 @@ const style = StyleSheet.create({
 const renderIcon = () => (
   <View
     style={{
-      // borderWidth: 2,
       width: 240,
       height: 130,
       alignSelf: 'center',
@@ -345,17 +333,6 @@ class Signup extends Component {
             </TouchableOpacity>
           )}
         />
-        {/* <Modal
-        isVisible={this.state.isModal4Visible}
-        messageForPC="Name is required to create an account, but not necessary to log in."
-        closeModal={() => this.setState({ isModal4Visible: false })}
-        onPressOutSide={() => this.setState({ isModal4Visible: false })}>
-        <View style={style.modal4Container}>
-          <Text>
-            Name is required to create an account, but not necessary to log in.
-          </Text>
-        </View>
-      </Modal> */}
         <ModalWithImage
           isVisible={isModal4Visible}
           onPressOutSide={() => this.setState({ isModal4Visible: false })}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 
 // import Color from '../../../../../config/Color';
 import Icon from '../../../../../components/Icon';
@@ -9,77 +10,108 @@ import TopHeader from '../../TopHeader';
 
 import SettingItem from './SettingItem';
 import Color from '../../../../../config/Color';
-import { Functions } from '../../../../../config/Const';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: 'black',
   },
   buttonIcon: {
     fontSize: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 50,
     color: Color.background1,
   },
   itemsContainer: {
     flex: 1,
-    // alignSelf: 'center',
+    justifyContent: 'space-between',
     marginVertical: 50,
     marginHorizontal: 30,
-    // aspectRatio: 1.5,
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'white',
+  },
+  itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    // borderBottomWidth: 2,
+    // borderBottomColor: Color.background1,
+    // borderBottomEndRadius: 50,
+    // borderBottomStartRadius: 50,
   },
 });
 
-export default class Setting extends Component {
+class Setting extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      layout: { height: 0, width: 0 },
-    };
+    this.state = {};
   }
 
   render() {
-    const { layout } = this.state;
-    const { navigation } = this.props;
+    const { isFocused } = this.props;
     return (
-      <Gesture>
+      <Gesture style={{ opacity: isFocused ? 1 : 0 }}>
         <TopHeader title="Setting" />
-        <View
-          style={style.container}
-          pointerEvents="box-none"
-          onLayout={e => {
-            this.setState({ layout: Functions.onLayoutContainer(e) });
-          }}
-        >
-          <View style={style.itemsContainer}>
-            <SettingItem
-              title="Account"
-              renderIcon={() => (
-                <Icon.Ionicons name="ios-person" style={style.buttonIcon} />
-              )}
-              onPress={() => navigation.navigate('account')}
-              layout={layout}
-            />
-            <SettingItem
-              title="TestElement"
-              renderIcon={() => (
-                <Icon.AntDesign name="frown" style={style.buttonIcon} />
-              )}
-              onPress={() => navigation.navigate('testelement')}
-              layout={layout}
-            />
-          </View>
+        <View style={style.container} pointerEvents="box-none">
+          <View style={style.itemsContainer}>{this.renderItem()}</View>
         </View>
       </Gesture>
     );
   }
+
+  renderItem = () => {
+    const { navigation } = this.props;
+    const items = [
+      {
+        title: 'Account',
+        icon: {
+          collection: 'Ionicons',
+          name: 'ios-person',
+          style: style.buttonIcon,
+        },
+        onPress: () => navigation.navigate('account'),
+      },
+      {
+        title: 'Notification',
+        icon: {
+          collection: 'Ionicons',
+          name: 'md-notifications',
+          style: style.buttonIcon,
+        },
+        onPress: () => navigation.navigate(''),
+      },
+      {
+        title: 'Appearance',
+        icon: {
+          collection: 'Ionicons',
+          name: 'md-eye',
+          style: style.buttonIcon,
+        },
+        onPress: () => navigation.navigate(''),
+      },
+      {
+        title: 'Hint',
+        icon: {
+          collection: 'Ionicons',
+          name: 'md-information-circle',
+          style: style.buttonIcon,
+        },
+        onPress: () => navigation.navigate(''),
+      },
+      {
+        title: 'Help',
+        icon: {
+          collection: 'Ionicons',
+          name: 'md-help-circle',
+          style: style.buttonIcon,
+        },
+        onPress: () => {},
+      },
+    ];
+    return items.map(item => (
+      <View style={style.itemContainer}>
+        <SettingItem {...item} />
+      </View>
+    ));
+  };
 }
 
-/*
-dkaoajfio(1, 4, 5)
-dkaoajfio(3 ,2 ,4)
-*/
+export default withNavigationFocus(Setting);

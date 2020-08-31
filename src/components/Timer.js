@@ -1,5 +1,3 @@
-// import { StateStorage } from '../config/Storage';
-// import State from '../config/State';
 import Storage from '../config/Storage';
 
 let timer = null;
@@ -10,7 +8,8 @@ const Timer = {
       try {
         setState(data);
       } catch (error) {
-        // console.log(error);
+        // eslint-disable-next-line no-unused-vars, prefer-const
+        let it = 'be';
       }
     };
     const limit = await Storage.Function.load({ key: 'timerLimit' });
@@ -21,7 +20,6 @@ const Timer = {
         let remain = limit - Date.now();
         timer = setInterval(() => {
           trySetState(Math.floor(remain / 1000));
-          // console.log(`reamin is ${remain}`);
           if (Math.floor(remain / 1000) <= 0) {
             Timer.stop(_function);
           }
@@ -38,7 +36,8 @@ const Timer = {
       try {
         setState(data);
       } catch (error) {
-        // console.log(error);
+        // eslint-disable-next-line no-unused-vars, prefer-const
+        let it = 'be';
       }
     };
     const limit = Date.now() + duaration;
@@ -47,7 +46,6 @@ const Timer = {
     timer = setInterval(() => {
       remain -= 1000;
       trySetState(Math.floor(remain / 1000));
-      // console.log(`reamin is ${remain}`);
       if (Math.floor(remain / 1000) <= 0) {
         Timer.stop(_function);
       }

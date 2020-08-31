@@ -7,6 +7,7 @@ const Color = {
   background1: 'rgb(249,249,249)',
   background2: 'rgba(255,255,255,1)',
   background3: 'rgb(230,230,230)',
+  background4: 'rgb(30,30,30)',
   accent1: '',
   accent2: '',
   accent3: '',

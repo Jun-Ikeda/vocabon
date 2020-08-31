@@ -7,22 +7,12 @@ const style = StyleSheet.create({
   container: {
     ...StyleConst.absoluteFullScreen,
   },
-  image: {},
   overlay: {
     ...StyleConst.absoluteFullScreen,
   },
 });
 
 export default class Background extends Component {
-  /*
-  props: {
-    imageStyle
-    imageSource
-    blurRadius
-    overlayStyle
-  }
-  */
-
   render() {
     const { imageStyle, imageSource, blurRadius, overlayStyle } = this.props;
     return (

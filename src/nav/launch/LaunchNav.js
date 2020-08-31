@@ -7,11 +7,9 @@ import Storage from '../../config/Storage';
 
 import Background from '../../components/Background';
 
-// import Template from '../../../dev/Template';
 
 import Readme from './screens/Readme';
 import Signup from './screens/Signup';
-// // // import Login from './screens/Login';
 import EmailVerify from './screens/EmailVerify';
 import ResetPassword from './screens/ResetPassword';
 

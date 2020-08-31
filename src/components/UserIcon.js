@@ -6,7 +6,6 @@ import { Functions } from '../config/Const';
 
 const style = StyleSheet.create({
   container: {
-    // ...StyleConst.absoluteFullScreen,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,7 +40,6 @@ class UserIcon extends Component {
       const isColor = Functions.isColor(background);
       return isColor ? this.renderInitial() : this.renderBackground();
     } catch (error) {
-      // console.log(error);
       return null;
     }
   };
@@ -70,7 +68,6 @@ class UserIcon extends Component {
         </View>
       );
     } catch (error) {
-      // console.log(error);
       return null;
     }
   };
@@ -99,7 +96,6 @@ class UserIcon extends Component {
         </View>
       );
     } catch (error) {
-      // console.log(error);
       return null;
     }
   };

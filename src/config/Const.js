@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import { Platform, Dimensions } from 'react-native';
 
 export const HeaderConst = {
@@ -33,7 +31,6 @@ export const Functions = {
     return height > width;
   },
   returnHyphenBar: num => {
-    // console.log();
     let str = '';
     for (let i = 0; i < num; i++) {
       str += '-';
@@ -76,9 +73,6 @@ export const Functions = {
     } catch (error) {
       return null;
     }
-    // const s = new Option().style;
-    // s.color = strColor;
-    // return s.color !== '';
   },
   mapPush: ({ newData, map = null }) => {
     let data = {};

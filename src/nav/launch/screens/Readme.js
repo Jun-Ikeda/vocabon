@@ -42,7 +42,6 @@ class Readme extends Component {
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width,
       },
-      // page: 0,
     };
   }
 
@@ -82,8 +81,8 @@ class Readme extends Component {
         />
         <ScrollView
           style={style.contents}
-          horizontal // 横向きにスクロール
-          pagingEnabled // なめらかにスライドさせない
+          horizontal
+          pagingEnabled
           showsHorizontalScrollIndicator={false}
           onScroll={Animated.event([
             { nativeEvent: { contentOffset: { x: this.AnimatedValue } } },

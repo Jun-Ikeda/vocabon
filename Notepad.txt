@@ -309,3 +309,20 @@ renderSomething = () => (
         <Text>message </Text>
     </View>
 )
+
+
+// ----------------------------------------------------
+''と``と""の違い
+''が基本、たいていのところでは書く。
+
+""
+JXSブロック <>の中ではこれ
+package.jsonのkey名、valueもこれで囲う
+''で書いてもだいたいESLintが直してくれる
+
+``
+テキストの中に変数を入れたいときはこれ
+const message = 'hello'というときに
+console.log('message from Ikeda :' + message)とするよりも　＜ ''
+console.log(`message from Ikeda ${message}`)とするほうがわかりやすい　＜ ``
+

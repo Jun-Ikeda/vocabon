@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import CardFlip from 'react-native-card-flip';
+// import HTML from 'react-native-render-html';
 
-import { Functions } from '../../../../../../../../config/Const';
+import Color from '../../../../../../../../config/Color';
 
 const style = StyleSheet.create({
+  cardflip: {
+    flex: 1,
+  },
   card: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 300,
-    height: 300,
+    backgroundColor: Color.primary1,
+  },
+  label: {
+    color: Color.font1,
+    fontSize: 22,
   },
 });
 
@@ -19,42 +27,45 @@ class EachCard extends Component {
     this.state = {};
   }
 
-  UNSAFE_componentWillMount() {
-  }
-
   render() {
-    // const { layout } = this.state;
-    // const { height, width } = layout;
-    const { word, def } = this.props;
+    const { word, def, eg, cf } = this.props;
     return (
       <CardFlip
         style={style.cardflip}
         ref={card => {
           this[`card${word}`] = card;
         }}
-        onLayout={e =>
-          this.setState({ layout: Functions.onLayoutContainer(e) })
-        }
       >
         <TouchableOpacity
-          style={[style.card, { height: 300, width: 300 }]}
-          onPress={
-            () => this[`card${word}`].flip()
-          }
+          style={[style.card]}
+          onPress={() => this[`card${word}`].flip()}
         >
           <Text style={style.label}>{word}</Text>
+          <Text style={style.label}>{eg}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[style.card, { height: 300, width: 300 }]}
-          onPress={
-            () => this[`card${word}`].flip()
-          }
+          style={[style.card]}
+          onPress={() => this[`card${word}`].flip()}
         >
           <Text style={style.label}>{def}</Text>
+          <Text style={style.label}>{`cf: ${cf}`}</Text>
         </TouchableOpacity>
       </CardFlip>
     );
   }
+
+  componentDidMount = () => {
+    const { isFront, word } = this.props;
+    if (!isFront) {
+      this[`card${word}`].flip();
+    }
+  };
+
+  flip = () => {
+    const { onFliped, word } = this.props;
+    this[`card${word}`].flip();
+    onFliped();
+  };
 }
 
 export default EachCard;
