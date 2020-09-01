@@ -8,6 +8,7 @@ const Color = {
   background2: 'rgba(255,255,255,1)',
   background3: 'rgb(230,230,230)',
   background4: 'rgb(30,30,30)',
+  background5: '#86f0e2', // 薄い緑
   accent1: '',
   accent2: '',
   accent3: '',

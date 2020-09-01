@@ -24,6 +24,9 @@ const style = StyleSheet.create({
     color: Color.font2,
     fontSize: 25,
   },
+  title: {
+    // fontWeight: '700',
+  },
   itemName: {
     flexDirection: 'row',
   },
@@ -41,11 +44,16 @@ const style = StyleSheet.create({
   itemContainer: {
     flex: 1,
     justifyContent: 'center',
+    marginVertical: 10,
     // justifyContent: 'center',
     // borderBottomWidth: 2,
     // borderBottomColor: 'black',
     // borderBottomEndRadius: 50,
-    // borderBottomStartRadius: 50,
+    backgroundColor: Color.background5,
+    // borderColor: 'black',
+    // borderWidth: 1,
+    borderRadius: 10,
+    // opacity: 0.5,
   },
   buttonIcon: {
     fontSize: 20,
@@ -82,7 +90,7 @@ class DeckEdit extends Component {
           renderLeft={() => (
             <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />
           )}
-          renderTitle={() => <Text>Edit</Text>}
+          renderTitle={() => <Text style={style.title}>Edit</Text>}
           onPressLeft={this.goBack}
         />
         {this.renderItems()}
@@ -114,16 +122,27 @@ class DeckEdit extends Component {
         </View>
         <View style={style.itemContainer}>
           <ItemWithIcon
-            title="Tags"
-            onPress={this.returnTags()}
+            title="Style"
             textStyle={style.textStyle}
+            onPress={() => console.log('STYLE')}
             icon={{
-              collection: 'Ionicons',
-              name: 'md-pricetags',
+              collection: 'Foundation',
+              name: 'page-edit',
               style: style.buttonIcon,
             }}
           />
         </View>
+        <ItemWithIcon
+          title="Tags"
+          onPress={this.returnTags}
+          textStyle={style.textStyle}
+          icon={{
+            collection: 'Ionicons',
+            name: 'md-pricetags',
+            style: style.buttonIcon,
+          }}
+          containerStyle={style.itemContainer}
+        />
       </View>
     );
   };
@@ -152,11 +171,11 @@ class DeckEdit extends Component {
   updateDeckInfo = newDeckinfo => {
     // const { deckinfo } = this.state;
     // const merged = Functions.deepMerge(deckinfo, newDeckinfo)
-    this.setate(({ deckinfo }) => {
+    this.setState(({ deckinfo }) => {
       const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
       return { deckinfo: mergedDeckInfo };
     });
-    this.setate({ isupdated: true });
+    this.setState({ isupdated: true });
   };
 
   goBack = async () => {

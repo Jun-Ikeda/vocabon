@@ -83,8 +83,6 @@ class Cards extends Component {
         onSwipeRight={this.handleYup}
         onSwipeLeft={this.handleNope}
         onSwipeUp={this.handleMaybe}
-        // showRightOverlay={false}
-        // showLeftOverlay={false}
         overlayRightText="😃"
         overlayLeftText="🤔"
         stackOffsetX=""

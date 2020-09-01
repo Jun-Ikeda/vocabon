@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Header from '../../../../../../../components/Header';
 import Icon from '../../../../../../../components/Icon';
 import Color from '../../../../../../../config/Color';
-import Deck from '../../../../../../../config/Firebase/Deck';
+// import Deck from '../../../../../../../config/Firebase/Deck';
 // import { TextInput } from 'react-native-gesture-handler';
+import { StyleConst, Functions } from '../../../../../../../config/Const';
+
+import ControlButtons from './ControlButtons';
+import EachPage from './EachPage';
 
 const style = StyleSheet.create({
   container: {
@@ -21,35 +20,34 @@ const style = StyleSheet.create({
     color: Color.font2,
     fontSize: 25,
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-  },
-  inputContainer: {
-    borderWidth: 1,
-  },
-  button: {
+  contentContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
+  },
+  page: {},
+  pageContainer: {},
+  absoluteBox: {
+    ...StyleConst.absoluteFullScreen,
+    // backgroundColor: 'blue',
   },
 });
 
 class AddWords extends Component {
   constructor(props) {
     super(props);
+    this.scrollviewRef = {};
     this.state = {
       word: '',
       def: '',
       eg: '',
       cf: '',
       bundle: [],
+      layout: {
+        height: 0,
+        width: Dimensions.get('window').width,
+      },
+      currentWord: 0,
+      currentScreen: 0,
     };
-  }
-
-  UNSAFE_componentWillMount() {
-    const { navigation } = this.props;
-    const {} = this.state;
   }
 
   render() {
@@ -63,90 +61,73 @@ class AddWords extends Component {
           onPressLeft={() => navigation.goBack()}
           renderTitle={() => <Text>Add Words</Text>}
         />
-        {this.renderTextInputs()}
-        {this.renderButtons()}
+        <View style={style.contentContainer}>
+          {this.renderEmptyAbsoluteBox()}
+          {this.renderTextInputs()}
+          {this.renderButtons()}
+        </View>
       </View>
     );
   }
 
+  renderEmptyAbsoluteBox = () => (
+    <View
+      onLayout={e => {
+        const layout = Functions.onLayoutContainer(e);
+        this.setState({ layout });
+      }}
+      style={style.absoluteBox}
+    />
+  );
+
+  // renderPages = () => {
+  //   const { layout } = this.state;
+  //   return (
+  //     <ScrollView
+  //       style={style.pageContainer}
+  //       horizontal
+  //       pagingEnabled
+  //       showsHorizontalScrollIndicator={false}
+  //       onScrollEndDrag={() => console.log('endscroll')}
+  //       ref={scroll => {
+  //         this.scrollviewRef = scroll;
+  //       }}
+  //       onLayout={() => {
+  //         const { layout } = this.state;
+  //         this.scrollviewRef.scrollTo({
+  //           x: layout.width,
+  //           y: 0,
+  //           animated: false,
+  //         });
+  //       }}
+  //     >
+  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
+  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
+  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
+  //     </ScrollView>
+  //   );
+  // };
+
   renderTextInputs = () => {
     const { word, def, eg, cf } = this.state;
-    const inputs = [
-      { title: 'Word', setState: word => this.setState({ word }), value: word },
-      {
-        title: 'Definition',
-        setState: def => this.setState({ def }),
-        value: def,
-      },
-      { title: 'Example', setState: eg => this.setState({ eg }), value: eg },
-      { title: 'cf', setState: cf => this.setState({ cf }), value: cf },
-    ];
-
-    /*
-    constructor(props) {
-      super(props)
-      this.state = { word: '' }
-    }
-
-    <TextInput onChangeText={word => this.setState({ word })} value={this.state.word} />
-    */
-
     return (
-      <View>
-        {inputs.map(input => (
-          <View style={style.inputContainer}>
-            <Text>{input.title}</Text>
-            <TextInput onChangeText={input.setState} value={input.value} />
-          </View>
-        ))}
-      </View>
+      <EachPage
+        page={{ word, def, eg, cf }}
+        setState={state => this.setState(state)}
+      />
     );
   };
 
   renderButtons = () => {
-    const bundleNext = () => {
-      const { word, def, cf, eg, bundle } = this.state;
-      bundle.push({
-        word,
-        def,
-        cf,
-        eg,
-        er: 0,
-        mark: [],
-      });
-      console.log({ bundle });
-      this.setState({
-        word: '',
-        def: '',
-        cf: '',
-        eg: '',
-        bundle,
-      });
-    };
-    const bundleSave = () => {
-      bundleNext();
-      const { bundle } = this.state;
-      const { navigation } = this.props;
-      const deckid = navigation.getParam('id');
-      const deckinfo = navigation.getParam('deckinfo');
-      // navigation.navigate('addwords', { deckid, uri });
-      const uri = deckinfo.card;
-      console.log({ uri });
-      Deck.Card.save({ deckid, uri, data: bundle });
-      navigation.goBack();
-    };
-    const buttons = [
-      { title: 'Save', onPress: bundleSave },
-      { title: 'Next', onPress: bundleNext },
-    ];
+    const { word, def, eg, cf, bundle } = this.state;
+    const { navigation } = this.props;
     return (
-      <View style={style.buttonsContainer}>
-        {buttons.map(button => (
-          <TouchableOpacity onPress={button.onPress} style={style.button}>
-            <Text>{button.title}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ControlButtons
+        page={{ word, def, eg, cf }}
+        bundle={bundle}
+        navigation={navigation}
+        setState={state => this.setState(state)}
+      />
     );
   };
 }

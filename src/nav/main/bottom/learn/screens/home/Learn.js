@@ -110,5 +110,7 @@ class Learn extends Component {
       />
     );
   };
+
+  render
 }
 export default withNavigationFocus(Learn);

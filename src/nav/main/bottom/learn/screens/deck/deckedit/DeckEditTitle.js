@@ -15,11 +15,25 @@ import Icon from '../../../../../../../components/Icon';
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.background1,
+    backgroundColor: 'white',
+    // justifyContent: 'space-between',
   },
   headerIcon: {
     color: Color.font2,
     fontSize: 25,
+  },
+  textBox: {
+    alignItems: 'center',
+    // justifyContent: 'center',
+    // borderColor: 'transparent',
+  },
+  button: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    // justifyContent: 'center',
+    backgroundColor: 'yellow',
+    width: 50,
+    height: 20,
   },
 });
 
@@ -40,16 +54,20 @@ class DeckInfoInput extends Component {
           renderLeft={() => (
             <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />
           )}
-          renderTitle={() => <Text>Test</Text>}
+          renderTitle={() => <Text>Title</Text>}
           onPressLeft={() => navigation.goBack()}
         />
-        <TextInput
-          value={title}
-          onChangeText={title => this.setState({ title })}
-        />
-        <TouchableOpacity onPress={this.save}>
-          <Text>Save</Text>
-        </TouchableOpacity>
+        <View style={style.textBox}>
+          <TextInput
+            value={title}
+            onChangeText={title => this.setState({ title })}
+          />
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.save} style={style.button}>
+            <Text>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
