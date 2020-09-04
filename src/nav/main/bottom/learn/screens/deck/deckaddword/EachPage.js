@@ -39,12 +39,12 @@ class EachPage extends Component {
 
     return (
       <View>
-        {/* {inputs.map(input => (
+        {inputs.map(input => (
           <View style={style.inputContainer}>
             <Text>{input.title}</Text>
             <TextInput onChangeText={input.setState} value={input.value} />
           </View>
-        ))} */}
+        ))}
         <TagInput updateState={this.updateTagState} tags={this.state.tags} />
         <TouchableOpacity onPress={() => console.log(this.state.tags)}><Text>a</Text></TouchableOpacity>
       </View>

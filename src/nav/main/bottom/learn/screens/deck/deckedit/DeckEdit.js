@@ -33,6 +33,10 @@ const style = StyleSheet.create({
   textStyle: {
     color: Color.font2,
   },
+  subTextStyle: {
+    color: Color.font6,
+    fontSize: 15,
+  },
   itemsContainer: {
     flex: 1,
     justifyContent: 'space-between',
@@ -43,15 +47,16 @@ const style = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
+    // height: 100,
     justifyContent: 'center',
+    alignItems: 'center',
     marginVertical: 10,
-    // justifyContent: 'center',
     // borderBottomWidth: 2,
     // borderBottomColor: 'black',
     // borderBottomEndRadius: 50,
     backgroundColor: Color.background5,
     // borderColor: 'black',
-    // borderWidth: 1,
+    borderWidth: 1,
     borderRadius: 10,
     // opacity: 0.5,
   },
@@ -103,35 +108,35 @@ class DeckEdit extends Component {
     const { navigation } = this.props;
     return (
       <View style={style.itemsContainer}>
-        <View style={style.itemContainer}>
-          <ItemWithIcon
-            title="Title"
-            onPress={() =>
-              navigation.navigate('deckedittitle', {
-                ti: deckinfo.ti,
-                updateDeckInfo: this.updateDeckInfo.bind(this),
-              })
-            }
-            textStyle={style.textStyle}
-            icon={{
-              collection: 'MaterialCommunityIcons',
-              name: 'format-title',
-              style: style.buttonIcon,
-            }}
-          />
-        </View>
-        <View style={style.itemContainer}>
-          <ItemWithIcon
-            title="Style"
-            textStyle={style.textStyle}
-            onPress={() => console.log('STYLE')}
-            icon={{
-              collection: 'Foundation',
-              name: 'page-edit',
-              style: style.buttonIcon,
-            }}
-          />
-        </View>
+        <ItemWithIcon
+          title="Title"
+          onPress={() =>
+            navigation.navigate('deckedittitle', {
+              ti: deckinfo.ti,
+              updateDeckInfo: this.updateDeckInfo.bind(this),
+            })
+          }
+          textStyle={style.textStyle}
+          icon={{
+            collection: 'MaterialCommunityIcons',
+            name: 'format-title',
+            style: style.buttonIcon,
+          }}
+          containerStyle={style.itemContainer}
+          subText={deckinfo.ti}
+          subTextStyle={style.subTextStyle}
+        />
+        <ItemWithIcon
+          title="Style"
+          textStyle={style.textStyle}
+          onPress={() => console.log('STYLE')}
+          icon={{
+            collection: 'Foundation',
+            name: 'page-edit',
+            style: style.buttonIcon,
+          }}
+          containerStyle={style.itemContainer}
+        />
         <ItemWithIcon
           title="Tags"
           onPress={this.returnTags}

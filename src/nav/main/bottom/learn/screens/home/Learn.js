@@ -34,7 +34,7 @@ class Learn extends Component {
     };
   }
 
-  async UNSAFE_componentWillMount() {
+  async componentDidMount() {
     // await Storage.Function.load({ key: 'auth' }).then(async auth => {
     //   await this.setState({ auth });
     //   await User.load({ uid: auth.uid, expires: null }).then(user => {
@@ -69,31 +69,11 @@ class Learn extends Component {
   }
 
   render() {
-    const { navigation, isFocused } = this.props;
-    const {
-      layout: { width },
-      myDecks,
-    } = this.state;
+    const { isFocused } = this.props;
     return (
       <Gesture style={{ opacity: isFocused ? 1 : 0 }}>
         {this.renderHeader()}
-        <View
-          style={style.container}
-          pointerEvents="box-none"
-          onLayout={({ nativeEvent }) => {
-            const { height, width } = nativeEvent.layout;
-            this.setState({ layout: { height, width } });
-          }}
-        >
-          <DeckCarousel
-            data={myDecks}
-            style={{ width }}
-            navigation={navigation}
-          />
-          {/* <TouchableOpacity onPress={() => console.log(this.state)}>
-            <Text style={{ color: 'white' }}>aaaaaaaa</Text>
-          </TouchableOpacity> */}
-        </View>
+        {this.renderContent()}
       </Gesture>
     );
   }
@@ -111,6 +91,28 @@ class Learn extends Component {
     );
   };
 
-  render
+  renderContent = () => {
+    const {
+      layout: { width },
+      myDecks,
+    } = this.state;
+    const { navigation } = this.props;
+    return (
+      <View
+        style={style.container}
+        pointerEvents="box-none"
+        onLayout={({ nativeEvent }) => {
+          const { height, width } = nativeEvent.layout;
+          this.setState({ layout: { height, width } });
+        }}
+      >
+        <DeckCarousel
+          data={myDecks}
+          style={{ width }}
+          navigation={navigation}
+        />
+      </View>
+    );
+  };
 }
 export default withNavigationFocus(Learn);

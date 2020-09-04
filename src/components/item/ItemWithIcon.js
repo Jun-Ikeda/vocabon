@@ -16,7 +16,7 @@ const style = StyleSheet.create({
 
 class ItemWithIcon extends Component {
   render() {
-    const { title, onPress, containerStyle, textStyle } = this.props;
+    const { title, onPress, containerStyle, textStyle, subText, subTextStyle } = this.props;
     try {
       return (
         <TouchableOpacity
@@ -25,6 +25,7 @@ class ItemWithIcon extends Component {
         >
           {this.renderIcon()}
           <Text style={[style.title, textStyle]}>{title}</Text>
+          <Text style={[style.title, subTextStyle]}>{subText}</Text>
         </TouchableOpacity>
       );
     } catch (error) {

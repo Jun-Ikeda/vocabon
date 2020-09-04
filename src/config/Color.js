@@ -17,6 +17,7 @@ const Color = {
   font3: 'rgb(230,230,230)',
   font4: 'rgb(220,220,220)',
   font5: 'rgb(180,180,180)',
+  font6: 'rgb(128, 128, 128)', // 灰色
   hyperlink1: '#257df7',
   transparent1: 'rgba(0,0,0,0)',
   transparent2: 'rgba(0,0,0,0.3)',
