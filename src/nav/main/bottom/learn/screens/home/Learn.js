@@ -35,12 +35,6 @@ class Learn extends Component {
   }
 
   async componentDidMount() {
-    // await Storage.Function.load({ key: 'auth' }).then(async auth => {
-    //   await this.setState({ auth });
-    //   await User.load({ uid: auth.uid, expires: null }).then(user => {
-    //     this.setState({ myAccount: user });
-    //   });
-    // });
     await Storage.Function.load({ key: 'auth' }).then(async auth => {
       await this.setState({ auth });
       User.updateListener({
@@ -62,9 +56,6 @@ class Learn extends Component {
             .catch(/* error => console.log(error) */);
         },
       });
-      // await User.load({ uid: auth.uid, expires: null }).then(user => {
-      //   this.setState({ myAccount: user });
-      // });
     });
   }
 

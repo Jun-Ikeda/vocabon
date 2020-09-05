@@ -4,11 +4,12 @@ import { withNavigationFocus } from 'react-navigation';
 
 // import Color from '../../../../../config/Color';
 import Icon from '../../../../../components/Icon';
+import SettingItem from '../../../../../components/item/material/SettingItem';
 
 import Gesture from '../../Gesture';
 import TopHeader from '../../TopHeader';
 
-import SettingItem from './SettingItem';
+// import SettingItem from './SettingItem';
 import Color from '../../../../../config/Color';
 
 const style = StyleSheet.create({
@@ -74,7 +75,6 @@ class Setting extends Component {
         icon: {
           collection: 'Ionicons',
           name: 'md-notifications',
-          style: style.buttonIcon,
         },
         onPress: () => navigation.navigate(''),
       },
@@ -83,7 +83,6 @@ class Setting extends Component {
         icon: {
           collection: 'Ionicons',
           name: 'md-eye',
-          style: style.buttonIcon,
         },
         onPress: () => navigation.navigate(''),
       },
@@ -92,7 +91,6 @@ class Setting extends Component {
         icon: {
           collection: 'Ionicons',
           name: 'md-information-circle',
-          style: style.buttonIcon,
         },
         onPress: () => navigation.navigate(''),
       },

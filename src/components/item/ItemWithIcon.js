@@ -12,31 +12,38 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   leftElement: {
-
+    width: 30,
+    alignItems: 'center',
+  },
+  icon: {
+    color: Color.font1,
+    fontSize: 25,
   },
 });
 
-class ItemWIthIcon extends Component {
+class ItemWithIcon extends Component {
   render() {
-    const { title, onPress, containerStyle, textStyle } = this.props;
-    return (
-      <Item renderLeft={this.renderLeft} />
-    );
+    return <Item renderLeft={this.renderLeft} {...this.props} />;
   }
 
   renderLeft = () => {
-    const { icon } = this.props;
-    const { collection, name, style: propsStyle } = icon;
+    const { icon, iconStyle, iconContainerStyle } = this.props;
+    const {
+      collection,
+      name,
+      // style: propsStyle,
+      // container: containerStyle,
+    } = icon;
     const IconProps = Icon[collection];
     return (
-      <View style={style.leftElement}>
-        <IconProps name={name} style={propsStyle} />
+      <View style={[style.leftElement, iconContainerStyle]}>
+        <IconProps name={name} style={[style.icon, iconStyle]} />
       </View>
     );
-  }
+  };
 }
 
-export default ItemWIthIcon;
+export default ItemWithIcon;
 
 // const style = StyleSheet.create({
 //   container: {

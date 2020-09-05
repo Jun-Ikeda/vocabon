@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import { View } from 'react-native-animatable';
 import Color from '../../config/Color';
 
 const style = StyleSheet.create({
@@ -10,11 +11,14 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   title: { color: Color.font1 },
+  titleContainer: {
+    flex: 1,
+  },
 });
 
 class Item extends Component {
   render() {
-    const { title, onPress, textStyle, containerStyle } = this.props;
+    const { title, onPress, titleStyle, containerStyle } = this.props;
     try {
       return (
         <TouchableOpacity
@@ -22,7 +26,9 @@ class Item extends Component {
           onPress={onPress}
         >
           {this.renderLeft()}
-          <Text style={[style.title, textStyle]}>{title}</Text>
+          <View style={style.titleContainer}>
+            <Text style={[style.title, titleStyle]}>{title}</Text>
+          </View>
           {this.renderRight()}
         </TouchableOpacity>
       );
@@ -38,7 +44,7 @@ class Item extends Component {
     } catch (error) {
       return null;
     }
-  }
+  };
 
   renderRight = () => {
     const { renderRight } = this.props;
@@ -47,7 +53,7 @@ class Item extends Component {
     } catch (error) {
       return null;
     }
-  }
+  };
 }
 
 export default Item;

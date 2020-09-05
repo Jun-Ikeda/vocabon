@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ControlPanel from './dev/ControlPanel';
+// import Demo from './dev/Demo';
 
 import Nav from './src/nav/Nav';
 
@@ -28,6 +29,7 @@ export default class App extends Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={style.container}>
+          {/* <Demo /> */}
           {/* <PracticeNav /> */}
           <Nav />
         </View>
