@@ -1,39 +1,41 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import ItemWithIcon from '../../../../../components/item/ItemWithIcon';
+
+
 
 const style = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    // borderWidth: 1,
-    // borderColor: 'white',
-    height: 60,
+    flex: 1,
+    // height: 120,
+    borderWidth: 1,
+    borderColor: 'white',
+  },
+  iconStyle: {
+    fontSize: 30,
+  },
+  iconContainerStyle: {
+    width: 60,
+    // backgroundColor: 'red',
+  },
+  titleStyle: {
+    fontSize: 26,
   },
 });
 
 class SettingItem extends Component {
   render() {
-    const { title, icon, onPress /* layout */ } = this.props;
-    try {
-      return (
-        <ItemWithIcon
-          title={title}
-          onPress={onPress}
-          icon={icon}
-          containerStyle={style.container}
-        />
-      );
-    } catch (error) {
-      return null;
-    }
+    return (
+      <ItemWithIcon
+        iconStyle={style.iconStyle}
+        iconContainerStyle={style.iconContainerStyle}
+        titleStyle={style.titleStyle}
+        {...this.props}
+        containerStyle={style.container}
+        // icon={{ collection: 'Ionicons', name: 'md-notifications' }}
+      />
+    );
   }
 }
-
-/*
-const dkaoajfio = (a, b, c) => {
-    return (a + b) * c
-}
-*/
 
 export default SettingItem;

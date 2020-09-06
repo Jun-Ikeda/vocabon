@@ -17,7 +17,7 @@ const style = StyleSheet.create({
 class ControlButtons extends Component {
   render() {
     const buttons = [
-      // { title: 'Previous', onPress: gotoPrevious },
+      { title: 'Previous', onPress: () => {} },
       { title: 'Save', onPress: this.bundleSave },
       { title: 'Next', onPress: this.bundleNext },
     ];
@@ -34,13 +34,15 @@ class ControlButtons extends Component {
 
   bundleNext = () => {
     const {
-      page: { word, def, cf, eg },
+      page: { word, def, cf, eg, syn, ant },
       bundle,
       setState,
     } = this.props;
     bundle.push({
       word,
       def,
+      syn,
+      ant,
       cf,
       eg,
       er: 0,
@@ -52,6 +54,8 @@ class ControlButtons extends Component {
       def: '',
       cf: '',
       eg: '',
+      syn: '',
+      ant: '',
       bundle,
     });
   };

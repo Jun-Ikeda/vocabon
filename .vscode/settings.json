@@ -14,5 +14,6 @@
     ]
   },
   "eslint.enable": true,
-  "eslint.lintTask.enable": true
+  "eslint.lintTask.enable": true,
+  // "eslint.executeAutofix": true,
 }

@@ -39,6 +39,8 @@ class AddWords extends Component {
       word: '',
       def: '',
       eg: '',
+      syn: '',
+      ant: '',
       cf: '',
       bundle: [],
       layout: {
@@ -109,21 +111,21 @@ class AddWords extends Component {
   // };
 
   renderTextInputs = () => {
-    const { word, def, eg, cf } = this.state;
+    const { word, def, eg, syn, ant, cf } = this.state;
     return (
       <EachPage
-        page={{ word, def, eg, cf }}
+        page={{ word, def, eg, syn, ant, cf }}
         setState={state => this.setState(state)}
       />
     );
   };
 
   renderButtons = () => {
-    const { word, def, eg, cf, bundle } = this.state;
+    const { word, def, eg, syn, ant, cf, bundle } = this.state;
     const { navigation } = this.props;
     return (
       <ControlButtons
-        page={{ word, def, eg, cf }}
+        page={{ word, def, eg, syn, ant, cf }}
         bundle={bundle}
         navigation={navigation}
         setState={state => this.setState(state)}

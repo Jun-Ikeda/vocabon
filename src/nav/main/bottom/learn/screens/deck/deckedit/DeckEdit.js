@@ -14,6 +14,7 @@ import Header from '../../../../../../../components/Header';
 import Icon from '../../../../../../../components/Icon';
 import ItemWithIcon from '../../../../../../../components/item/ItemWithIcon';
 import Deck from '../../../../../../../config/Firebase/Deck';
+import DeckEditItem from './DeckEditItem';
 
 const style = StyleSheet.create({
   container: {
@@ -30,16 +31,20 @@ const style = StyleSheet.create({
   itemName: {
     flexDirection: 'row',
   },
-  textStyle: {
+  titleStyle: {
     color: Color.font2,
   },
-  subTextStyle: {
+  descBStyle: {
     color: Color.font6,
     fontSize: 15,
+    paddingLeft: 30,
+  },
+  BelowStyle: {
+    flex: 1,
   },
   itemsContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     marginVertical: 50,
     marginHorizontal: 30,
     // borderWidth: 2,
@@ -47,18 +52,16 @@ const style = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    // height: 100,
     justifyContent: 'center',
-    alignItems: 'center',
     marginVertical: 10,
-    // borderBottomWidth: 2,
-    // borderBottomColor: 'black',
-    // borderBottomEndRadius: 50,
+    paddingTop: 20,
+    paddingLeft: 35,
     backgroundColor: Color.background5,
-    // borderColor: 'black',
-    borderWidth: 1,
     borderRadius: 10,
-    // opacity: 0.5,
+  },
+  iconStyle: {
+    color: Color.font2,
+    fontSize: 25,
   },
   buttonIcon: {
     fontSize: 20,
@@ -108,46 +111,64 @@ class DeckEdit extends Component {
     const { navigation } = this.props;
     return (
       <View style={style.itemsContainer}>
-        <ItemWithIcon
+        <DeckEditItem
           title="Title"
+          titleStyle={style.titleStyle}
           onPress={() =>
             navigation.navigate('deckedittitle', {
               ti: deckinfo.ti,
               updateDeckInfo: this.updateDeckInfo.bind(this),
             })
           }
-          textStyle={style.textStyle}
+          containerStyle={style.itemContainer}
           icon={{
             collection: 'MaterialCommunityIcons',
             name: 'format-title',
-            style: style.buttonIcon,
           }}
-          containerStyle={style.itemContainer}
-          subText={deckinfo.ti}
-          subTextStyle={style.subTextStyle}
+          iconStyle={style.iconStyle}
+          descriptionBelow={deckinfo.ti}
+          descBStyle={style.descBStyle}
+          BelowStyle={style.BelowStyle}
         />
-        <ItemWithIcon
+        <DeckEditItem
           title="Style"
-          textStyle={style.textStyle}
+          titleStyle={style.titleStyle}
           onPress={() => console.log('STYLE')}
+          containerStyle={style.itemContainer}
           icon={{
             collection: 'Foundation',
             name: 'page-edit',
-            style: style.buttonIcon,
           }}
-          containerStyle={style.itemContainer}
+          iconStyle={style.iconStyle}
+          descriptionBelow="Style"
+          descBStyle={style.descBStyle}
+          BelowStyle={style.BelowStyle}
         />
-        <ItemWithIcon
+        <DeckEditItem
           title="Tags"
-          onPress={this.returnTags}
-          textStyle={style.textStyle}
+          titleStyle={style.titleStyle}
+          onPress={() => console.log('TAGS')}
+          containerStyle={style.itemContainer}
           icon={{
             collection: 'Ionicons',
             name: 'md-pricetags',
-            style: style.buttonIcon,
+          }}
+          iconStyle={style.iconStyle}
+          descriptionBelow="Tags"
+          descBStyle={style.descBStyle}
+          BelowStyle={style.BelowStyle}
+        />
+        {/*
+        <ItemWithIcon
+          title="Tags"
+          onPress={this.returnTags}
+          titleStyle={style.titleStyle}
+          icon={{
+            collection: 'Ionicons',
+            name: 'md-pricetags',
           }}
           containerStyle={style.itemContainer}
-        />
+        /> */}
       </View>
     );
   };

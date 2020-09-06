@@ -47,7 +47,7 @@ const buttons = [
       <Icon.Entypo name="new-message" style={style.buttonIcon} />
     ),
     onPress: () => {
-      navigateNav('newdeck');
+      navigateNav('newdeckstack');
     },
   },
   {

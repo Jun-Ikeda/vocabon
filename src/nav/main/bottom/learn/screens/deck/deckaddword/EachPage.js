@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import TagInput from 'react-native-tags-input';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from '../../../../../../../components/Icon';
 
 const style = StyleSheet.create({
   inputContainer: {
@@ -22,7 +23,7 @@ class EachPage extends Component {
 
   render() {
     const {
-      page: { word, def, eg, cf },
+      page: { word, def, eg, syn, ant, cf },
       setState,
     } = this.props;
 
@@ -34,6 +35,8 @@ class EachPage extends Component {
         value: def,
       },
       { title: 'Example', setState: eg => setState({ eg }), value: eg },
+      { title: 'Synonym', setState: syn => setState({ syn }), value: syn },
+      { title: 'Antonyms', setState: ant => setState({ ant }), value: ant },
       { title: 'cf', setState: cf => setState({ cf }), value: cf },
     ];
 
@@ -45,8 +48,14 @@ class EachPage extends Component {
             <TextInput onChangeText={input.setState} value={input.value} />
           </View>
         ))}
-        <TagInput updateState={this.updateTagState} tags={this.state.tags} />
-        <TouchableOpacity onPress={() => console.log(this.state.tags)}><Text>a</Text></TouchableOpacity>
+        <TagInput
+          updateState={this.updateTagState}
+          tags={this.state.tags}
+          leftElement={<Icon.Ionicons name="md-settings" />}
+        />
+        <TouchableOpacity onPress={() => console.log(this.state.tags)}>
+          <Text>a</Text>
+        </TouchableOpacity>
       </View>
     );
   }

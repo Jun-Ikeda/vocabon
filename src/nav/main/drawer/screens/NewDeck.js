@@ -101,7 +101,8 @@ export default class NewDeck extends Component {
   }
 
   render() {
-    const { title, learn, understand } = this.state;
+    const { title } = this.state;
+    const { navigation } = this.props;
     return (
       <View style={style.container}>
         <Background
@@ -133,23 +134,44 @@ export default class NewDeck extends Component {
             </TouchableOpacity>
           </View>
           <Text style={style.forthose}>For those who ...</Text>
-          <View style={style.textinputContainer}>
+          {/* <View style={style.textinputContainer}>
             <TextInput
               value={learn}
               onChangeText={learn => this.setState({ learn })}
               style={style.textinput}
               placeholder="Learn"
             />
-          </View>
+          </View> */}
           <View style={style.textinputContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('decklanguage', {
+                  setState: state => this.setState(state),
+                })
+              }
+            >
+              <Text>Press</Text>
+            </TouchableOpacity>
+            <Text>{}</Text>
+            {/* <TextInput
+              value={language}
+              onChangeText={language => this.setState({ language })}
+              style={style.textinput}
+              placeholder="Language"
+            /> */}
+          </View>
+          {/* <View style={style.textinputContainer}>
             <TextInput
               value={understand}
               onChangeText={understand => this.setState({ understand })}
               style={style.textinput}
               placeholder="Understand"
             />
-          </View>
+          </View> */}
         </View>
+        <TouchableOpacity onPress={() => console.log(this.state.learn)}>
+          <Text>aaaa</Text>
+        </TouchableOpacity>
         <View style={style.bottonContainer}>
           <TouchableOpacity style={style.button} onPress={this.createDeck}>
             <Text style={style.buttonTitle}>Create</Text>

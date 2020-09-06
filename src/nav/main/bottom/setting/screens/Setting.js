@@ -4,7 +4,7 @@ import { withNavigationFocus } from 'react-navigation';
 
 // import Color from '../../../../../config/Color';
 import Icon from '../../../../../components/Icon';
-import SettingItem from '../../../../../components/item/material/SettingItem';
+import SettingItem from './SettingItem';
 
 import Gesture from '../../Gesture';
 import TopHeader from '../../TopHeader';

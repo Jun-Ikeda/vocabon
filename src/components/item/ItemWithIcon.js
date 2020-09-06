@@ -23,10 +23,10 @@ const style = StyleSheet.create({
 
 class ItemWithIcon extends Component {
   render() {
-    return <Item renderLeft={this.renderLeft} {...this.props} />;
+    return <Item renderLeft={this.renderIcon} {...this.props} />;
   }
 
-  renderLeft = () => {
+  renderIcon = () => {
     const { icon, iconStyle, iconContainerStyle } = this.props;
     const {
       collection,
@@ -34,7 +34,7 @@ class ItemWithIcon extends Component {
       // style: propsStyle,
       // container: containerStyle,
     } = icon;
-    const IconProps = Icon[collection];
+    const IconProps = Icon[collection];// Iconはファイル名。ここでは特にそのファイルを使ってるのではなくIconを使う時に必要だから
     return (
       <View style={[style.leftElement, iconContainerStyle]}>
         <IconProps name={name} style={[style.icon, iconStyle]} />
@@ -44,6 +44,26 @@ class ItemWithIcon extends Component {
 }
 
 export default ItemWithIcon;
+
+// このcomponentを使う時に必要なprops一覧
+// Itemより
+//     title
+//     titleStyle
+//     onPress
+//     containerStyle
+//     renderLeft
+//     renderRight
+//     renderBelow
+// ItemWithIconより
+//     icon{
+//       collection
+//       name
+//     }
+//     iconContainerStyle
+//     iconStyle
+
+
+
 
 // const style = StyleSheet.create({
 //   container: {

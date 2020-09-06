@@ -35,6 +35,9 @@ const style = StyleSheet.create({
     width: 50,
     height: 20,
   },
+  input: {
+
+  }
 });
 
 class DeckInfoInput extends Component {
@@ -59,6 +62,7 @@ class DeckInfoInput extends Component {
         />
         <View style={style.textBox}>
           <TextInput
+            style={style.input}
             value={title}
             onChangeText={title => this.setState({ title })}
           />

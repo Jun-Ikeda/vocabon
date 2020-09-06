@@ -186,7 +186,7 @@ Array ~ 配列
 
     ・mapについて
     const array = ['リンゴ', 'バナナ', 'パイナップル','ドラゴンフルーツ']
-    array.map(fruit => console.log(fruit))
+    array.map(fruit => console.log(fruit)) fruitにそれぞれの要素をあてはめて逐一関数を実行する
     
 Object ~ オブジェクト
     const object = {
@@ -235,7 +235,6 @@ object: {
 }
 const id = Storage.Function.load({diaogeiad}) //中身がdaijfioaだったら
 oject[id] > { title: 'Deck 1' }
-
 
 // ------------------------------------
 
@@ -326,3 +325,40 @@ const message = 'hello'というときに
 console.log('message from Ikeda :' + message)とするよりも　＜ ''
 console.log(`message from Ikeda ${message}`)とするほうがわかりやすい　＜ ``
 
+// -------------------------------------------------------
+
+展開 ...　について
+const object = {
+    key1: 'value1',
+    key2: 2,
+    key3: [3,4,5],
+}
+
+...object -> key1: 'value1', key2: 2, key3: [3,4,5]
+
+const object2: {
+    ...object,
+    key4: 'value4'
+}
+
+// -----------------------------------------------------------------
+
+<TextInput />の使い方
+1. stateが必要なので, contructor内にstateを書いておく
+contructor(props) {
+    super(props);
+    this.state = {
+        text: ''
+    }
+}
+
+2. <TextInput value={this.state.text} onChangeText={text => this.setState({ text })} />
+と書く
+表示する値はstateのtexだ。
+入があったら逐一setStateする。
+
+// --------------------------------------------
+
+boolean ? 'More' : 'Close'
+ｍももしbooleanがtrueならMore,falseならClose
+=>m

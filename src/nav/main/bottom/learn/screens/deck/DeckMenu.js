@@ -104,6 +104,7 @@ class DeckMenu extends Component {
       layout: { height: 0, width: 0 },
       header: { max: HeaderConst.heightMax, min: HeaderConst.heightMin },
       title: { height: 0, width: 0 },
+      isAdditionalButtonsVisible: false,
     };
   }
 
@@ -365,85 +366,121 @@ class DeckMenu extends Component {
     }
   };
 
-  renderContent = () => {
+  renderAttribution = () => {
+    const { deckinfo } = this.state;
+    if (deckinfo.th.user.name !== 'me') {
+      return (
+        <TouchableOpacity
+          style={style.photographerButton}
+          onPress={() => Linking.openURL(deckinfo.th.user.link)}
+          pointerEvents="box-none"
+        >
+          <Text style={{ color: Color.font5 /* textAlign: 'right' */ }}>
+            {`Photo by ${deckinfo.th.user.name} / Unsplash`}
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  };
+
+  renderDeckButton = () => {
     const {
       id,
+      deckinfo,
+      layout: { width },
+      isAdditionalButtonsVisible,
+    } = this.state;
+    const { navigation } = this.props;
+    const buttons = [
+      {
+        title: 'Play',
+        icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckplay', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Edit',
+        icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckedit', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Add Words',
+        icon: () => (
+          <Icon.AntDesign name="pluscircleo" style={style.deckButtonIcon} />
+        ),
+        onPress: () => {
+          navigation.navigate('addwords', { id, deckinfo });
+        },
+      },
+      // {
+      //   title: 'Bookmark',
+      //   icon: () => (
+      //     <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
+      //   ),
+      //   onPress: () => {
+      //     navigation.navigate('');
+      //   },
+      // },
+      {
+        title: isAdditionalButtonsVisible ? 'Close' : 'More',
+        icon: () => (
+          <Icon.Feather
+            name={isAdditionalButtonsVisible ? 'chevron-up' : 'chevron-down'}
+            style={style.deckButtonIcon}
+          />
+        ),
+        onPress: () => {
+          this.setState(prev => ({
+            isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
+          }));
+        },
+      },
+    ];
+    return buttons.map(button => (
+      <TouchableOpacity
+        style={[style.deckButton, { height: width * 0.25 }]}
+        onPress={button.onPress}
+      >
+        {button.icon()}
+        <Text style={style.deckButtonTitle}>{button.title}</Text>
+      </TouchableOpacity>
+    ));
+  };
+
+  renderDeckInfo = () => {
+    const { deckinfo, v, user } = this.state;
+    const { navigation } = this.props;
+    return (
+      <View style={style.contentContaierSmall}>
+        <View style={style.infoContainer}>
+          <Text>{deckinfo.ti}</Text>
+          <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
+          <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
+        </View>
+        <TouchableOpacity
+          pointerEvents="box-none"
+          onPress={() =>
+            navigation.push('usermenu', { user, uid: deckinfo.user })
+          }
+        >
+          <UserIcon style={style.usericon} user={user} size={48} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  renderContent = () => {
+    const {
       deckinfo,
       v,
       user,
       layout: { width },
     } = this.state;
     const { navigation } = this.props;
-    const renderAttribution = () => {
-      if (deckinfo.th.user.name !== 'me') {
-        return (
-          <TouchableOpacity
-            style={style.photographerButton}
-            onPress={() => Linking.openURL(deckinfo.th.user.link)}
-            pointerEvents="box-none"
-          >
-            <Text style={{ color: Color.font5 /* textAlign: 'right' */ }}>
-              {`Photo by ${deckinfo.th.user.name} / Unsplash`}
-            </Text>
-          </TouchableOpacity>
-        );
-      }
-      return null;
-    };
-    const renderDeckButton = () => {
-      const buttons = [
-        {
-          title: 'Play',
-          icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
-          onPress: () => {
-            navigation.navigate('deckplay', { id, deckinfo });
-          },
-        },
-        {
-          title: 'Edit',
-          icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
-          onPress: () => {
-            navigation.navigate('deckedit', { id, deckinfo });
-          },
-        },
-        {
-          title: 'Add Words',
-          icon: () => (
-            <Icon.AntDesign name="pluscircleo" style={style.deckButtonIcon} />
-          ),
-          onPress: () => {
-            navigation.navigate('addwords', { id, deckinfo });
-          },
-        },
-        {
-          title: 'Bookmark',
-          icon: () => (
-            <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
-          ),
-          onPress: () => {
-            navigation.navigate('');
-          },
-        },
-        {
-          title: 'More',
-          icon: () => (
-            <Icon.Feather name="chevron-down" style={style.deckButtonIcon} />
-          ),
-          onPress: () => {
-            navigation.navigate('');
-          },
-        },
-      ];
-      return buttons.map(button => (
-        <TouchableOpacity
-          style={[style.deckButton, { height: width * 0.15 }]}
-          onPress={button.onPress}
-        >
-          {button.icon()}
-          <Text style={style.deckButtonTitle}>{button.title}</Text>
-        </TouchableOpacity>
-      ));
-    };
     return (
       <View
         style={[
@@ -454,23 +491,10 @@ class DeckMenu extends Component {
           },
         ]}
       >
-        {renderAttribution()}
-        <View style={style.deckButtonContainer}>{renderDeckButton()}</View>
-        <View style={style.contentContaierSmall}>
-          <View style={style.infoContainer}>
-            <Text>{deckinfo.ti}</Text>
-            <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
-            <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
-          </View>
-          <TouchableOpacity
-            pointerEvents="box-none"
-            onPress={() =>
-              navigation.push('usermenu', { user, uid: deckinfo.user })
-            }
-          >
-            <UserIcon style={style.usericon} user={user} size={48} />
-          </TouchableOpacity>
-        </View>
+        {this.renderAttribution()}
+        <View style={style.deckButtonContainer}>{this.renderDeckButton()}</View>
+        {this.renderAdditionalButtons()}
+        {this.renderDeckInfo()}
       </View>
     );
   };
@@ -478,6 +502,28 @@ class DeckMenu extends Component {
   componentWillUnmount() {
     bottomRef.setTabVisible({ visible: true });
   }
+
+  renderAdditionalButtons = () => {
+    const { isAdditionalButtonsVisible } = this.state;
+    if (isAdditionalButtonsVisible) {
+      return <Text>yatta-!</Text>;
+    }
+    return null;
+  };
 }
 
 export default DeckMenu;
+
+/*
+
+BookMark,
+Import,
+Export,
+Duplicate,
+Share,
+Test,
+Analyze
+
+（これらをMoreで出るようにする）
+
+*/

@@ -12,7 +12,7 @@ const Color = {
   accent1: '',
   accent2: '',
   accent3: '',
-  font1: 'rgb(255,255,255)',
+  font1: 'rgb(255,255,255)', // 白
   font2: 'rgb(30,30,30)',
   font3: 'rgb(230,230,230)',
   font4: 'rgb(220,220,220)',

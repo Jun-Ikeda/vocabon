@@ -7,12 +7,16 @@ import Color from '../../config/Color';
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
+    // alignItems: 'center',
   },
   title: { color: Color.font1 },
   titleContainer: {
     flex: 1,
+  },
+  containerLine: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row', // 縦に並べるやつ
   },
 });
 
@@ -25,11 +29,14 @@ class Item extends Component {
           style={[style.container, containerStyle]}
           onPress={onPress}
         >
-          {this.renderLeft()}
-          <View style={style.titleContainer}>
-            <Text style={[style.title, titleStyle]}>{title}</Text>
+          <View style={style.containerLine}>
+            {this.renderLeft()}
+            <View style={style.titleContainer}>
+              <Text style={[style.title, titleStyle]}>{title}</Text>
+            </View>
+            {this.renderRight()}
           </View>
-          {this.renderRight()}
+          {this.renderBelow()}
         </TouchableOpacity>
       );
     } catch (error) {
@@ -54,6 +61,25 @@ class Item extends Component {
       return null;
     }
   };
+
+  renderBelow = () => {
+    const { renderBelow } = this.props;
+    try {
+      return renderBelow();
+    } catch (error) {
+      return null;
+    }
+  };
 }
 
 export default Item;
+
+// このcomponentを使う時に必要なprops一覧
+// Itemより
+//     title
+//     titleStyle
+//     onPress
+//     containerStyle
+//     renderLeft
+//     renderRight
+//     renderBelow
