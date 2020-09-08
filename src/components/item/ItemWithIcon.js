@@ -8,7 +8,7 @@ import Item from './Item';
 
 const style = StyleSheet.create({
   container: {
-    allignItems: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
   },
   leftElement: {
@@ -34,7 +34,7 @@ class ItemWithIcon extends Component {
       // style: propsStyle,
       // container: containerStyle,
     } = icon;
-    const IconProps = Icon[collection];// Iconはファイル名。ここでは特にそのファイルを使ってるのではなくIconを使う時に必要だから
+    const IconProps = Icon[collection]; // Iconはファイル名。ここでは特にそのファイルを使ってるのではなくIconを使う時に必要だから
     return (
       <View style={[style.leftElement, iconContainerStyle]}>
         <IconProps name={name} style={[style.icon, iconStyle]} />
@@ -61,9 +61,6 @@ export default ItemWithIcon;
 //     }
 //     iconContainerStyle
 //     iconStyle
-
-
-
 
 // const style = StyleSheet.create({
 //   container: {

@@ -23,6 +23,7 @@ const style = StyleSheet.create({
 class DeckCarousel extends Component {
   constructor(props) {
     super(props);
+    this.carouselRef = {};
     this.state = {
       layout: { height: 100, width: 100 },
       active: 0,
@@ -51,6 +52,9 @@ class DeckCarousel extends Component {
             itemWidth={width * 0.6}
             sliderWidth={width * 1.0}
             onSnapToItem={index => this.setState({ active: index })}
+            ref={carouselRef => {
+              this.carouselRef = carouselRef;
+            }}
           />
           <Pagination
             dotsLength={data.length}
@@ -58,6 +62,7 @@ class DeckCarousel extends Component {
             containerStyle={{ paddingVertical: 15 }}
             dotStyle={{ backgroundColor: Color.font3 }}
           />
+          {this.renderButtons()}
         </View>
       );
     } catch (error) {
@@ -150,28 +155,39 @@ class DeckCarousel extends Component {
       } catch (error) {
         return null;
       }
-      // const values = Object.keys(data).map(key => data[key]);
-      // console.log({ propsData: values });
-      // try {
-      //   for (const child of Object.keys(data)) {
-      //     Deck.setListenerV({
-      //       deckid: child,
-      //       callback: v =>
-      //         this.setState(prev => {
-      //           prev.v[child] = v; /* .push(v); */
-      // console.log({ v: prev.v });
-      // console.log({ [child]: v });
-      //           return { v: prev.v };
-      //         }),
-      //     });
-      //   }
-      // } catch (error) {
-      //   return null;
-      // }
     } else {
       return null;
     }
   }
+
+  renderButtons = () => {
+    const { data } = this.props;
+    const { active } = this.state;
+    if (active === 0) {
+      return (
+        <TouchableOpacity onPress={() => this.carouselRef.snapToNext()}>
+          <Text style={{ color: 'white' }}>Next</Text>
+        </TouchableOpacity>
+      );
+    }
+    if (active === data.length) {
+      return (
+        <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
+          <Text style={{ color: 'white' }}>Prev</Text>
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <View>
+        <TouchableOpacity onPress={() => this.carouselRef.snapToNext()}>
+          <Text style={{ color: 'white' }}>Next</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
+          <Text style={{ color: 'white' }}>Prev</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 }
 
 export default DeckCarousel;
