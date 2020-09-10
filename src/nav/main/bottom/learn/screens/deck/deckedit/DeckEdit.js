@@ -102,6 +102,7 @@ class DeckEdit extends Component {
           onPressLeft={this.goBack}
         />
         {this.renderItems()}
+        {this.renderEditContent()}
       </View>
     );
   }
@@ -212,6 +213,16 @@ class DeckEdit extends Component {
     }
     navigation.goBack();
   };
+
+  renderEditContent = () => {
+    const { id, deckinfo } = this.state;
+    const { navigation } = this.props;
+    return (
+      <TouchableOpacity onPress={() => navigation.navigate('deckeditcontent', { id, deckinfo })}>
+        <Text>Edit Content</Text>
+      </TouchableOpacity>
+    );
+  }
 }
 
 export default DeckEdit;

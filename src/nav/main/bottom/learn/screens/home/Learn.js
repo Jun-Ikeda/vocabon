@@ -13,6 +13,8 @@ import Gesture from '../../../Gesture';
 import TopHeader from '../../../TopHeader';
 import { bottomRef } from '../../../BottomNav';
 import Deck from '../../../../../../config/Firebase/Deck';
+import { Function } from '../../../../../../config/Firebase/Firebase';
+import { Functions } from '../../../../../../config/Const';
 
 const style = StyleSheet.create({
   container: {
@@ -40,6 +42,7 @@ class Learn extends Component {
       User.updateListener({
         uid: auth.uid,
         callback: async data => {
+          console.log('called back', Functions.getTime());
           await User.update({
             uid: auth.uid,
             updated: data,

@@ -43,6 +43,7 @@ const update = async ({ collection, id, updated, expires }) => {
     .get()
     .then(doc => {
       const result = doc.exists ? doc.data() : null;
+      console.log({ function: 'unpdate()', result });
       return result;
     });
   await Storage.Function.save({
@@ -72,6 +73,7 @@ const save = async ({
       const params = { key: collection, id, data: { data }, merge };
       const param = expires === false ? { ...params } : { ...params, expires };
       await Storage.Function.save(param);
+      console.log({ function: 'save()', data });
       up.update({ collection, id });
     });
 };
@@ -82,6 +84,7 @@ const remove = async ({ collection, id }) => {
     .doc(id)
     .delete();
   await database.ref(`${collection}/${id}`).remove();
+  console.log({ function: 'remove()', collection, id })
   Storage.Function.remove({ key: collection, id });
 };
 
@@ -98,7 +101,7 @@ const up = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => {} }) => {
+  setListener: ({ collection, id, callback = () => { } }) => {
     database.ref(`/${collection}/${id}/up`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);
@@ -119,7 +122,7 @@ const v = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => {} }) => {
+  setListener: ({ collection, id, callback = () => { } }) => {
     database.ref(`/${collection}/${id}/v`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);

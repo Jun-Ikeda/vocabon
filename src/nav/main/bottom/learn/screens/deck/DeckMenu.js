@@ -523,6 +523,7 @@ Duplicate,
 Share,
 Test,
 Analyze
+Delete < 薄赤のボタンで
 
 （これらをMoreで出るようにする）
 

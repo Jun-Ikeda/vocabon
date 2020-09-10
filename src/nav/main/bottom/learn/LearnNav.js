@@ -13,6 +13,7 @@ import DeckEdit from './screens/deck/deckedit/DeckEdit';
 import DeckEditTitle from './screens/deck/deckedit/DeckEditTitle';
 import AddWords from './screens/deck/deckaddword/AddWords';
 import DeckPlay from './screens/deck/deckplay/DeckPlay';
+import DeckEditContent from './screens/deck/deckedit/DeckEditContent'
 
 const StackNavigator = createStackNavigator(
   {

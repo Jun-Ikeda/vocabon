@@ -7,6 +7,8 @@ import { Functions } from '../../../../../../../config/Const';
 import EachCard from './card/EachCard';
 import NoMoreCards from './card/NoMoreCards';
 
+import Buttons from './Buttons'
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -32,6 +34,7 @@ class Cards extends Component {
         }
       >
         {this.renderCards()}
+        {this.renderButtons()}
       </View>
     );
   }
@@ -93,6 +96,13 @@ class Cards extends Component {
       />
     );
   };
+
+  renderButtons =() => {
+    const {} = this.state;
+    return (
+      <Buttons swiperRef={this.swiperRef} />
+    )
+  }
 
   onSwipeRight(card) {
     console.log(`Yup for ${card.word}`);
