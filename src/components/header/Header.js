@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { HeaderConst } from '../config/Const';
+import { HeaderConst } from '../../config/Const';
 
 const style = StyleSheet.create({
   container: {
@@ -74,6 +74,10 @@ export default class Header extends Component {
               style.left,
               leftStyle,
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
+              {
+                backgroundColor:
+                  onPressLeft || onLongPressLeft ? 'blue' : 'red',
+              },
             ]}
             onPress={onPressLeft}
             pointerEvents={onPressLeft || onLongPressLeft ? 'box-none' : 'none'}
@@ -82,7 +86,14 @@ export default class Header extends Component {
             {this.renderComponents('left')}
           </TouchableOpacity>
           <TouchableOpacity
-            style={[style.title, titleStyle]}
+            style={[
+              style.title,
+              titleStyle,
+              {
+                backgroundColor:
+                  onPressLeft || onLongPressLeft ? 'blue' : 'red',
+              },
+            ]}
             onPress={onPressTitle}
             pointerEvents={
               onPressTitle || onLongPressTitle ? 'box-none' : 'none'
@@ -96,6 +107,10 @@ export default class Header extends Component {
               style.right,
               rightStyle,
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
+              {
+                backgroundColor:
+                  onPressLeft ? 'blue' : 'red',
+              },
             ]}
             onPress={onPressRight}
             pointerEvents={

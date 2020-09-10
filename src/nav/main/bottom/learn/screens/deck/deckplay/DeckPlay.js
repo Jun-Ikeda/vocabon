@@ -4,7 +4,7 @@ import { View, Text, StyleSheet /* TouchableOpacity */ } from 'react-native';
 import Color from '../../../../../../../config/Color';
 import Deck from '../../../../../../../config/Firebase/Deck';
 
-import Header from '../../../../../../../components/Header';
+import Header from '../../../../../../../components/header/Header';
 import Icon from '../../../../../../../components/Icon';
 
 import Cards from './Cards';

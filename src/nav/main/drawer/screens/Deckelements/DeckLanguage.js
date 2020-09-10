@@ -9,7 +9,7 @@ import {
 
 // import Color from '../../../../../config/Color';
 
-import Header from '../../../../../components/Header';
+import Header from '../../../../../components/header/Header';
 import Icon from '../../../../../components/Icon';
 
 const style = StyleSheet.create({

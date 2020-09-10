@@ -12,7 +12,7 @@ import Color from '../../../../config/Color';
 import Deck from '../../../../config/Firebase/Deck';
 import { getRandomImage } from '../../../../config/Unsplash';
 
-import Header from '../../../../components/Header';
+import Header from '../../../../components/header/Header';
 import Icon from '../../../../components/Icon';
 import Background from '../../../../components/Background';
 

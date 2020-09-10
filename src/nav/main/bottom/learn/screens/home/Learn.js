@@ -15,10 +15,14 @@ import { bottomRef } from '../../../BottomNav';
 import Deck from '../../../../../../config/Firebase/Deck';
 import { Function } from '../../../../../../config/Firebase/Firebase';
 import { Functions } from '../../../../../../config/Const';
+import Icon from '../../../../../../components/Icon';
+import Color from '../../../../../../config/Color';
+import FloatingButton from './FloatingButton';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: Color.background1
   },
 });
 
@@ -68,6 +72,7 @@ class Learn extends Component {
       <Gesture style={{ opacity: isFocused ? 1 : 0 }}>
         {this.renderHeader()}
         {this.renderContent()}
+        {this.renderActionButton()}
       </Gesture>
     );
   }
@@ -107,6 +112,11 @@ class Learn extends Component {
         />
       </View>
     );
+  };
+
+  renderActionButton = () => {
+    const { navigation } = this.props;
+    return <FloatingButton onPress={() => navigation.navigate('search')} />;
   };
 }
 export default withNavigationFocus(Learn);

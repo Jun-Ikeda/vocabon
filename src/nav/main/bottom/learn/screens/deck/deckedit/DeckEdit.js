@@ -10,7 +10,7 @@ import {
 import Color from '../../../../../../../config/Color';
 import { Functions } from '../../../../../../../config/Const';
 
-import Header from '../../../../../../../components/Header';
+import Header from '../../../../../../../components/header/Header';
 import Icon from '../../../../../../../components/Icon';
 import ItemWithIcon from '../../../../../../../components/item/ItemWithIcon';
 import Deck from '../../../../../../../config/Firebase/Deck';

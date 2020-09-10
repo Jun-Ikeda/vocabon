@@ -10,7 +10,7 @@ import {
 import Color from '../../../config/Color';
 import { StyleConst } from '../../../config/Const';
 
-import Header from '../../../components/Header';
+import Header from '../../../components/header/Header';
 import Icon from '../../../components/Icon';
 
 import { bottomRef } from '../bottom/BottomNav';

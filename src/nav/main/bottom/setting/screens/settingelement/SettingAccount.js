@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Color from '../../../../../../config/Color';
 import Storage from '../../../../../../config/Storage';
 
-import Header from '../../../../../../components/Header';
+import Header from '../../../../../../components/header/Header';
 import Icon from '../../../../../../components/Icon';
 import User from '../../../../../../config/Firebase/User';
 

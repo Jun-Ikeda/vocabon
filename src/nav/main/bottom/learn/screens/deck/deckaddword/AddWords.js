@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Header from '../../../../../../../components/Header';
+import Header from '../../../../../../../components/header/Header';
 import Icon from '../../../../../../../components/Icon';
 import Color from '../../../../../../../config/Color';
 // import Deck from '../../../../../../../config/Firebase/Deck';

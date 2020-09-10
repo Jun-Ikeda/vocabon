@@ -16,7 +16,7 @@ import { HeaderConst, StyleConst } from '../../../../../../config/Const';
 import Color from '../../../../../../config/Color';
 import User from '../../../../../../config/Firebase/User';
 
-import Header from '../../../../../../components/Header';
+import Header from '../../../../../../components/header/Header';
 import Icon from '../../../../../../components/Icon';
 import UserIcon from '../../../../../../components/UserIcon';
 

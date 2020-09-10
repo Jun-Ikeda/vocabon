@@ -13,7 +13,7 @@ import DeckEdit from './screens/deck/deckedit/DeckEdit';
 import DeckEditTitle from './screens/deck/deckedit/DeckEditTitle';
 import AddWords from './screens/deck/deckaddword/AddWords';
 import DeckPlay from './screens/deck/deckplay/DeckPlay';
-import DeckEditContent from './screens/deck/deckedit/DeckEditContent'
+import Search from './screens/deck/search/Search';
 
 const StackNavigator = createStackNavigator(
   {
@@ -24,6 +24,7 @@ const StackNavigator = createStackNavigator(
     deckedittitle: { screen: DeckEditTitle },
     addwords: { screen: AddWords },
     deckplay: { screen: DeckPlay },
+    search: { screen: Search },
   },
   {
     headerMode: 'none',

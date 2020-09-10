@@ -13,7 +13,7 @@ import Color from '../../../config/Color';
 import { behaviorOfKeyAvoidView } from '../../../config/Const';
 import { auth } from '../../../config/Firebase/Firebase';
 
-import Header from '../../../components/Header';
+import Header from '../../../components/header/Header';
 import Icon from '../../../components/Icon';
 import { ModalError, ModalWithImage } from '../../../components/Modal';
 
