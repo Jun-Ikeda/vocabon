@@ -170,7 +170,7 @@ class DeckCarousel extends Component {
         </TouchableOpacity>
       );
     }
-    if (active === data.length) {
+    if (active === data.length - 1) {
       return (
         <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
           <Text style={{ color: 'white' }}>Prev</Text>

@@ -8,7 +8,7 @@ import { TextInput } from 'react-native-gesture-handler';
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
   header: {
     color: Color.font1,
@@ -18,6 +18,7 @@ const style = StyleSheet.create({
 export default class Search extends Component {
   constructor(props) {
     super(props);
+    this.inputRef = {}
     this.state = {
       text: '',
     };
@@ -32,6 +33,10 @@ export default class Search extends Component {
     );
   }
 
+  componentDidMount() {
+    this.inputRef.focus();
+  }
+
   renderHeader = () => {
     const { navigation } = this.props;
     const { text } = this.props;
@@ -43,13 +48,15 @@ export default class Search extends Component {
             onChangeText={text => this.setState({ text })}
             placeholder="Search"
             placeholderTextColor={Color.font4}
-            style={{ color: 'white' }}
+            style={{ color: 'white', alignSelf: 'flex-start', flex: 1 }}
+            ref={inputRef => { this.inputRef = inputRef; }}
           />
         )}
         navigation={navigation}
         title="Search"
         titleStyle={style.header}
         iconStyle={style.header}
+        renderRight={() => {}}
       />
     );
   };
