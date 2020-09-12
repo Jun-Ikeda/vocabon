@@ -23,21 +23,28 @@ const style = StyleSheet.create({
     fontSize: 25,
   },
   textBox: {
+    flex: 1,
+    // marginTop: 20,
     alignItems: 'center',
     // justifyContent: 'center',
     // borderColor: 'transparent',
   },
   button: {
+    flex: 1,
     alignItems: 'center',
-    alignSelf: 'center',
     // justifyContent: 'center',
     backgroundColor: 'yellow',
-    width: 50,
-    height: 20,
+    marginTop: 20,
+  },
+  buttonText: {
+    // alignSelf: 'center',
   },
   input: {
-
-  }
+  },
+  content: {
+    height: 280,
+    marginHorizontal: 20,
+  },
 });
 
 class DeckPropertyTitle extends Component {
@@ -60,16 +67,16 @@ class DeckPropertyTitle extends Component {
           renderTitle={() => <Text>Title</Text>}
           onPressLeft={() => navigation.goBack()}
         />
-        <View style={style.textBox}>
-          <TextInput
-            style={style.input}
-            value={title}
-            onChangeText={title => this.setState({ title })}
-          />
-        </View>
-        <View>
+        <View style={style.content}>
+          <View style={style.textBox}>
+            <TextInput
+              style={style.input}
+              value={title}
+              onChangeText={title => this.setState({ title })}
+            />
+          </View>
           <TouchableOpacity onPress={this.save} style={style.button}>
-            <Text>Save</Text>
+            <Text style={style.buttonText}>Save</Text>
           </TouchableOpacity>
         </View>
       </View>

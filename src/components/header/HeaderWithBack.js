@@ -21,7 +21,7 @@ export default class HeaderWithBack extends Component {
   }
 
   render() {
-    const { title, titleStyle, iconStyle } = this.props;
+    const { iconStyle } = this.props;
     return (
       <Header
         renderLeft={() => (
@@ -30,20 +30,31 @@ export default class HeaderWithBack extends Component {
             style={[style.headerIcon, iconStyle]}
           />
         )}
-        renderTitle={() => (
-          <Text style={[style.title, titleStyle]}>{title}</Text>
-        )}
+        renderTitle={this.renderTitle}
         onPressLeft={this.goBack}
         {...this.props}
       />
     );
   }
 
+  renderTitle = () => {
+    const { renderTitle, titleStyle, title } = this.props;
+    try {
+      // return renderTitle();
+      return <View style={{ flex: 1, backgroundColor: 'red' }} />;
+      // } />
+    } catch (error) {
+      return (
+        <Text style={[style.title, titleStyle]}>{title}</Text>
+      );
+    }
+  }
+
   goBack = () => {
     const { navigation, onPressLeft } = this.props;
     try {
       onPressLeft();
-    } catch (error) {}
+    } catch (error) { }
     navigation.goBack();
   };
 }

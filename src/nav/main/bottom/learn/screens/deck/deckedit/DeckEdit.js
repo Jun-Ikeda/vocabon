@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Color from '../../../../../../../config/Color';
+import HeaderWithBack from '../../../../../../../components/header/HeaderWithBack';
 
 const style = StyleSheet.create({
   container: {
@@ -17,9 +18,10 @@ export default class DeckEdit extends Component {
   }
 
   render() {
+    const {navigation} = this.props;
     return (
       <View style={style.container}>
-        <Text> DeckEdit </Text>
+        <HeaderWithBack navigation={navigation} title="Edit" />
       </View>
     );
   }

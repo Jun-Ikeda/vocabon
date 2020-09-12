@@ -37,6 +37,7 @@ export default DeckPropertyItem;
 //     renderLeft
 //     renderRight
 //     renderBelow
+//     containerLine
 // ItemWithIconより
 //     icon{
 //       collection

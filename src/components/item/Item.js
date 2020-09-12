@@ -13,33 +13,30 @@ const style = StyleSheet.create({
   titleContainer: {
     flex: 1,
   },
-  containerLine: {
+  line: {
     // flex: 1,
     alignItems: 'center',
     flexDirection: 'row', // 縦に並べるやつ
-    backgroundColor: 'blue',
-    borderWidth: 2,
-    borderColor: 'white',
   },
 });
 
 class Item extends Component {
   render() {
-    const { title, onPress, titleStyle, containerStyle } = this.props;
+    const { title, onPress, titleStyle, containerStyle, containerLine } = this.props;
     try {
       return (
         <TouchableOpacity
           style={[style.container, containerStyle]}
           onPress={onPress}
         >
-          <View style={style.containerLine}>
+          <View style={[style.line, containerLine]}>
             {this.renderLeft()}
             <View style={style.titleContainer}>
               <Text style={[style.title, titleStyle]}>{title}</Text>
             </View>
             {this.renderRight()}
           </View>
-          <View style={style.containerLine}>
+          <View style={[style.line, containerLine]}>
             {this.renderBelow()}
           </View>
         </TouchableOpacity>
@@ -88,3 +85,4 @@ export default Item;
 //     renderLeft
 //     renderRight
 //     renderBelow
+//     containerLine

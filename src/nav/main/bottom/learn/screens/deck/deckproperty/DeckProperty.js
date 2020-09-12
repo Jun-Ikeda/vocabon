@@ -54,7 +54,6 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginVertical: 10,
-    // paddingTop: 20,
     paddingLeft: 35,
     backgroundColor: Color.background5,
     borderRadius: 10,
@@ -67,6 +66,14 @@ const style = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 50,
     color: Color.background4,
+  },
+  containerLine: {
+    // alignItems: 'center',
+    paddingVertical: 10, // 固定値だから変える
+    flexDirection: 'row', // 縦に並べるやつ
+    // backgroundColor: 'blue',
+    // borderWidth: 2,
+    // borderColor: 'white',
   },
 });
 
@@ -130,6 +137,7 @@ class DeckProperty extends Component {
           descriptionBelow={deckinfo.ti}
           descBStyle={style.descBStyle}
           BelowStyle={style.BelowStyle}
+          containerLine={style.containerLine}
         />
         <DeckPropertyItem
           title="Style"
@@ -144,6 +152,7 @@ class DeckProperty extends Component {
           descriptionBelow="Style"
           descBStyle={style.descBStyle}
           BelowStyle={style.BelowStyle}
+          containerLine={style.containerLine}
         />
         <DeckPropertyItem
           title="Tags"
@@ -158,18 +167,8 @@ class DeckProperty extends Component {
           descriptionBelow="Tags"
           descBStyle={style.descBStyle}
           BelowStyle={style.BelowStyle}
+          containerLine={style.containerLine}
         />
-        {/*
-        <ItemWithIcon
-          title="Tags"
-          onPress={this.returnTags}
-          titleStyle={style.titleStyle}
-          icon={{
-            collection: 'Ionicons',
-            name: 'md-pricetags',
-          }}
-          containerStyle={style.itemContainer}
-        /> */}
       </View>
     );
   };

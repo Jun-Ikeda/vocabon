@@ -89,10 +89,10 @@ export default class Header extends Component {
             style={[
               style.title,
               titleStyle,
-              // {
-              //   backgroundColor:
+              {
+                backgroundColor: 'blue',
               //     onPressLeft || onLongPressLeft ? 'blue' : 'red',
-              // },
+              },
             ]}
             onPress={onPressTitle}
             pointerEvents={
