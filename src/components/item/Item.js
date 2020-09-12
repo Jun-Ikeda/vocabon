@@ -14,9 +14,12 @@ const style = StyleSheet.create({
     flex: 1,
   },
   containerLine: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     flexDirection: 'row', // 縦に並べるやつ
+    backgroundColor: 'blue',
+    borderWidth: 2,
+    borderColor: 'white',
   },
 });
 
@@ -36,7 +39,9 @@ class Item extends Component {
             </View>
             {this.renderRight()}
           </View>
-          {this.renderBelow()}
+          <View style={style.containerLine}>
+            {this.renderBelow()}
+          </View>
         </TouchableOpacity>
       );
     } catch (error) {

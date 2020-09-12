@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import TagInput from 'react-native-tags-input';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from '../../../../../../../components/Icon';
+import Icon from '../../../../../../../../components/Icon';
 
 const style = StyleSheet.create({
   inputContainer: {

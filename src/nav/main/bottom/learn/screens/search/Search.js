@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Header from '../../../../../../../components/header/Header';
-import HeaderWithBack from '../../../../../../../components/header/HeaderWithBack';
-import Color from '../../../../../../../config/Color';
-import { TextInput } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import Header from '../../../../../../components/header/Header';
+import HeaderWithBack from '../../../../../../components/header/HeaderWithBack';
+import Color from '../../../../../../config/Color';
+// import { TextInput } from 'react-native-gesture-handler';
 
 const style = StyleSheet.create({
   container: {

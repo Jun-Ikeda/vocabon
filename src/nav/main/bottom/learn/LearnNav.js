@@ -9,20 +9,21 @@ import {
 import Learn from './screens/home/Learn';
 import DeckMenu from './screens/deck/DeckMenu';
 import UserMenu from './screens/UserMenu';
+import DeckProperty from './screens/deck/deckproperty/DeckProperty';
+import DeckPropertyTitle from './screens/deck/deckproperty/DeckPropertyTitle';
 import DeckEdit from './screens/deck/deckedit/DeckEdit';
-import DeckEditTitle from './screens/deck/deckedit/DeckEditTitle';
-import AddWords from './screens/deck/deckaddword/AddWords';
 import DeckPlay from './screens/deck/deckplay/DeckPlay';
-import Search from './screens/deck/search/Search';
+import Search from './screens/search/Search';
 
 const StackNavigator = createStackNavigator(
   {
     learn: { screen: Learn },
     deckmenu: { screen: DeckMenu },
     usermenu: { screen: UserMenu },
+    deckproperty: { screen: DeckProperty },
+    deckpropertytitle: { screen: DeckPropertyTitle },
     deckedit: { screen: DeckEdit },
-    deckedittitle: { screen: DeckEditTitle },
-    addwords: { screen: AddWords },
+    // addwords: { screen: AddWords },
     deckplay: { screen: DeckPlay },
     search: { screen: Search },
   },

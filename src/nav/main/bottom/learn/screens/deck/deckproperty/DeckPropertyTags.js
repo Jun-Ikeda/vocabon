@@ -7,7 +7,7 @@ const style = StyleSheet.create({
   },
 });
 
-class DeckEditTags extends Component {
+class DeckPropertyTags extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -18,10 +18,10 @@ class DeckEditTags extends Component {
     const {} = this.state;
     return (
       <View style={style.container}>
-        <Text>This is DeckEditTags screen!</Text>
+        <Text>This is DeckPropertyTags screen!</Text>
       </View>
     );
   }
 }
 
-export default DeckEditTags;
+export default DeckPropertyTags;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Deck from '../../../../../../../config/Firebase/Deck';
+import Deck from '../../../../../../../../config/Firebase/Deck';
 
 const style = StyleSheet.create({
   buttonsContainer: {

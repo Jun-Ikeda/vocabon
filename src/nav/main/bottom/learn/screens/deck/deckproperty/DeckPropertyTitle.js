@@ -40,7 +40,7 @@ const style = StyleSheet.create({
   }
 });
 
-class DeckInfoInput extends Component {
+class DeckPropertyTitle extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,4 +90,4 @@ class DeckInfoInput extends Component {
   }
 }
 
-export default DeckInfoInput;
+export default DeckPropertyTitle;

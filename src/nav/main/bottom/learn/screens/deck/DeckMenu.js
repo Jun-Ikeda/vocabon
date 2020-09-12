@@ -401,19 +401,19 @@ class DeckMenu extends Component {
         },
       },
       {
-        title: 'Edit',
-        icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
+        title: 'Property',
+        icon: () => <Icon.Ionicons name="md-list" style={style.deckButtonIcon} />,
         onPress: () => {
-          navigation.navigate('deckedit', { id, deckinfo });
+          navigation.navigate('deckproperty', { id, deckinfo });
         },
       },
       {
-        title: 'Add Words',
+        title: 'Edit',
         icon: () => (
-          <Icon.AntDesign name="pluscircleo" style={style.deckButtonIcon} />
+          <Icon.Feather name="edit" style={style.deckButtonIcon} />
         ),
         onPress: () => {
-          navigation.navigate('addwords', { id, deckinfo });
+          navigation.navigate('deckedit', { id, deckinfo });
         },
       },
       // {

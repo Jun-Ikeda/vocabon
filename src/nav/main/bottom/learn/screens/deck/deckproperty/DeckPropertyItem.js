@@ -8,7 +8,7 @@ const style = StyleSheet.create({
   },
 });
 
-class DeckEditItem extends Component {
+class DeckPropertyItem extends Component {
   render() {
     const { descriptionBelow, descBStyle, BelowStyle } = this.props;
     return (
@@ -26,7 +26,7 @@ class DeckEditItem extends Component {
   }
 }
 
-export default DeckEditItem;
+export default DeckPropertyItem;
 
 // このcomponentを使う時に必要なprops一覧
 // Itemより
