@@ -85,13 +85,13 @@ export default class Header extends Component {
           >
             {this.renderComponents('left')}
           </TouchableOpacity>
-          <TouchableOpacity
+          <View
             style={[
               style.title,
               titleStyle,
               {
                 backgroundColor: 'blue',
-              //     onPressLeft || onLongPressLeft ? 'blue' : 'red',
+                //     onPressLeft || onLongPressLeft ? 'blue' : 'red',
               },
             ]}
             onPress={onPressTitle}
@@ -102,7 +102,7 @@ export default class Header extends Component {
             onLongPress={onLongPressTitle}
           >
             {this.renderComponents('title')}
-          </TouchableOpacity>
+          </View>
           <TouchableOpacity
             style={[
               style.right,

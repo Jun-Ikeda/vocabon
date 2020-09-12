@@ -42,14 +42,23 @@ export default class Search extends Component {
     const { text } = this.props;
     return (
       <HeaderWithBack
-        renderTitle={() => (
+        renderCenter={() => (
+          // <View style={{flex: 1, backgroundColor: 'red', alignSelf: 'stretch'}} />
           <TextInput
             value={text}
             onChangeText={text => this.setState({ text })}
             placeholder="Search"
             placeholderTextColor={Color.font4}
-            style={{ color: 'white', alignSelf: 'flex-start', flex: 1, /* backgroundColor: 'white', */ alignItems: 'stretch'/* ,paddingRight: 150 */ }}
-            ref={inputRef => { this.inputRef = inputRef; }}
+            style={{
+              color: 'white',
+              flex: 1,
+              alignSelf: 'stretch',
+              backgroundColor: 'white',
+              // paddingRight: 150,
+            }}
+            ref={inputRef => {
+              this.inputRef = inputRef;
+            }}
           />
         )}
         navigation={navigation}

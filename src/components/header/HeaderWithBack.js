@@ -30,7 +30,7 @@ export default class HeaderWithBack extends Component {
             style={[style.headerIcon, iconStyle]}
           />
         )}
-        renderTitle={this.renderTitle}
+        renderTitle={() => this.renderTitle()}
         onPressLeft={this.goBack}
         {...this.props}
       />
@@ -38,23 +38,24 @@ export default class HeaderWithBack extends Component {
   }
 
   renderTitle = () => {
-    const { renderTitle, titleStyle, title } = this.props;
+    const { renderCenter, titleStyle, title } = this.props;
+    // return (
+    //   <View style={{ flex: 1, backgroundColor: 'red', alignSelf: 'stretch' }} />
+    // );
     try {
-      // return renderTitle();
-      return <View style={{ flex: 1, backgroundColor: 'red' }} />;
+      return renderCenter();
+      // return <View style={{ flex: 1, backgroundColor: 'red' }} />;
       // } />
     } catch (error) {
-      return (
-        <Text style={[style.title, titleStyle]}>{title}</Text>
-      );
+      return <Text style={[style.title, titleStyle]}>{title}</Text>;
     }
-  }
+  };
 
   goBack = () => {
     const { navigation, onPressLeft } = this.props;
     try {
       onPressLeft();
-    } catch (error) { }
+    } catch (error) {}
     navigation.goBack();
   };
 }
