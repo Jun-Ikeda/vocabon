@@ -24,7 +24,7 @@ const style = StyleSheet.create({
   },
   textBox: {
     flex: 1,
-    // marginTop: 20,
+    justifyContent: 'center',
     alignItems: 'center',
     // justifyContent: 'center',
     // borderColor: 'transparent',
@@ -32,18 +32,18 @@ const style = StyleSheet.create({
   button: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     backgroundColor: 'yellow',
-    marginTop: 20,
   },
   buttonText: {
-    // alignSelf: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'red',
   },
-  input: {
-  },
+  input: {},
   content: {
     height: 280,
     marginHorizontal: 20,
+    backgroundColor: 'red',
   },
 });
 
@@ -67,7 +67,8 @@ class DeckPropertyTitle extends Component {
           renderTitle={() => <Text>Title</Text>}
           onPressLeft={() => navigation.goBack()}
         />
-        <View style={style.content}>
+        <View style={{ flex: 1, backgroundColor: 'black' }} />
+        <View style={{ flex: 2 }}>
           <View style={style.textBox}>
             <TextInput
               style={style.input}
@@ -79,6 +80,7 @@ class DeckPropertyTitle extends Component {
             <Text style={style.buttonText}>Save</Text>
           </TouchableOpacity>
         </View>
+        <View style={{ flex: 3, backgroundColor: 'blue' }} />
       </View>
     );
   }

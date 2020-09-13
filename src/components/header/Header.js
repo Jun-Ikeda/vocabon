@@ -74,10 +74,9 @@ export default class Header extends Component {
               style.left,
               leftStyle,
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
-              // {
-              //   backgroundColor:
-              //     onPressLeft || onLongPressLeft ? 'blue' : 'red',
-              // },
+              {
+                backgroundColor: 'red',
+              },
             ]}
             onPress={onPressLeft}
             pointerEvents={onPressLeft || onLongPressLeft ? 'box-none' : 'none'}
@@ -85,33 +84,30 @@ export default class Header extends Component {
           >
             {this.renderComponents('left')}
           </TouchableOpacity>
-          <View
+          <TouchableOpacity
             style={[
               style.title,
               titleStyle,
               {
-                backgroundColor: 'blue',
-                //     onPressLeft || onLongPressLeft ? 'blue' : 'red',
+                backgroundColor: 'green',
               },
             ]}
             onPress={onPressTitle}
             pointerEvents={
-              // "none"
               onPressTitle || onLongPressTitle ? 'box-none' : 'none'
             }
             onLongPress={onLongPressTitle}
           >
             {this.renderComponents('title')}
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[
               style.right,
               rightStyle,
               { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
-              // {
-              //   backgroundColor:
-              //     onPressLeft ? 'blue' : 'red',
-              // },
+              {
+                backgroundColor: 'blue',
+              },
             ]}
             onPress={onPressRight}
             pointerEvents={
@@ -124,6 +120,45 @@ export default class Header extends Component {
         </View>
       );
     }
+  };
+
+  renderContent = () => {
+    const { renderLeft, renderTitle, renderRight, large } = this.props;
+    const parts = [
+      {
+        name: 'left',
+        render: renderLeft,
+        style: [
+          style.left,
+          {
+            backgroundColor: 'red',
+            width: large ? HeaderConst.heightMax : HeaderConst.heightMin,
+          },
+        ],
+      },
+      {
+        name: 'title',
+        render: renderTitle,
+        style: [style.title, { backgroundColor: 'green' }],
+      },
+      {
+        name: 'right',
+        render: renderRight,
+        style: [
+          style.right,
+          {
+            backgroundColor: 'blue',
+            width: large ? HeaderConst.heightMax : HeaderConst.heightMin,
+          },
+        ],
+      },
+    ];
+    // return parts.map(part => {
+    //   const partStyle = {}
+    //   return (
+    //     try {}
+    //   )
+    // })
   };
 
   renderComponents = part => {

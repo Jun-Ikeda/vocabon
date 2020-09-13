@@ -53,7 +53,7 @@ export default class Search extends Component {
               color: 'white',
               flex: 1,
               alignSelf: 'stretch',
-              backgroundColor: 'white',
+              // backgroundColor: 'white',
               // paddingRight: 150,
             }}
             ref={inputRef => {

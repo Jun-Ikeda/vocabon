@@ -1,5 +1,3 @@
-// import React, { Component } from 'react';
-// import { View } from 'reat-native';
 import { createAppContainer } from 'react-navigation';
 import {
   createStackNavigator,
@@ -37,15 +35,5 @@ const StackNavigator = createStackNavigator(
 );
 
 const AppContainer = createAppContainer(StackNavigator);
-
-/* class LearnNav extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <AppContainer />
-      </View>
-    );
-  }
-} */
 
 export default AppContainer;
