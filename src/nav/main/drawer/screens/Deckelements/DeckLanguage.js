@@ -87,13 +87,13 @@ class DeckLanguage extends Component {
         title: 'English',
         style: [
           style.title,
-          {
-            backgroundColor: 'white',
-          },
         ],
       },
       {
         title: 'French',
+        style: [
+          style.title,
+        ],
       },
     ];
     return items.map(item => (
