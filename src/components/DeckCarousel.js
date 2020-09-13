@@ -131,7 +131,6 @@ class DeckCarousel extends Component {
 
   componentDidUpdate(prevProps) {
     const { data } = this.props;
-    // console.log({ data });
     if (data !== prevProps.data) {
       try {
         for (const child of data) {
@@ -160,32 +159,35 @@ class DeckCarousel extends Component {
     }
   }
 
-  renderButtons = () => {
-    const { data } = this.props;
+  renderButtons = () => (
+    <View>
+      {this.renderNext()}
+      {this.renderPrev()}
+    </View>
+  );
+
+  renderNext = () => {
     const { active } = this.state;
-    if (active === 0) {
-      return (
-        <TouchableOpacity onPress={() => this.carouselRef.snapToNext()}>
-          <Text style={{ color: 'white' }}>Next</Text>
-        </TouchableOpacity>
-      );
-    }
+    const { data } = this.props;
     if (active === data.length - 1) {
-      return (
-        <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
-          <Text style={{ color: 'white' }}>Prev</Text>
-        </TouchableOpacity>
-      );
+      return null;
     }
     return (
-      <View>
-        <TouchableOpacity onPress={() => this.carouselRef.snapToNext()}>
-          <Text style={{ color: 'white' }}>Next</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
-          <Text style={{ color: 'white' }}>Prev</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={() => this.carouselRef.snapToNext()}>
+        <Text style={{ color: 'white' }}>Next</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  renderPrev = () => {
+    const { active } = this.state;
+    if (active === 0) {
+      return null;
+    }
+    return (
+      <TouchableOpacity onPress={() => this.carouselRef.snapToPrev()}>
+        <Text style={{ color: 'white' }}>Prev</Text>
+      </TouchableOpacity>
     );
   };
 }

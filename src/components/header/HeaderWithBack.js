@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Header from './Header';
 import Icon from '../Icon';
 import Color from '../../config/Color';
@@ -9,9 +9,7 @@ const style = StyleSheet.create({
     color: Color.font2,
     fontSize: 25,
   },
-  title: {
-    // fontWeight: '700',
-  },
+  title: {},
 });
 
 export default class HeaderWithBack extends Component {
@@ -39,13 +37,8 @@ export default class HeaderWithBack extends Component {
 
   renderTitle = () => {
     const { renderCenter, titleStyle, title } = this.props;
-    // return (
-    //   <View style={{ flex: 1, backgroundColor: 'red', alignSelf: 'stretch' }} />
-    // );
     try {
       return renderCenter();
-      // return <View style={{ flex: 1, backgroundColor: 'red' }} />;
-      // } />
     } catch (error) {
       return <Text style={[style.title, titleStyle]}>{title}</Text>;
     }

@@ -362,3 +362,15 @@ contructor(props) {
 boolean ? 'More' : 'Close'
 ｍももしbooleanがtrueならMore,falseならClose
 =>m
+
+BookMark,
+Import,
+Export,
+Duplicate,
+Share,
+Test,
+Analyze
+Delete < 薄赤のボタンで
+
+（これらをMoreで出るようにする）
+

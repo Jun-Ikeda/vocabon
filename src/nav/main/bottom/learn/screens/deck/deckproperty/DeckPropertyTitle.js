@@ -16,42 +16,48 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // justifyContent: 'space-between',
+    borderWidth: 2,
   },
   headerIcon: {
     color: Color.font2,
     fontSize: 25,
   },
   textBox: {
-    flex: 1,
+    flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    // justifyContent: 'center',
-    // borderColor: 'transparent',
   },
   button: {
     flex: 1,
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
+    width: 150,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Color.background5,
   },
   buttonText: {
-    alignSelf: 'center',
-    backgroundColor: 'red',
+    justifyContent: 'center',
+    fontSize: 20,
   },
-  input: {},
-  content: {
-    height: 280,
-    marginHorizontal: 20,
-    backgroundColor: 'red',
+  input: {
+    height: 30,
+    width: 400,
+    borderColor: Color.font2,
+    borderWidth: 1,
+    fontSize: 18,
+    borderRadius: 5,
   },
 });
 
 class DeckPropertyTitle extends Component {
   constructor(props) {
     super(props);
+    this.maxLength = 10;
     this.state = {
       title: '',
+      textLength: 0,
     };
   }
 
@@ -67,20 +73,25 @@ class DeckPropertyTitle extends Component {
           renderTitle={() => <Text>Title</Text>}
           onPressLeft={() => navigation.goBack()}
         />
-        <View style={{ flex: 1, backgroundColor: 'black' }} />
-        <View style={{ flex: 2 }}>
-          <View style={style.textBox}>
-            <TextInput
-              style={style.input}
-              value={title}
-              onChangeText={title => this.setState({ title })}
-            />
-          </View>
-          <TouchableOpacity onPress={this.save} style={style.button}>
-            <Text style={style.buttonText}>Save</Text>
-          </TouchableOpacity>
+        <View style={style.textBox}>
+          <TextInput
+            style={style.input}
+            value={title}
+            onChangeText={
+              title => this.setState({ title })
+            }
+            // onChangeText={
+            //   title => this.setState({ title, textLength: this.maxLength - title.length})
+            // }
+            maxLength={10}
+          />
         </View>
-        <View style={{ flex: 3, backgroundColor: 'blue' }} />
+        <View style={{ flex: 1 }} />
+        <TouchableOpacity onPress={this.save} style={style.button}>
+          <Text style={style.buttonText}>Save</Text>
+        </TouchableOpacity>
+        <View style={{ flex: 2 }} />
+        <View style={{ flex: 8 }} />
       </View>
     );
   }

@@ -10,11 +10,9 @@ import {
   Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import GestureRecognizer from 'react-native-swipe-gestures';
 
 import { HeaderConst, StyleConst } from '../../../../../../config/Const';
 import Color from '../../../../../../config/Color';
-import User from '../../../../../../config/Firebase/User';
 
 import Header from '../../../../../../components/header/Header';
 import Icon from '../../../../../../components/Icon';
@@ -47,8 +45,6 @@ const style = StyleSheet.create({
   animateImage: {
     width: 'auto',
     ...StyleConst.absoluteFullScreen,
-    // position: 'absolute',
-    // top: 0,
     resizeMode: 'cover',
   },
   usericon: {},
@@ -56,7 +52,6 @@ const style = StyleSheet.create({
   contentContaierSmall: {
     flexDirection: 'row',
     flex: 1,
-    // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
@@ -67,18 +62,15 @@ const style = StyleSheet.create({
   },
   photographerButton: {
     alignItems: 'flex-end',
-    // backgroundColor: 'red',
     flex: 1,
   },
   gesture: {
-    // flex: 1,
     ...StyleConst.absoluteFullScreen,
   },
   deckButtonContainer: {
     flexDirection: 'row',
   },
   deckButton: {
-    // borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
@@ -112,10 +104,7 @@ class DeckMenu extends Component {
     const { navigation } = this.props;
     const deck = navigation.getParam('deck');
     const user = navigation.getParam('user');
-    // console.log({ deck });
     const v = navigation.getParam('v');
-    // const user = await User.load({ uid: Object.values(deck)[0].user });
-    // console.log({ user });
     bottomRef.setTabVisible({ visible: false });
     this.setState({
       id: Object.keys(deck)[0],
@@ -139,44 +128,6 @@ class DeckMenu extends Component {
           renderContent: () => (
             <View>
               {this.renderContent()}
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
-              <Text>test</Text>
               <Text>test</Text>
               <Text>test</Text>
               <Text>test</Text>
@@ -402,29 +353,20 @@ class DeckMenu extends Component {
       },
       {
         title: 'Property',
-        icon: () => <Icon.Ionicons name="md-list" style={style.deckButtonIcon} />,
+        icon: () => (
+          <Icon.Ionicons name="md-list" style={style.deckButtonIcon} />
+        ),
         onPress: () => {
           navigation.navigate('deckproperty', { id, deckinfo });
         },
       },
       {
         title: 'Edit',
-        icon: () => (
-          <Icon.Feather name="edit" style={style.deckButtonIcon} />
-        ),
+        icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
         onPress: () => {
           navigation.navigate('deckedit', { id, deckinfo });
         },
       },
-      // {
-      //   title: 'Bookmark',
-      //   icon: () => (
-      //     <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
-      //   ),
-      //   onPress: () => {
-      //     navigation.navigate('');
-      //   },
-      // },
       {
         title: isAdditionalButtonsVisible ? 'Close' : 'More',
         icon: () => (
@@ -440,15 +382,151 @@ class DeckMenu extends Component {
         },
       },
     ];
-    return buttons.map(button => (
-      <TouchableOpacity
-        style={[style.deckButton, { height: width * 0.25 }]}
-        onPress={button.onPress}
-      >
-        {button.icon()}
-        <Text style={style.deckButtonTitle}>{button.title}</Text>
-      </TouchableOpacity>
-    ));
+    return this.renderFourButtonColumn(buttons);
+  };
+
+  renderDeckMoreButton = () => {
+    const { id, deckinfo, isAdditionalButtonsVisible } = this.state;
+    const { navigation } = this.props;
+    const buttons1 = [
+      {
+        title: 'Bookmark',
+        icon: () => (
+          <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
+        ),
+        onPress: () => {
+          navigation.navigate('deckbookmark', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Import',
+        icon: () => (
+          <Icon.Feather name="download" style={style.deckButtonIcon} />
+        ),
+        onPress: () => {
+          navigation.navigate('deckimport', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Export',
+        icon: () => <Icon.Feather name="upload" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckexport', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Duplicate',
+        icon: () => <Icon.Feather name="copy" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckduplicate', { id, deckinfo });
+        },
+      },
+    ];
+    const buttons2 = [
+      {
+        title: 'Share',
+        icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckshare', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Test',
+        icon: () => (
+          <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
+        ),
+        onPress: () => {
+          navigation.navigate('decktest', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Analyze',
+        icon: () => (
+          <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
+        ),
+        onPress: () => {
+          navigation.navigate('deckanalyze', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Delete',
+        icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckdelete', { id, deckinfo });
+        },
+      },
+    ];
+    if (isAdditionalButtonsVisible) {
+      return (
+        <View>
+          {this.renderFourButtonColumn(buttons1)}
+          {this.renderFourButtonColumn(buttons2)}
+        </View>
+      );
+    }
+    return null;
+  };
+
+  // renderDeckMoreButton2 = () => {
+  //   const {
+  //     id,
+  //     deckinfo,
+  //   } = this.state;
+  //   const { navigation } = this.props;
+  //   const buttons = [
+  //     {
+  //       title: 'Share',
+  //       icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
+  //       onPress: () => {
+  //         navigation.navigate('deckshare', { id, deckinfo });
+  //       },
+  //     },
+  //     {
+  //       title: 'Test',
+  //       icon: () => (
+  //         <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
+  //       ),
+  //       onPress: () => {
+  //         navigation.navigate('decktest', { id, deckinfo });
+  //       },
+  //     },
+  //     {
+  //       title: 'Analyze',
+  //       icon: () => (
+  //         <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
+  //       ),
+  //       onPress: () => {
+  //         navigation.navigate('deckanalyze', { id, deckinfo });
+  //       },
+  //     },
+  //     {
+  //       title: 'Delete',
+  //       icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
+  //       onPress: () => {
+  //         navigation.navigate('deckdelete', { id, deckinfo });
+  //       },
+  //     },
+  //   ];
+  //   return this.renderFourButtonColumn(buttons);
+  // };
+
+  renderFourButtonColumn = buttons => {
+    const {
+      layout: { width },
+    } = this.state;
+    return (
+      <View style={style.deckButtonContainer}>
+        {buttons.map(button => (
+          <TouchableOpacity
+            style={[style.deckButton, { height: width * 0.25 }]}
+            onPress={button.onPress}
+          >
+            {button.icon()}
+            <Text style={style.deckButtonTitle}>{button.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
   };
 
   renderDeckInfo = () => {
@@ -492,8 +570,8 @@ class DeckMenu extends Component {
         ]}
       >
         {this.renderAttribution()}
-        <View style={style.deckButtonContainer}>{this.renderDeckButton()}</View>
-        {this.renderAdditionalButtons()}
+        {this.renderDeckButton()}
+        {this.renderDeckMoreButton()}
         {this.renderDeckInfo()}
       </View>
     );
@@ -506,7 +584,16 @@ class DeckMenu extends Component {
   renderAdditionalButtons = () => {
     const { isAdditionalButtonsVisible } = this.state;
     if (isAdditionalButtonsVisible) {
-      return <Text>yatta-!</Text>;
+      return (
+        <View>
+          <View style={style.deckButtonContainer}>
+            {this.renderDeckMoreButton1()}
+          </View>
+          <View style={style.deckButtonContainer}>
+            {this.renderDeckMoreButton2()}
+          </View>
+        </View>
+      );
     }
     return null;
   };
@@ -526,5 +613,42 @@ Analyze
 Delete < 薄赤のボタンで
 
 （これらをMoreで出るようにする）
+
+buttons = [
+      {
+        title: 'Duplicate',
+        icon: () => <Icon.Feather name="duplicate" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckduplicate', { id, deckinfo });
+        },
+      },
+      {
+        title: 'Share',
+        icon: () => <Icon.Feather name="share" style={style.deckButtonIcon} />,
+        onPress: () => {
+          navigation.navigate('deckshare', { id, deckinfo });
+        },
+      },
+]
+renderFourButtonColumn = (buttons) => {
+  ~~~~~~
+  ~~~~
+  ~
+  ~
+  ~
+  ~
+  return (
+    ４つのボタをを
+  )
+}
+
+renderDeckButton = () => {
+  this.renderFourButtonColumn(button)
+}
+
+renderMore = () => {
+  this.renderFourButtonClumn(buttons1)
+  this.renderFourButtomColumn(button2)
+}
 
 */

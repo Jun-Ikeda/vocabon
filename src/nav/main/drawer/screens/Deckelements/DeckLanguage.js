@@ -31,6 +31,13 @@ const style = StyleSheet.create({
     marginTop: 20,
     marginBottom: 40,
   },
+  content: {
+    color: Color.font5,
+    textAlign: 'center',
+    fontSize: 15,
+    marginTop: 10,
+    marginBottom: 15,
+  },
   background: {
     flex: 1,
     resizeMode: 'cover',
@@ -41,12 +48,13 @@ const style = StyleSheet.create({
     opacity: 0.5,
   },
   itemsContainer: {
+    backgroundColor: Color.background2,
     flex: 1,
     justifyContent: 'space-between',
     marginVertical: 50,
     marginHorizontal: 30,
     // borderWidth: 2,
-    // borderColor: 'white',
+    borderColor: 'white',
   },
 });
 
@@ -85,27 +93,33 @@ class DeckLanguage extends Component {
     const items = [
       {
         title: 'English',
-        style: [
-          style.title,
-        ],
       },
       {
         title: 'French',
-        style: [
-          style.title,
-        ],
+      },
+      {
+        title: 'Spanish',
+      },
+      {
+        title: 'Japanese',
+      },
+      {
+        title: 'Chinese',
+      },
+      {
+        title: 'German',
       },
     ];
     return items.map(item => (
       <TouchableOpacity
-        style={style.itemContainer}
         onPress={() => {
           const { navigation } = this.props;
           const setState = navigation.getParam('setState');
           setState({ learn: item.title });
+          navigation.goBack();
         }}
       >
-        <Text>{item.title}</Text>
+        <Text style={style.content}>{item.title}</Text>
       </TouchableOpacity>
     ));
   };

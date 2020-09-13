@@ -16,15 +16,18 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   left: {
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
+    backgroundColor: 'green',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   right: {
+    backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -42,123 +45,63 @@ export default class Header extends Component {
   }
 
   renderAll = () => {
-    const {
-      style: propsStyle,
-      renderAll,
-      large,
-      leftStyle,
-      onPressLeft,
-      titleStyle,
-      onPressTitle,
-      rightStyle,
-      onPressRight,
-      onLongPressLeft,
-      onLongPressTitle,
-      onLongPressRight,
-    } = this.props;
+    const { style: propsStyle, renderAll, large } = this.props;
+    const height = {
+      height: large ? HeaderConst.heightMax : HeaderConst.heightMin,
+    };
     try {
       return renderAll();
     } catch (error) {
       return (
-        <View
-          style={[
-            style.headerContainer,
-            propsStyle,
-            {
-              height: large ? HeaderConst.heightMax : HeaderConst.heightMin,
-            },
-          ]}
-        >
-          <TouchableOpacity
-            style={[
-              style.left,
-              leftStyle,
-              { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
-              {
-                backgroundColor: 'red',
-              },
-            ]}
-            onPress={onPressLeft}
-            pointerEvents={onPressLeft || onLongPressLeft ? 'box-none' : 'none'}
-            onLongPress={onLongPressLeft}
-          >
-            {this.renderComponents('left')}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              style.title,
-              titleStyle,
-              {
-                backgroundColor: 'green',
-              },
-            ]}
-            onPress={onPressTitle}
-            pointerEvents={
-              onPressTitle || onLongPressTitle ? 'box-none' : 'none'
-            }
-            onLongPress={onLongPressTitle}
-          >
-            {this.renderComponents('title')}
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              style.right,
-              rightStyle,
-              { width: large ? HeaderConst.heightMax : HeaderConst.heightMin },
-              {
-                backgroundColor: 'blue',
-              },
-            ]}
-            onPress={onPressRight}
-            pointerEvents={
-              onPressRight || onLongPressRight ? 'box-none' : 'none'
-            }
-            onLongPress={onLongPressRight}
-          >
-            {this.renderComponents('right')}
-          </TouchableOpacity>
+        <View style={[style.headerContainer, propsStyle, height]}>
+          {this.renderContent()}
         </View>
       );
     }
   };
 
   renderContent = () => {
-    const { renderLeft, renderTitle, renderRight, large } = this.props;
+    const {
+      large,
+      onPressLeft,
+      onPressTitle,
+      onPressRight,
+      onLongPressLeft,
+      onLongPressTitle,
+      onLongPressRight,
+    } = this.props;
+    const width = {
+      width: large ? HeaderConst.heightMax : HeaderConst.heightMin,
+    };
     const parts = [
       {
         name: 'left',
-        render: renderLeft,
-        style: [
-          style.left,
-          {
-            backgroundColor: 'red',
-            width: large ? HeaderConst.heightMax : HeaderConst.heightMin,
-          },
-        ],
+        onPress: onPressLeft,
+        onLongPress: onLongPressLeft,
+        style: [style.left, width],
       },
       {
         name: 'title',
-        render: renderTitle,
-        style: [style.title, { backgroundColor: 'green' }],
+        onPress: onPressTitle,
+        onLongPress: onLongPressTitle,
+        style: style.title,
       },
       {
         name: 'right',
-        render: renderRight,
-        style: [
-          style.right,
-          {
-            backgroundColor: 'blue',
-            width: large ? HeaderConst.heightMax : HeaderConst.heightMin,
-          },
-        ],
+        onPress: onPressRight,
+        onLongPress: onLongPressRight,
+        style: [style.right, width],
       },
     ];
-    // return parts.map(part => {
-    //   const partStyle = {}
-    //   return (
-    //     try {}
-    //   )
-    // })
+    return parts.map(part => (
+      <TouchableOpacity
+        style={part.style}
+        onPress={part.onPress}
+        onLongPress={part.onLongPress}
+      >
+        {this.renderComponents(part.name)}
+      </TouchableOpacity>
+    ));
   };
 
   renderComponents = part => {

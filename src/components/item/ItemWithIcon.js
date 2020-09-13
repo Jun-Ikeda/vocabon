@@ -31,8 +31,6 @@ class ItemWithIcon extends Component {
     const {
       collection,
       name,
-      // style: propsStyle,
-      // container: containerStyle,
     } = icon;
     const IconProps = Icon[collection]; // Iconはファイル名。ここでは特にそのファイルを使ってるのではなくIconを使う時に必要だから
     return (

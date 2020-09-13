@@ -13,7 +13,7 @@ const Color = {
   accent2: '',
   accent3: '',
   font1: 'rgb(255,255,255)', // 白
-  font2: 'rgb(30,30,30)',
+  font2: 'rgb(30,30,30)', // 黒
   font3: 'rgb(230,230,230)',
   font4: 'rgb(220,220,220)',
   font5: 'rgb(180,180,180)',
