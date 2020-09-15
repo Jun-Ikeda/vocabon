@@ -6,19 +6,20 @@ import {
   Animated,
   ScrollView,
   TouchableOpacity,
-  Linking,
   Image,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-import { HeaderConst, StyleConst } from '../../../../../../config/Const';
-import Color from '../../../../../../config/Color';
+import { HeaderConst, StyleConst } from '../../../../../../../config/Const';
+import Color from '../../../../../../../config/Color';
 
-import Header from '../../../../../../components/header/Header';
-import Icon from '../../../../../../components/Icon';
-import UserIcon from '../../../../../../components/UserIcon';
+import Header from '../../../../../../../components/header/Header';
+import Icon from '../../../../../../../components/Icon';
+import UserIcon from '../../../../../../../components/UserIcon';
 
-import { bottomRef } from '../../../BottomNav';
+import { bottomRef } from '../../../../BottomNav';
+import Attribution from './Attribution';
+import DeckButtons from './DeckButtons';
 
 const AnimatedIonicons = Animatable.createAnimatableComponent(Icon.Ionicons);
 
@@ -96,7 +97,6 @@ class DeckMenu extends Component {
       layout: { height: 0, width: 0 },
       header: { max: HeaderConst.heightMax, min: HeaderConst.heightMin },
       title: { height: 0, width: 0 },
-      isAdditionalButtonsVisible: false,
     };
   }
 
@@ -317,218 +317,6 @@ class DeckMenu extends Component {
     }
   };
 
-  renderAttribution = () => {
-    const { deckinfo } = this.state;
-    if (deckinfo.th.user.name !== 'me') {
-      return (
-        <TouchableOpacity
-          style={style.photographerButton}
-          onPress={() => Linking.openURL(deckinfo.th.user.link)}
-          pointerEvents="box-none"
-        >
-          <Text style={{ color: Color.font5 /* textAlign: 'right' */ }}>
-            {`Photo by ${deckinfo.th.user.name} / Unsplash`}
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-    return null;
-  };
-
-  renderDeckButton = () => {
-    const {
-      id,
-      deckinfo,
-      layout: { width },
-      isAdditionalButtonsVisible,
-    } = this.state;
-    const { navigation } = this.props;
-    const buttons = [
-      {
-        title: 'Play',
-        icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckplay', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Property',
-        icon: () => (
-          <Icon.Ionicons name="md-list" style={style.deckButtonIcon} />
-        ),
-        onPress: () => {
-          navigation.navigate('deckproperty', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Edit',
-        icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckedit', { id, deckinfo });
-        },
-      },
-      {
-        title: isAdditionalButtonsVisible ? 'Close' : 'More',
-        icon: () => (
-          <Icon.Feather
-            name={isAdditionalButtonsVisible ? 'chevron-up' : 'chevron-down'}
-            style={style.deckButtonIcon}
-          />
-        ),
-        onPress: () => {
-          this.setState(prev => ({
-            isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
-          }));
-        },
-      },
-    ];
-    return this.renderFourButtonColumn(buttons);
-  };
-
-  renderDeckMoreButton = () => {
-    const { id, deckinfo, isAdditionalButtonsVisible } = this.state;
-    const { navigation } = this.props;
-    const buttons1 = [
-      {
-        title: 'Bookmark',
-        icon: () => (
-          <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
-        ),
-        onPress: () => {
-          navigation.navigate('deckbookmark', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Import',
-        icon: () => (
-          <Icon.Feather name="download" style={style.deckButtonIcon} />
-        ),
-        onPress: () => {
-          navigation.navigate('deckimport', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Export',
-        icon: () => <Icon.Feather name="upload" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckexport', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Duplicate',
-        icon: () => <Icon.Feather name="copy" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckduplicate', { id, deckinfo });
-        },
-      },
-    ];
-    const buttons2 = [
-      {
-        title: 'Share',
-        icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckshare', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Test',
-        icon: () => (
-          <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
-        ),
-        onPress: () => {
-          navigation.navigate('decktest', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Analyze',
-        icon: () => (
-          <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
-        ),
-        onPress: () => {
-          navigation.navigate('deckanalyze', { id, deckinfo });
-        },
-      },
-      {
-        title: 'Delete',
-        icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
-        onPress: () => {
-          navigation.navigate('deckdelete', { id, deckinfo });
-        },
-      },
-    ];
-    if (isAdditionalButtonsVisible) {
-      return (
-        <View>
-          {this.renderFourButtonColumn(buttons1)}
-          {this.renderFourButtonColumn(buttons2)}
-        </View>
-      );
-    }
-    return null;
-  };
-
-  // renderDeckMoreButton2 = () => {
-  //   const {
-  //     id,
-  //     deckinfo,
-  //   } = this.state;
-  //   const { navigation } = this.props;
-  //   const buttons = [
-  //     {
-  //       title: 'Share',
-  //       icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
-  //       onPress: () => {
-  //         navigation.navigate('deckshare', { id, deckinfo });
-  //       },
-  //     },
-  //     {
-  //       title: 'Test',
-  //       icon: () => (
-  //         <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
-  //       ),
-  //       onPress: () => {
-  //         navigation.navigate('decktest', { id, deckinfo });
-  //       },
-  //     },
-  //     {
-  //       title: 'Analyze',
-  //       icon: () => (
-  //         <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
-  //       ),
-  //       onPress: () => {
-  //         navigation.navigate('deckanalyze', { id, deckinfo });
-  //       },
-  //     },
-  //     {
-  //       title: 'Delete',
-  //       icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
-  //       onPress: () => {
-  //         navigation.navigate('deckdelete', { id, deckinfo });
-  //       },
-  //     },
-  //   ];
-  //   return this.renderFourButtonColumn(buttons);
-  // };
-
-  renderFourButtonColumn = buttons => {
-    const {
-      layout: { width },
-    } = this.state;
-    return (
-      <View style={style.deckButtonContainer}>
-        {buttons.map(button => (
-          <TouchableOpacity
-            style={[style.deckButton, { height: width * 0.25 }]}
-            onPress={button.onPress}
-          >
-            {button.icon()}
-            <Text style={style.deckButtonTitle}>{button.title}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-  };
-
   renderDeckInfo = () => {
     const { deckinfo, v, user } = this.state;
     const { navigation } = this.props;
@@ -553,6 +341,7 @@ class DeckMenu extends Component {
 
   renderContent = () => {
     const {
+      id,
       deckinfo,
       v,
       user,
@@ -569,9 +358,13 @@ class DeckMenu extends Component {
           },
         ]}
       >
-        {this.renderAttribution()}
-        {this.renderDeckButton()}
-        {this.renderDeckMoreButton()}
+        <Attribution deckinfo={deckinfo} />
+        <DeckButtons
+          id={id}
+          deckinfo={deckinfo}
+          navigation={navigation}
+          layout={{ width }}
+        />
         {this.renderDeckInfo()}
       </View>
     );
@@ -580,23 +373,6 @@ class DeckMenu extends Component {
   componentWillUnmount() {
     bottomRef.setTabVisible({ visible: true });
   }
-
-  renderAdditionalButtons = () => {
-    const { isAdditionalButtonsVisible } = this.state;
-    if (isAdditionalButtonsVisible) {
-      return (
-        <View>
-          <View style={style.deckButtonContainer}>
-            {this.renderDeckMoreButton1()}
-          </View>
-          <View style={style.deckButtonContainer}>
-            {this.renderDeckMoreButton2()}
-          </View>
-        </View>
-      );
-    }
-    return null;
-  };
 }
 
 export default DeckMenu;
@@ -652,3 +428,232 @@ renderMore = () => {
 }
 
 */
+
+// renderAttribution = () => {
+//   const { deckinfo } = this.state;
+//   if (deckinfo.th.user.name !== 'me') {
+//     return (
+//       <TouchableOpacity
+//         style={style.photographerButton}
+//         onPress={() => Linking.openURL(deckinfo.th.user.link)}
+//         pointerEvents="box-none"
+//       >
+//         <Text style={{ color: Color.font5 /* textAlign: 'right' */ }}>
+//           {`Photo by ${deckinfo.th.user.name} / Unsplash`}
+//         </Text>
+//       </TouchableOpacity>
+//     );
+//   }
+//   return null;
+// };
+
+// renderFourButtonColumn = buttons => {
+//   const {
+//     layout: { width },
+//   } = this.state;
+//   return (
+//     <View style={style.deckButtonContainer}>
+//       {buttons.map(button => (
+//         <TouchableOpacity
+//           style={[style.deckButton, { height: width * 0.25 }]}
+//           onPress={button.onPress}
+//         >
+//           {button.icon()}
+//           <Text style={style.deckButtonTitle}>{button.title}</Text>
+//         </TouchableOpacity>
+//       ))}
+//     </View>
+//   );
+// };
+
+// renderDeckButton = () => {
+//   const {
+//     id,
+//     deckinfo,
+//     layout: { width },
+//     isAdditionalButtonsVisible,
+//   } = this.state;
+//   const { navigation } = this.props;
+//   const buttons = [
+//     {
+//       title: 'Play',
+//       icon: () => <Icon.Feather name="play" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckplay', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Property',
+//       icon: () => (
+//         <Icon.Ionicons name="md-list" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('deckproperty', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Edit',
+//       icon: () => <Icon.Feather name="edit" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckedit', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: isAdditionalButtonsVisible ? 'Close' : 'More',
+//       icon: () => (
+//         <Icon.Feather
+//           name={isAdditionalButtonsVisible ? 'chevron-up' : 'chevron-down'}
+//           style={style.deckButtonIcon}
+//         />
+//       ),
+//       onPress: () => {
+//         this.setState(prev => ({
+//           isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
+//         }));
+//       },
+//     },
+//   ];
+//   return this.renderFourButtonColumn(buttons);
+// };
+
+// renderDeckMoreButton = () => {
+//   const { id, deckinfo, isAdditionalButtonsVisible } = this.state;
+//   const { navigation } = this.props;
+//   const buttons1 = [
+//     {
+//       title: 'Bookmark',
+//       icon: () => (
+//         <Icon.Feather name="bookmark" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('deckbookmark', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Import',
+//       icon: () => (
+//         <Icon.Feather name="download" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('deckimport', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Export',
+//       icon: () => <Icon.Feather name="upload" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckexport', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Duplicate',
+//       icon: () => <Icon.Feather name="copy" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckduplicate', { id, deckinfo });
+//       },
+//     },
+//   ];
+//   const buttons2 = [
+//     {
+//       title: 'Share',
+//       icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckshare', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Test',
+//       icon: () => (
+//         <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('decktest', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Analyze',
+//       icon: () => (
+//         <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('deckanalyze', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Delete',
+//       icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckdelete', { id, deckinfo });
+//       },
+//     },
+//   ];
+//   if (isAdditionalButtonsVisible) {
+//     return (
+//       <View>
+//         {this.renderFourButtonColumn(buttons1)}
+//         {this.renderFourButtonColumn(buttons2)}
+//       </View>
+//     );
+//   }
+//   return null;
+// };
+
+// renderDeckMoreButton2 = () => {
+//   const {
+//     id,
+//     deckinfo,
+//   } = this.state;
+//   const { navigation } = this.props;
+//   const buttons = [
+//     {
+//       title: 'Share',
+//       icon: () => <Icon.Entypo name="share" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckshare', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Test',
+//       icon: () => (
+//         <Icon.AntDesign name="checkcircleo" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('decktest', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Analyze',
+//       icon: () => (
+//         <Icon.Entypo name="line-graph" style={style.deckButtonIcon} />
+//       ),
+//       onPress: () => {
+//         navigation.navigate('deckanalyze', { id, deckinfo });
+//       },
+//     },
+//     {
+//       title: 'Delete',
+//       icon: () => <Icon.Feather name="delete" style={style.deckButtonIcon} />,
+//       onPress: () => {
+//         navigation.navigate('deckdelete', { id, deckinfo });
+//       },
+//     },
+//   ];
+//   return this.renderFourButtonColumn(buttons);
+// };
+
+// renderAdditionalButtons = () => {
+//   const { isAdditionalButtonsVisible } = this.state;
+//   if (isAdditionalButtonsVisible) {
+//     return (
+//       <View>
+//         <View style={style.deckButtonContainer}>
+//           {this.renderDeckMoreButton1()}
+//         </View>
+//         <View style={style.deckButtonContainer}>
+//           {this.renderDeckMoreButton2()}
+//         </View>
+//       </View>
+//     );
+//   }
+//   return null;
+// };

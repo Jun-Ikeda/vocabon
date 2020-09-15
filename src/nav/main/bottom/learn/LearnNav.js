@@ -5,7 +5,7 @@ import {
 } from 'react-navigation-stack';
 
 import Learn from './screens/home/Learn';
-import DeckMenu from './screens/deck/DeckMenu';
+import DeckMenu from './screens/deck/deckmenu/DeckMenu';
 import UserMenu from './screens/UserMenu';
 import DeckProperty from './screens/deck/deckproperty/DeckProperty';
 import DeckPropertyTitle from './screens/deck/deckproperty/DeckPropertyTitle';
