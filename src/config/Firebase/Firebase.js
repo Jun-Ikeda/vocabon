@@ -84,7 +84,7 @@ const remove = async ({ collection, id }) => {
     .doc(id)
     .delete();
   await database.ref(`${collection}/${id}`).remove();
-  console.log({ function: 'remove()', collection, id })
+  console.log({ function: 'remove()', collection, id });
   Storage.Function.remove({ key: collection, id });
 };
 
@@ -101,7 +101,7 @@ const up = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => { } }) => {
+  setListener: ({ collection, id, callback = () => {} }) => {
     database.ref(`/${collection}/${id}/up`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);
@@ -122,7 +122,7 @@ const v = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => { } }) => {
+  setListener: ({ collection, id, callback = () => {} }) => {
     database.ref(`/${collection}/${id}/v`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);
@@ -153,3 +153,27 @@ const Function = { load, save, update, remove, /* array, */ up, v, rate };
 
 export default firebase;
 export { database, storage, auth, firestore, Function };
+
+const Database = {
+  read: async ({ collection, id, key }) => {
+    let data;
+    await database.ref(`${collection}/${id}/${key}`).once('value', snapshot => {
+      data = snapshot.val();
+    });
+    return data;
+  },
+  write: async ({ collection, id, key, data }) => {
+    await database.ref(`${collection}/${id}/${key}`).set(data);
+  },
+};
+
+const Firestore = {
+  read: async ({collection, id}) => {
+    let data;
+    await firestore.collection(collection).doc(id).get().then(doc => {
+      const result = doc.exists ? doc.data() : null;
+      console.log({ function: 'unpdate()', result });
+      return result;
+    });
+  }
+}
