@@ -93,4 +93,6 @@ const Function = {
   },
 };
 
-export default { Storage, Function };
+export default { Storage, Function, };
+
+export {}
