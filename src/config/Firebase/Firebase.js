@@ -169,11 +169,48 @@ const Database = {
 
 const Firestore = {
   read: async ({collection, id}) => {
-    let data;
+    let docData;
     await firestore.collection(collection).doc(id).get().then(doc => {
-      const result = doc.exists ? doc.data() : null;
-      console.log({ function: 'unpdate()', result });
-      return result;
+      docData = doc.exists ? doc.data() : null;
     });
+    return docData
+  },
+  write: async ({collection, id, data}) => {
+    firestore.collection(collection).doc(id).set(data)
   }
 }
+
+const CloudStorage = {
+  read: async ({collection, id, fetch = false}) => {
+    const uri = await storage.ref(`${collection}/${id}/${key}`).getDownloadURL();
+    let result={}
+    if (fetch) {
+      fetch(uri)
+        .then(response => response.json())
+        .then(json => {
+        result = json;
+      })
+    } else {
+      result = uri;
+    }
+    return result;
+  },
+  write: async ({collection, id, filename, data, blob = false}) => {
+    let upData;
+    if (blob) {
+      upData = new Blob([JSON.stringify(data)], {
+        type: 'application/json'
+      });
+    } else {
+      upData = data;
+    }
+    try {
+      await storage
+        .ref(`${collection}/${id}/${filename}`).put(upData);
+      return true;
+    } catch(error) {
+      return false;
+    }
+  },
+}
+
