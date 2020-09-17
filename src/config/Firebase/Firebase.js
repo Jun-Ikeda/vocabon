@@ -21,6 +21,8 @@ const storage = firebase.storage();
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 
+firestore.enablePersistence();
+
 const load = async ({ collection, id, expires }) => {
   const data = await Storage.Function.load({ key: collection, id });
   const updated = await up.load({ collection, id });
@@ -101,7 +103,7 @@ const up = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => {} }) => {
+  setListener: ({ collection, id, callback = () => { } }) => {
     database.ref(`/${collection}/${id}/up`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);
@@ -122,7 +124,7 @@ const v = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => {} }) => {
+  setListener: ({ collection, id, callback = () => { } }) => {
     database.ref(`/${collection}/${id}/v`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);

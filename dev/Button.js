@@ -4,6 +4,7 @@ import { AsyncStorage, Linking } from 'react-native';
 
 import Storage from '../src/config/Storage';
 import { Function } from '../src/config/Firebase/Firebase';
+import { } from '../'
 import UUID from '../src/config/UUID';
 
 import { TimerProcess } from '../src/components/Timer';
@@ -328,7 +329,13 @@ const Button = [
       });
       console.log(cards);
     },
+
   },
+
+  {
+    title: 'Firebase.read()',
+    onPress: () => { }
+  }
 
   //   {
   //     title: 'State',
