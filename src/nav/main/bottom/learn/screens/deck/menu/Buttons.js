@@ -171,11 +171,11 @@ export default class DeckButtons extends Component {
       },
       {
         title: 'Delete',
-        icon: () => <Icon.Feather name="delete" style={style.deleteicon} />,
+        icon: () => <Icon.FontAwesome name="trash" style={style.deleteicon} />,
         onPress: () => {
           navigation.navigate('deckdelete', { id, deckinfo });
         },
-        textStyle: { color: 'red' }
+        textStyle: { color: 'red' },
       },
     ];
     if (isAdditionalButtonsVisible) {
