@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
-import User from '../../../../../../config/Firebase/User';
-import Storage from '../../../../../../config/Storage';
+import User from '../../../../../../../config/Firebase/User';
+import Storage from '../../../../../../../config/Storage';
 // import { Functions } from '../../../../../../config/Const';
 
-import DeckCarousel from '../../../../../../components/DeckCarousel';
-import UserIcon from '../../../../../../components/UserIcon';
+import DeckCarousel from '../../../../../../../components/DeckCarousel';
+import UserIcon from '../../../../../../../components/UserIcon';
 
-import Gesture from '../../../Gesture';
-import TopHeader from '../../../TopHeader';
-import { bottomRef } from '../../../BottomNav';
-import Deck from '../../../../../../config/Firebase/Deck';
-import { Function } from '../../../../../../config/Firebase/Firebase';
-import { Functions } from '../../../../../../config/Const';
-import Icon from '../../../../../../components/Icon';
-import Color from '../../../../../../config/Color';
+import Gesture from '../../../../Gesture';
+import TopHeader from '../../../../TopHeader';
+import { bottomRef } from '../../../../BottomNav';
+import Deck from '../../../../../../../config/Firebase/Deck';
+import { Function } from '../../../../../../../config/Firebase/Firebase';
+import { Functions } from '../../../../../../../config/Const';
+import Icon from '../../../../../../../components/Icon';
+import Color from '../../../../../../../config/Color';
 import FloatingButton from './FloatingButton';
 
 const style = StyleSheet.create({

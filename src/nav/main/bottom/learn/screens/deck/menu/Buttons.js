@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '../../../../../../../components/Icon';
+import Color from '../../../../../../../config/Color';
 
 const style = StyleSheet.create({
   container: {
@@ -16,6 +17,10 @@ const style = StyleSheet.create({
   },
   icon: {
     fontSize: 20,
+  },
+  deleteicon: {
+    fontSize: 20,
+    color: 'red',
   },
 });
 
@@ -48,7 +53,7 @@ export default class DeckButtons extends Component {
             onPress={button.onPress}
           >
             {button.icon()}
-            <Text style={style.title}>{button.title}</Text>
+            <Text style={[style.title, button.textStyle]}>{button.title}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -65,6 +70,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckplay', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Property',
@@ -72,6 +78,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckproperty', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Edit',
@@ -79,6 +86,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckedit', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: isAdditionalButtonsVisible ? 'Close' : 'More',
@@ -93,6 +101,7 @@ export default class DeckButtons extends Component {
             isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
           }));
         },
+        textStyle: {}
       },
     ];
     return this.renderColumn(buttons);
@@ -100,7 +109,7 @@ export default class DeckButtons extends Component {
 
   renderMoreButtons = () => {
     const { isAdditionalButtonsVisible } = this.state;
-    const { id, deckinfo, navigation } = this.state;
+    const { id, deckinfo, navigation } = this.props;
     const buttons1 = [
       {
         title: 'Bookmark',
@@ -108,6 +117,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckbookmark', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Import',
@@ -115,6 +125,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckimport', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Export',
@@ -122,6 +133,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckexport', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Duplicate',
@@ -129,6 +141,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckduplicate', { id, deckinfo });
         },
+        textStyle: {}
       },
     ];
     const buttons2 = [
@@ -138,6 +151,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckshare', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Test',
@@ -145,6 +159,7 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('decktest', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Analyze',
@@ -152,13 +167,15 @@ export default class DeckButtons extends Component {
         onPress: () => {
           navigation.navigate('deckanalyze', { id, deckinfo });
         },
+        textStyle: {}
       },
       {
         title: 'Delete',
-        icon: () => <Icon.Feather name="delete" style={style.icon} />,
+        icon: () => <Icon.Feather name="delete" style={style.deleteicon} />,
         onPress: () => {
           navigation.navigate('deckdelete', { id, deckinfo });
         },
+        textStyle: { color: 'red' }
       },
     ];
     if (isAdditionalButtonsVisible) {

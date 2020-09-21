@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import Deck from '../../../../../config/Firebase/Deck';
+import Deck from '../../../../../../../config/Firebase/Deck';
 
-import UserIcon from '../../../../../components/UserIcon';
-import Color from '../../../../../config/Color';
-import Header from '../../../../../components/header/Header';
-import Icon from '../../../../../components/Icon';
-import User from '../../../../../config/Firebase/User';
-import DeckCarousel from '../../../../../components/DeckCarousel';
+import UserIcon from '../../../../../../../components/UserIcon';
+import Color from '../../../../../../../config/Color';
+import Header from '../../../../../../../components/header/Header';
+import Icon from '../../../../../../../components/Icon';
+import User from '../../../../../../../config/Firebase/User';
+import DeckCarousel from '../../../../../../../components/DeckCarousel';
 
 const style = StyleSheet.create({
   container: {

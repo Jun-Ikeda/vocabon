@@ -5,11 +5,11 @@ const Color = {
   primary4: '#b9d08b', // 若葉色
   primary5: '#82ba6c', // 薄淡い緑
   background1: 'rgb(249,249,249)',
-  background2: 'rgba(255,255,255,1)',
+  background2: 'rgba(255,255,255,1)', // 白
   background3: 'rgb(230,230,230)',
   background4: 'rgb(30,30,30)',
   background5: '#86f0e2', // 薄い緑
-  accent1: '',
+  accent1: 'rgb(255,10,10)', // 赤
   accent2: '',
   accent3: '',
   font1: 'rgb(255,255,255)', // 白

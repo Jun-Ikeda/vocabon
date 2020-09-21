@@ -96,3 +96,5 @@ export const behaviorOfKeyAvoidView = Platform.OS === 'ios' ? 'padding' : null;
 export const backgroundImages = [
   'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80',
 ];
+
+export const titleMaxLength = 20;

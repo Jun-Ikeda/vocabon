@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 
@@ -65,27 +64,37 @@ class DeckLanguage extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
     return (
       <View style={style.container}>
-        <Background
-          imageSource={letterpress}
-          imageStyle={style.background}
-          overlayStyle={style.backgroundOverlay}
-        />
-        <Header
-          renderLeft={() => (
-            <Icon.Ionicons name="ios-arrow-back" style={style.buttonIcon} />
-          )}
-          onPressLeft={() => {
-            navigation.goBack();
-          }}
-        />
+        {this.renderBackground()}
+        {this.renderHeader()}
         <View>
           <Text style={style.title}>Choose Language</Text>
           {this.renderItem()}
         </View>
       </View>
+    );
+  }
+
+  renderBackground = () => (
+    <Background
+      imageSource={letterpress}
+      imageStyle={style.background}
+      overlayStyle={style.backgroundOverlay}
+    />
+  )
+
+  renderHeader = () => {
+    const { navigation } = this.props;
+    return (
+      <Header
+        renderLeft={() => (
+          <Icon.Ionicons name="ios-arrow-back" style={style.buttonIcon} />
+        )}
+        onPressLeft={() => {
+          navigation.goBack();
+        }}
+      />
     );
   }
 

@@ -89,6 +89,7 @@ class Cards extends Component {
         overlayRightText="😃"
         overlayLeftText="🤔"
         stackOffsetX=""
+        dragY={false}
         ref={swiperRef => {
           this.swiperRef = swiperRef;
         }}

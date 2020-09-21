@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import Header from '../../../../../../../../components/header/Header';
 import Icon from '../../../../../../../../components/Icon';
 import Color from '../../../../../../../../config/Color';
@@ -81,34 +80,6 @@ class AddWords extends Component {
       style={style.absoluteBox}
     />
   );
-
-  // renderPages = () => {
-  //   const { layout } = this.state;
-  //   return (
-  //     <ScrollView
-  //       style={style.pageContainer}
-  //       horizontal
-  //       pagingEnabled
-  //       showsHorizontalScrollIndicator={false}
-  //       onScrollEndDrag={() => console.log('endscroll')}
-  //       ref={scroll => {
-  //         this.scrollviewRef = scroll;
-  //       }}
-  //       onLayout={() => {
-  //         const { layout } = this.state;
-  //         this.scrollviewRef.scrollTo({
-  //           x: layout.width,
-  //           y: 0,
-  //           animated: false,
-  //         });
-  //       }}
-  //     >
-  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
-  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
-  //       <View style={[style.page, layout]}>{this.renderTextInputs()}</View>
-  //     </ScrollView>
-  //   );
-  // };
 
   renderTextInputs = () => {
     const { word, def, eg, syn, ant, cf } = this.state;

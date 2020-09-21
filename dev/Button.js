@@ -3,8 +3,8 @@
 import { AsyncStorage, Linking } from 'react-native';
 
 import Storage from '../src/config/Storage';
-import { Function } from '../src/config/Firebase/Firebase';
-import { } from '../'
+import { Function, firestore } from '../src/config/Firebase/Firebase';
+// import { } from '../'
 import UUID from '../src/config/UUID';
 
 import { TimerProcess } from '../src/components/Timer';
@@ -334,7 +334,22 @@ const Button = [
 
   {
     title: 'Firebase.read()',
-    onPress: () => { }
+    onPress: () => {
+      console.log('test')
+      firestore.collection('test').doc('id').get().then(doc => {
+        if (doc.exists) {
+          console.log(doc.data());
+        } else {
+          console.log('it doesn\'t exists');
+        }
+      }).catch(error => console.log(error));
+    }
+  },
+  {
+    title: 'test',
+    onPress: () => {
+      console.log('aaa');
+    }
   }
 
   //   {

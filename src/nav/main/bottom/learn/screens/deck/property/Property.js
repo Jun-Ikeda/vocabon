@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  TextInput,
 } from 'react-native';
 
 import Color from '../../../../../../../config/Color';
@@ -12,9 +10,8 @@ import { Functions } from '../../../../../../../config/Const';
 
 import Header from '../../../../../../../components/header/Header';
 import Icon from '../../../../../../../components/Icon';
-// import ItemWithIcon from '../../../../../../../components/item/ItemWithIcon';
 import Deck from '../../../../../../../config/Firebase/Deck';
-import DeckPropertyItem from './DeckPropertyItem';
+import DeckPropertyItem from './Item';
 
 const style = StyleSheet.create({
   container: {
@@ -44,11 +41,8 @@ const style = StyleSheet.create({
   },
   itemsContainer: {
     flex: 1,
-    // justifyContent: 'space-between',
     marginVertical: 50,
     marginHorizontal: 30,
-    // borderWidth: 2,
-    // borderColor: 'white',
   },
   itemContainer: {
     flex: 1,
@@ -68,12 +62,8 @@ const style = StyleSheet.create({
     color: Color.background4,
   },
   containerLine: {
-    // alignItems: 'center',
     paddingVertical: 10, // 固定値だから変える
     flexDirection: 'row', // 縦に並べるやつ
-    // backgroundColor: 'blue',
-    // borderWidth: 2,
-    // borderColor: 'white',
   },
 });
 
@@ -108,70 +98,69 @@ class DeckProperty extends Component {
           renderTitle={() => <Text style={style.title}>Property</Text>}
           onPressLeft={this.goBack}
         />
-        {this.renderItems()}
-        {/* {this.renderEditContent()} */}
+        {this.renderButtons()}
       </View>
     );
   }
 
-  renderItems = () => {
-    const { id, deckinfo } = this.state;
+  renderButtons =() => {
     const { navigation } = this.props;
-    return (
-      <View style={style.itemsContainer}>
+    const { deckinfo } = this.state;
+    const buttons = [
+      {
+        title: 'Title',
+        onPress: () => {
+          navigation.navigate('deckpropertytitle', {
+            ti: deckinfo.ti,
+            updateDeckInfo: this.updateDeckInfo.bind(this),
+          });
+        },
+        icon: {
+          collection: 'MaterialCommunityIcons',
+          name: 'format-title',
+        },
+        descriptionBelow: deckinfo.ti,
+      },
+      {
+        title: 'Style',
+        onPress: () => console.log('STYLE'),
+        icon: {
+          collection: 'Foundation',
+          name: 'page-edit',
+        },
+        descriptionBelow: 'Style',
+      },
+      {
+        title: 'Tags',
+        onPress: () => navigation.navigate('decktags'),
+        icon: {
+          collection: 'Ionicons',
+          name: 'md-pricetags',
+        },
+        descriptionBelow: 'Tags',
+      },
+    ];
+    return this.renderItems(buttons);
+  }
+
+  renderItems = items => (
+    <View style={style.itemsContainer}>
+      {items.map(button => (
         <DeckPropertyItem
-          title="Title"
+          title={button.title}
           titleStyle={style.titleStyle}
-          onPress={() =>
-            navigation.navigate('deckpropertytitle', {
-              ti: deckinfo.ti,
-              updateDeckInfo: this.updateDeckInfo.bind(this),
-            })
-          }
+          onPress={button.onPress}
           containerStyle={style.itemContainer}
-          icon={{
-            collection: 'MaterialCommunityIcons',
-            name: 'format-title',
-          }}
+          icon={button.icon}
           iconStyle={style.iconStyle}
-          descriptionBelow={deckinfo.ti}
+          descriptionBelow={button.descriptionBelow}
           descBStyle={style.descBStyle}
           BelowStyle={style.BelowStyle}
           containerLine={style.containerLine}
         />
-        <DeckPropertyItem
-          title="Style"
-          titleStyle={style.titleStyle}
-          onPress={() => console.log('STYLE')}
-          containerStyle={style.itemContainer}
-          icon={{
-            collection: 'Foundation',
-            name: 'page-edit',
-          }}
-          iconStyle={style.iconStyle}
-          descriptionBelow="Style"
-          descBStyle={style.descBStyle}
-          BelowStyle={style.BelowStyle}
-          containerLine={style.containerLine}
-        />
-        <DeckPropertyItem
-          title="Tags"
-          titleStyle={style.titleStyle}
-          onPress={() => console.log('TAGS')}
-          containerStyle={style.itemContainer}
-          icon={{
-            collection: 'Ionicons',
-            name: 'md-pricetags',
-          }}
-          iconStyle={style.iconStyle}
-          descriptionBelow="Tags"
-          descBStyle={style.descBStyle}
-          BelowStyle={style.BelowStyle}
-          containerLine={style.containerLine}
-        />
-      </View>
-    );
-  };
+      ))}
+    </View>
+  );
 
   returnTags = () => {
     const { deckinfo } = this.state;
@@ -195,8 +184,6 @@ class DeckProperty extends Component {
   };
 
   updateDeckInfo = newDeckinfo => {
-    // const { deckinfo } = this.state;
-    // const merged = Functions.deepMerge(deckinfo, newDeckinfo)
     this.setState(({ deckinfo }) => {
       const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
       return { deckinfo: mergedDeckInfo };
@@ -212,16 +199,6 @@ class DeckProperty extends Component {
     }
     navigation.goBack();
   };
-
-  // renderEditContent = () => {
-  //   const { id, deckinfo } = this.state;
-  //   const { navigation } = this.props;
-  //   return (
-  //     <TouchableOpacity onPress={() => navigation.navigate('deckeditcontent', { id, deckinfo })}>
-  //       <Text>Edit Content</Text>
-  //     </TouchableOpacity>
-  //   );
-  // }
 }
 
 export default DeckProperty;

@@ -16,18 +16,18 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   left: {
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   right: {
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
   },

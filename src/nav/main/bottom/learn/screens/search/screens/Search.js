@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
-import Header from '../../../../../../components/header/Header';
-import HeaderWithBack from '../../../../../../components/header/HeaderWithBack';
-import Color from '../../../../../../config/Color';
+// import Header from '../../../../../../components/header/Header';
+import HeaderWithBack from '../../../../../../../components/header/HeaderWithBack';
+import Color from '../../../../../../../config/Color';
 // import { TextInput } from 'react-native-gesture-handler';
 
 const style = StyleSheet.create({
@@ -42,31 +42,33 @@ export default class Search extends Component {
     const { text } = this.props;
     return (
       <HeaderWithBack
-        renderCenter={() => (
-          // <View style={{flex: 1, backgroundColor: 'red', alignSelf: 'stretch'}} />
-          <TextInput
-            value={text}
-            onChangeText={text => this.setState({ text })}
-            placeholder="Search"
-            placeholderTextColor={Color.font4}
-            style={{
-              color: 'white',
-              flex: 1,
-              alignSelf: 'stretch',
-              // backgroundColor: 'white',
-              // paddingRight: 150,
-            }}
-            ref={inputRef => {
-              this.inputRef = inputRef;
-            }}
-          />
-        )}
+        renderCenter={this.renderTextInput}
         navigation={navigation}
         title="Search"
         titleStyle={style.header}
         iconStyle={style.header}
-        renderRight={() => {}}
+        renderRight={() => { }}
       />
     );
   };
+
+  renderTextInput = () => {
+    const { text } = this.state;
+    return (
+      <TextInput
+        value={text}
+        onChangeText={text => this.setState({ text })}
+        placeholder="Search"
+        placeholderTextColor={Color.font4}
+        style={{
+          color: 'white',
+          flex: 1,
+          alignSelf: 'stretch',
+        }}
+        ref={inputRef => {
+          this.inputRef = inputRef;
+        }}
+      />
+    );
+  }
 }

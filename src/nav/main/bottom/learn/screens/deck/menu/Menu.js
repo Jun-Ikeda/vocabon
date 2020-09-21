@@ -19,7 +19,7 @@ import UserIcon from '../../../../../../../components/UserIcon';
 
 import { bottomRef } from '../../../../BottomNav';
 import Attribution from './Attribution';
-import DeckButtons from './DeckButtons';
+import DeckButtons from './Buttons';
 
 const AnimatedIonicons = Animatable.createAnimatableComponent(Icon.Ionicons);
 
