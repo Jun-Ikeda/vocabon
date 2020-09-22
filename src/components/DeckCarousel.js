@@ -91,7 +91,7 @@ class DeckCarousel extends Component {
             },
           ]}
           onPress={() => {
-            navigation.push('deckmenu', {
+            navigation.push('menu', {
               deck: item,
               user: user[id],
               v: v[id],

@@ -39,7 +39,7 @@ export default class Search extends Component {
 
   renderHeader = () => {
     const { navigation } = this.props;
-    const { text } = this.props;
+    // const { text } = this.props;
     return (
       <HeaderWithBack
         renderCenter={this.renderTextInput}

@@ -1,24 +1,28 @@
-import { createAppContainer } from 'react-navigation';
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from 'react-navigation-stack';
+// import { createAppContainer } from 'react-navigation';
+// import {
+//   createStackNavigator,
+//   TransitionPresets,
+// } from 'react-navigation-stack';
 
-import Learn from './screens/Learn';
+import Home from './screens/Home';
 
-const StackNavigator = createStackNavigator(
-  {
-    learn: { screen: Learn },
-  },
-  {
-    headerMode: 'none',
-    transparentCard: true,
-    defaultNavigationOptions: {
-      ...TransitionPresets.RevealFromBottomAndroid,
-    },
-  },
-);
+// const StackNavigator = createStackNavigator(
+//   {
+//     home: { screen: Home },
+//   },
+//   {
+//     headerMode: 'none',
+//     transparentCard: true,
+//     defaultNavigationOptions: {
+//       ...TransitionPresets.RevealFromBottomAndroid,
+//     },
+//   },
+// );
 
-const AppContainer = createAppContainer(StackNavigator);
+// const AppContainer = createAppContainer(StackNavigator);
 
-export default AppContainer;
+// export default AppContainer;
+
+export default {
+  home: { screen: Home },
+};
