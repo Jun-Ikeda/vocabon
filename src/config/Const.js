@@ -87,6 +87,7 @@ export const Functions = {
   onLayoutContainer: e => {
     const { layout } = e.nativeEvent;
     const { height, width } = layout;
+    console.log({ height, width });
     return { height, width };
   },
 };

@@ -32,8 +32,8 @@ class EachCard extends Component {
     return (
       <CardFlip
         style={style.cardflip}
-        ref={card => {
-          this[`card${word}`] = card;
+        ref={cardRef => {
+          this[`card${word}`] = cardRef;
         }}
       >
         <TouchableOpacity
@@ -55,10 +55,10 @@ class EachCard extends Component {
   }
 
   componentDidMount = () => {
-    const { isFront, word } = this.props;
-    if (!isFront) {
-      this[`card${word}`].flip();
-    }
+    // const { isFront, word } = this.props;
+    // if (!isFront) {
+    //   this[`card${word}`].flip();
+    // }
   };
 
   flip = () => {

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, Button } from 'react-native';
 // import SwipeCards from 'react-native-swipeable-cards';
-import Swiper from 'react-native-deck-swiper';
+import DeckSwiper from 'react-native-deck-swiper';
 
 import { Functions } from '../../../../../../../../../config/Const';
+
+import HeaderWithBack from '../../../../../../../../../components/header/Header';
 
 import CardFlip from './CardFlip';
 // import NoMoreCards from './card/NoMoreCards';
@@ -13,10 +15,11 @@ import Buttons from '../Buttons';
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    borderWidth: 3,
   },
 });
 
-class Cards extends Component {
+class Swiper extends Component {
   constructor(props) {
     super(props);
     this.swiperRef = {};
@@ -27,15 +30,21 @@ class Cards extends Component {
   }
 
   render() {
+    const { layout } = this.state
     return (
       <View
         style={style.container}
-        onLayout={e =>
-          this.setState({ layout: Functions.onLayoutContainer(e) })
-        }
+        onLayout={e => {
+          const layout = Functions.onLayoutContainer(e);
+          console.log({ layout })
+          this.setState({ layout });
+          // const { height, width } = this.state
+          // console.log({ height, width });
+        }}
       >
+        {/* <View style={[layout, {backgroundColor: 'red', borderWidth: 3, borderColor: 'blue'}]} /> */}
         {this.renderCards()}
-        {this.renderButtons()}
+        {/* {this.renderButtons()} */}
       </View>
     );
   }
@@ -44,6 +53,7 @@ class Cards extends Component {
     const { layout, isFront } = this.state;
     const { height, width } = layout;
     const { cards, navigation } = this.props;
+    const heightTest = 679
     const cardsForWeb = [
       {
         word: 'austere',
@@ -73,11 +83,12 @@ class Cards extends Component {
     ];
     const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
     return (
-      <Swiper
-        cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
-        renderCard={(card) => <CardFlip card={card} />}
+      <DeckSwiper
+        cards={cardsDev}
+        renderCard={(card) => <CardFlip {...card} />}
         onSwiped={(cardIndex) => {
           console.log(cardIndex);
+          console.log({ height: typeof (height) })
         }}
         onSwipedAll={() => {
           console.log('onSwipedAll');
@@ -90,11 +101,18 @@ class Cards extends Component {
         }}
         swipeBackCard
         stackSize={1}
-      />
+        cardVerticalMargin={20}
+        useViewOverflow={false}
+        // containerStyle={{ flex: 1, borderWidth: 2 }}
+        cardStyle={{ height: heightTest }}
+      >
+        {/* <Button title="press me" /> */}
+        {/* <HeaderWithBack navigation={navigation} title="Play" /> */}
+      </DeckSwiper>
     );
   };
 
-  renderButtons =() =>
+  renderButtons = () =>
     // const {} = this.state;
     (
       <Buttons swiperRef={this.swiperRef} />
@@ -103,6 +121,7 @@ class Cards extends Component {
 
   onSwipeRight(card) {
     console.log(`Yup for ${card.word}`);
+    console.log(this.state.layout)
   }
 
   onSwipeLeft(card) {
@@ -114,7 +133,7 @@ class Cards extends Component {
   }
 }
 
-export default Cards;
+export default Swiper;
 
 // ,
 //       {/* <SwipeCards

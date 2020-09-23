@@ -4,10 +4,11 @@ import { View, Text, StyleSheet /* TouchableOpacity */ } from 'react-native';
 import Color from '../../../../../../../../config/Color';
 import Deck from '../../../../../../../../config/Firebase/Deck';
 
-import Header from '../../../../../../../../components/header/Header';
+import Header from '../../../../../../../../components/header/HeaderWithBack';
 import Icon from '../../../../../../../../components/Icon';
 
 import Swiper from './card/Swiper';
+import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
 
 const style = StyleSheet.create({
   container: {
@@ -34,13 +35,7 @@ class DeckPlay extends Component {
     const { navigation } = this.props;
     return (
       <View style={style.container}>
-        <Header
-          renderLeft={() => (
-            <Icon.Ionicons name="ios-arrow-back" style={style.headerIcon} />
-          )}
-          onPressLeft={() => navigation.goBack()}
-          renderTitle={() => <Text>Play your deck</Text>}
-        />
+        <HeaderWithBack navigation={navigation} title="Play" />
         {this.renderContent()}
       </View>
     );
