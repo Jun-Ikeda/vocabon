@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import { AsyncStorage, Linking } from 'react-native';
+import { AsyncStorage/* , Linking */ } from 'react-native';
 
 import Storage from '../src/config/Storage';
 import { Function, firestore } from '../src/config/Firebase/Firebase';
@@ -10,7 +10,7 @@ import UUID from '../src/config/UUID';
 import { TimerProcess } from '../src/components/Timer';
 import User from '../src/config/Firebase/User';
 import Deck from '../src/config/Firebase/Deck';
-import Unsplash, { getRandomImage, toJson } from '../src/config/Unsplash';
+import Unsplash, { /* getRandomImage,  */toJson } from '../src/config/Unsplash';
 
 const Button = [
   {
@@ -335,22 +335,23 @@ const Button = [
   {
     title: 'Firebase.read()',
     onPress: () => {
-      console.log('test')
+      console.log('test');
       firestore.collection('test').doc('id').get().then(doc => {
         if (doc.exists) {
           console.log(doc.data());
         } else {
           console.log('it doesn\'t exists');
         }
-      }).catch(error => console.log(error));
-    }
+      })
+        .catch(error => console.log(error));
+    },
   },
   {
     title: 'test',
     onPress: () => {
       console.log('aaa');
-    }
-  }
+    },
+  },
 
   //   {
   //     title: 'State',

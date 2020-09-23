@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Icon from '../Icon';
 import Color from '../../config/Color';
@@ -28,10 +29,7 @@ class ItemWithIcon extends Component {
 
   renderIcon = () => {
     const { icon, iconStyle, iconContainerStyle } = this.props;
-    const {
-      collection,
-      name,
-    } = icon;
+    const { collection, name } = icon;
     const IconProps = Icon[collection]; // Iconはファイル名。ここでは特にそのファイルを使ってるのではなくIconを使う時に必要だから
     return (
       <View style={[style.leftElement, iconContainerStyle]}>
@@ -40,6 +38,21 @@ class ItemWithIcon extends Component {
     );
   };
 }
+
+// ItemWithIcon.defaultProps = {
+//   icon: PropTypes.shape({
+//     collection: PropTypes.string,
+//     name: PropTypes.string,
+//   }),
+//   iconStyle: PropTypes.object,
+//   iconContainerStyle: PropTypes.object,
+// };
+
+// ItemWithIcon.defaultProps = {
+//   icon: { collection: '', name: '' },
+//   iconStyle: {},
+//   iconContainerStyle: {},
+// };
 
 export default ItemWithIcon;
 

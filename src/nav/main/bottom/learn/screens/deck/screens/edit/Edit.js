@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+
 import Color from '../../../../../../../../config/Color';
+
 import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
+import ItemWithIcon from '../../../../../../../../components/item/ItemWithIcon';
 
 const style = StyleSheet.create({
   container: {
@@ -13,8 +16,7 @@ const style = StyleSheet.create({
 export default class DeckEdit extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -22,6 +24,15 @@ export default class DeckEdit extends Component {
     return (
       <View style={style.container}>
         <HeaderWithBack navigation={navigation} title="Edit" />
+        <ItemWithIcon
+          title="Add Words"
+          containerStyle={{
+            flex: 1,
+            height: 120,
+            borderWidth: 1,
+            // borderColor: 'white',
+          }}
+        />
       </View>
     );
   }

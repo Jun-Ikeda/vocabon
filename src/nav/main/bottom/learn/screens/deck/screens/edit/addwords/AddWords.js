@@ -64,7 +64,7 @@ class AddWords extends Component {
         />
         <View style={style.contentContainer}>
           {this.renderEmptyAbsoluteBox()}
-          {this.renderTextInputs()}
+          {this.renderSwipeCard()}
           {this.renderButtons()}
         </View>
       </View>
@@ -81,7 +81,7 @@ class AddWords extends Component {
     />
   );
 
-  renderTextInputs = () => {
+  renderSwipeCard = () => {
     const { word, def, eg, syn, ant, cf } = this.state;
     return (
       <EachPage
