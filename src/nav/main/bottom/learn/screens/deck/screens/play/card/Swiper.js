@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, Button } from 'react-native';
+import { View, StyleSheet, Platform, TouchableOpacity/* , Text */ } from 'react-native';
 // import SwipeCards from 'react-native-swipeable-cards';
 import DeckSwiper from 'react-native-deck-swiper';
 
@@ -7,11 +7,27 @@ import { Functions } from '../../../../../../../../../config/Const';
 
 import CardFlip from './CardFlip';
 
-import Buttons from '../Buttons';
+// import Buttons from '../Buttons';
+import Icon from '../../../../../../../../../components/Icon';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  buttonContainer: {
+    // marginHorizontal: 20,
+    marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  // buttonContainer: {
+  //   flexDirection: 'row',
+  //   flex: 1,
+  //   justifyContent: 'space-between',
+  //   alignSelf: 'center',
+  // },
+  icon: {
+    fontSize: 30,
   },
 });
 
@@ -30,25 +46,26 @@ class Swiper extends Component {
       <View style={style.container}>
         {this.renderCardsContainer()}
         {this.renderButtons()}
+        {/* <TouchableOpacity onPress={() => this.swiperRef.swipeLeft()}>
+          <Text>test</Text>
+        </TouchableOpacity> */}
       </View>
     );
   }
 
-  renderCardsContainer = () => {
-    return (
-      <View
-        style={style.container}
-        onLayout={e => {
-          this.setState({
-            layout: Functions.onLayoutContainer(e),
-            onLayout: true,
-          });
-        }}
-      >
-        {this.renderCards()}
-      </View>
-    );
-  };
+  renderCardsContainer = () => (
+    <View
+      style={style.container}
+      onLayout={e => {
+        this.setState({
+          layout: Functions.onLayoutContainer(e),
+          onLayout: true,
+        });
+      }}
+    >
+      {this.renderCards()}
+    </View>
+  );
 
   renderCards = () => {
     const { layout, onLayout } = this.state;
@@ -99,6 +116,7 @@ class Swiper extends Component {
           backgroundColor="#4FD0E9"
           ref={swiperRef => {
             this.swiperRef = swiperRef;
+            // this.setState({ a: true });
           }}
           stackSize={1}
           cardVerticalMargin={20}
@@ -110,10 +128,43 @@ class Swiper extends Component {
     return null;
   };
 
-  renderButtons = () => (
+  renderButtons = () => {
+    // const swiperRef = this.swiperRef;
+    const buttons = [
+      {
+        collection: 'Entypo',
+        name: 'check',
+        onPress: () => this.swiperRef.swipeLeft(),
+      },
+      {
+        collection: 'AntDesign',
+        name: 'back',
+        onPress: () => this.swiperRef.swipeBack(this.swiperRef.previousCardIndex),
+      },
+      {
+        collection: 'Entypo',
+        name: 'cross',
+        onPress: () => this.swiperRef.swipeRight(),
+      },
+    ];
+    return (
+      <View style={style.buttonContainer}>
+        {buttons.map(button => {
+          const { collection, name, onPress } = button;
+          const IconComponent = Icon[collection];
+          return (
+            <TouchableOpacity onPress={onPress}>
+              <IconComponent name={name} style={style.icon} />
+            </TouchableOpacity>
+          );
+        })
+        }
+      </View>
+    );
+
     // const {} = this.state;
-    <Buttons swiperRef={this.swiperRef} />
-  );
+    // <Buttons swiperRef={this.swiperRef} />
+  };
 
   onSwipeRight(card) {
     console.log(`Yup for ${card.word}`);

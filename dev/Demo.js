@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Item from '../src/components/item/Item';
 import ItemWithIcon from '../src/components/item/ItemWithIcon';
 import ItemWithDescriptionRight from '../src/components/item/ItemWithDescriptionRight';
-import SettingItem from '../src/components/item/material/SettingItem';
+// import SettingItem from '../src/components/item/material/SettingItem';
 
 const style = StyleSheet.create({
   container: {
@@ -47,10 +47,10 @@ class Demo extends Component {
         containerStyle={style.itemdescription}
         description="description"
       />
-      <SettingItem
+      {/* <SettingItem
         title="SettingItem"
         icon={{ collection: 'Ionicons', name: 'md-notifications' }}
-      />
+      /> */}
     </View>
   );
 }

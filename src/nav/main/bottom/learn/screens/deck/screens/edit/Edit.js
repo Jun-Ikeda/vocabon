@@ -5,11 +5,15 @@ import Color from '../../../../../../../../config/Color';
 
 import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
 import ItemWithIcon from '../../../../../../../../components/item/ItemWithIcon';
+import Item from '../../../../../../../../components/item/Item';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.background1,
+  },
+  itemContainer: {
+
   },
 });
 
@@ -24,15 +28,29 @@ export default class DeckEdit extends Component {
     return (
       <View style={style.container}>
         <HeaderWithBack navigation={navigation} title="Edit" />
-        <ItemWithIcon
-          title="Add Words"
-          containerStyle={{
-            flex: 1,
-            height: 120,
-            borderWidth: 1,
-            // borderColor: 'white',
-          }}
-        />
+        {this.renderItemContainer()}
+      </View>
+    );
+  }
+
+  renderItemContainer = () => {
+    const { navigation } = this.props;
+    const items = [
+      { title: 'Add Words', screen: 'addwords' },
+    ];
+    return (
+      <View style={style.itemContainer}>
+        {items.map(item => (
+          <ItemWithIcon
+            title={item.title}
+            containerStyle={{
+              borderWidth: 1,
+              // borderColor: 'white',
+            }}
+            titleStyle={{ color: 'black' }}
+            onPress={() => navigation.navigate(item.screen)}
+          />
+        ))}
       </View>
     );
   }

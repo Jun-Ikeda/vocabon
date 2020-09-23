@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import ControlPanel from './dev/ControlPanel';
-// import Demo from './dev/Demo';
+import Demo from './dev/Demo';
 
 import Nav from './src/nav/Nav';
 
