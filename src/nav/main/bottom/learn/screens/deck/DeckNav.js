@@ -46,16 +46,16 @@ import Delete from './screens/delete/Delete';
 // export default AppContainer;
 
 export default {
-  menu: { screen: Menu },
-  play: { screen: Play },
-  property: { screen: Property },
-  edit: { screen: Edit },
-  bookmark: { screen: Bookmark },
-  import: { screen: Import },
-  export: { screen: Export },
-  duplicate: { screen: Duplicate },
-  share: { screen: Share },
-  test: { screen: Test },
-  analyze: { screen: Analyze },
-  delete: { screen: Delete },
+//  menu: { screen: Menu },
+//  play: { screen: Play },
+//  property: { screen: Property },
+//  edit: { screen: Edit },
+//  bookmark: { screen: Bookmark },
+//  import: { screen: Import },
+//  export: { screen: Export },
+//  duplicate: { screen: Duplicate },
+//  share: { screen: Share },
+//  test: { screen: Test },
+//  analyze: { screen: Analyze },
+//  delete: { screen: Delete },
 };
