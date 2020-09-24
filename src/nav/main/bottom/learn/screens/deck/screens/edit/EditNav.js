@@ -3,5 +3,5 @@ import AddWords from './addwords/AddWords';
 
 export default {
   edit: { screen: Edit },
-  addwords: { screen: addwords }
+  addwords: { screen: AddWords },
 };

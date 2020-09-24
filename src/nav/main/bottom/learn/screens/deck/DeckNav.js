@@ -4,18 +4,18 @@
 //   TransitionPresets,
 // } from 'react-navigation-stack';
 
-import Menu from './screens/menu/Menu';
-import Play from './screens/play/Play';
-import Property from './screens/property/Property';
-import Edit from './screens/edit/Edit';
-import Bookmark from './screens/bookmark/Bookmark';
-import Import from './screens/import/Import';
-import Export from './screens/export/Export';
-import Duplicate from './screens/duplicate/Duplicate';
-import Share from './screens/share/Share';
-import Test from './screens/test/Test';
-import Analyze from './screens/analyze/Analyze';
-import Delete from './screens/delete/Delete';
+import MenuNav from './screens/menu/MenuNav';
+import PlayNav from './screens/play/PlayNav';
+import PropertyNav from './screens/property/PropertyNav';
+import EditNav from './screens/edit/EditNav';
+import BookmarkNav from './screens/bookmark/BookmarkNav';
+import ImportNav from './screens/import/ImportNav';
+import ExportNav from './screens/export/ExportNav';
+import DuplicateNav from './screens/duplicate/DuplicateNav';
+import ShareNav from './screens/share/ShareNav';
+import TestNav from './screens/test/TestNav';
+import AnalyzeNav from './screens/analyze/AnalyzeNav';
+import DeleteNav from './screens/delete/DeleteNav';
 
 // const StackNavigator = createStackNavigator(
 //   {
@@ -46,16 +46,16 @@ import Delete from './screens/delete/Delete';
 // export default AppContainer;
 
 export default {
-//  menu: { screen: Menu },
-//  play: { screen: Play },
-//  property: { screen: Property },
-//  edit: { screen: Edit },
-//  bookmark: { screen: Bookmark },
-//  import: { screen: Import },
-//  export: { screen: Export },
-//  duplicate: { screen: Duplicate },
-//  share: { screen: Share },
-//  test: { screen: Test },
-//  analyze: { screen: Analyze },
-//  delete: { screen: Delete },
+  ...MenuNav,
+  ...PlayNav,
+  ...PropertyNav,
+  ...EditNav,
+  ...BookmarkNav,
+  ...ImportNav,
+  ...ExportNav,
+  ...DuplicateNav,
+  ...ShareNav,
+  ...TestNav,
+  ...AnalyzeNav,
+  ...DeleteNav,
 };
