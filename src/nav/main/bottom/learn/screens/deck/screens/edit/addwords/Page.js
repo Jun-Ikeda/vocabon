@@ -10,6 +10,7 @@ import TagInput from 'react-native-tags-input';
 import DeckSwiper from 'react-native-deck-swiper';
 
 import Icon from '../../../../../../../../../components/Icon';
+import PageContent from './PageContent';
 
 const style = StyleSheet.create({
   inputContainer: {
@@ -71,24 +72,14 @@ class EachPage extends Component {
     const { arraytest, texttest } = this.state;
     return (
       <DeckSwiper
-        cards={texttest}
+        cards={arraytest}
         renderCard={(card, index) => (
-          <View style={styles.card}>
-            <TextInput
-              value={texttest}
-              onChangeText={
-                text =>
-                  this.setState(
-                    { texttest: text },
-                    /* prev => {
-                    const state = prev;
-                    state.arraytest[index] = text;
-                    this.setState({ arraytest: state.arraytest });
-                  }, () => this.validate() */
-                  )
-              }
-            />
-          </View>
+          <PageContent
+            {...this.props}
+            card={card}
+            index={index}
+            setStateInputs={state => this.setState(state)}
+          />
         )}
         onSwiped={async cardIndex => {
           await this.setState(prev => {
@@ -150,3 +141,21 @@ class EachPage extends Component {
 }
 
 export default EachPage;
+
+
+{ /* <View style={styles.card}>
+<TextInput
+  value={texttest}
+  onChangeText={
+    text =>
+      this.setState(
+        { texttest: text },
+        prev => {
+        const state = prev;
+        state.arraytest[index] = text;
+        this.setState({ arraytest: state.arraytest });
+      }, () => this.validate()
+      )
+  }
+/>
+</View> */ }

@@ -8,7 +8,7 @@ import Color from '../../../../../../../../../config/Color';
 import { StyleConst/* , Functions */ } from '../../../../../../../../../config/Const';
 
 import ControlButtons from './ControlButtons';
-import EachPage from './EachPage';
+import Page from './Page';
 
 const style = StyleSheet.create({
   container: {
@@ -84,7 +84,7 @@ class AddWords extends Component {
   renderSwipeCard = () => {
     const { word, def, eg, syn, ant, cf } = this.state;
     return (
-      <EachPage
+      <Page
         page={{ word, def, eg, syn, ant, cf }}
         setState={state => this.setState(state)}
       />
