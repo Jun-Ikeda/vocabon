@@ -46,6 +46,7 @@ class EachPage extends Component {
         tagsArray: [],
       },
       arraytest: ['', ''],
+      texttest: '',
     };
   }
 
@@ -67,32 +68,38 @@ class EachPage extends Component {
   }
 
   renderDeckSwiper = () => {
-    const { arraytest } = this.state;
+    const { arraytest, texttest } = this.state;
     return (
       <DeckSwiper
-        cards={arraytest}
+        cards={texttest}
         renderCard={(card, index) => (
           <View style={styles.card}>
             <TextInput
-              value={arraytest[index]}
+              value={texttest}
               onChangeText={
                 text =>
-                  this.setState(prev => {
+                  this.setState(
+                    { texttest: text },
+                    /* prev => {
                     const state = prev;
                     state.arraytest[index] = text;
                     this.setState({ arraytest: state.arraytest });
-                  })
-                /*  */
+                  }, () => this.validate() */
+                  )
               }
             />
           </View>
         )}
-        onSwiped={cardIndex => {
-          console.log(this.state.arraytest);
-          this.setState(prev => {
-            prev.arraytest.push('');
-            return { arraytest: prev.arraytest };
+        onSwiped={async cardIndex => {
+          await this.setState(prev => {
+            const array = prev.arraytest;
+            if (array.length < cardIndex + 2) {
+              array.push('');
+            }
+            array[cardIndex] = prev.texttest;
+            return { arraytest: array, texttest: '' };
           });
+          console.log(this.state.arraytest);
         }}
         onSwipeRight={this.onSwipeRight}
         onSwipeLeft={this.onSwipeLeft}

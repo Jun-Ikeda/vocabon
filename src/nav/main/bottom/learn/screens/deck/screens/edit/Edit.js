@@ -5,7 +5,7 @@ import Color from '../../../../../../../../config/Color';
 
 import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
 import ItemWithIcon from '../../../../../../../../components/item/ItemWithIcon';
-import Item from '../../../../../../../../components/item/Item';
+// import Item from '../../../../../../../../components/item/Item';
 
 const style = StyleSheet.create({
   container: {
