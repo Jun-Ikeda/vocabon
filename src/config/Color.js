@@ -4,6 +4,7 @@ const Color = {
   primary3: '#5bde80', // 明るい緑
   primary4: '#b9d08b', // 若葉色
   primary5: '#82ba6c', // 薄淡い緑
+  primary6: '#3ca897',
   background1: 'rgb(249,249,249)',
   background2: 'rgba(255,255,255,1)', // 白
   background3: 'rgb(230,230,230)',

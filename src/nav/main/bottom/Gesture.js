@@ -22,8 +22,8 @@ export default class Gesture extends Component {
     return (
       <View style={[style.container, propsStyle]}>
         <GestureRecognizer
-          onSwipeLeft={this.OnSwipeLeft}
-          onSwipeRight={this.OnSwipeRight}
+          onSwipedLeft={this.OnSwipedLeft}
+          onSwipedRight={this.OnSwipedRight}
           config={{
             velocityThreshold: 0.3,
             directionalOffsetThreshold: 80,
@@ -35,17 +35,17 @@ export default class Gesture extends Component {
     );
   }
 
-  OnSwipeLeft = () => {
+  OnSwipedLeft = () => {
     try {
-      bottomRef.OnSwipeLeft();
+      bottomRef.OnSwipedLeft();
     } catch (error) {
       // console.log(error);
     }
   };
 
-  OnSwipeRight = () => {
+  OnSwipedRight = () => {
     try {
-      bottomRef.OnSwipeRight();
+      bottomRef.OnSwipedRight();
     } catch (error) {
       // console.log(error);
     }

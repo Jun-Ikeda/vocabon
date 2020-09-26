@@ -13,10 +13,12 @@ import { titleMaxLength } from '../../../../../../../../config/Const';
 import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
 import Icon from '../../../../../../../../components/Icon';
 
+const mainColor = Color.primary6;
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.background2,
+    backgroundColor: mainColor,
   },
   headerIcon: {
     color: Color.font2,
@@ -42,12 +44,13 @@ const style = StyleSheet.create({
     fontSize: 20,
   },
   input: {
-    borderColor: Color.font2,
+    borderColor: Color.font1,
     borderWidth: 1,
     paddingVertical: 10,
     fontSize: 18,
     borderRadius: 5,
     alignSelf: 'stretch',
+    color: 'black',
   },
   length: {
     position: 'absolute',
@@ -75,6 +78,8 @@ class DeckPropertyTitle extends Component {
     this.state = {
       title: '',
       count: 0,
+      inputColor: mainColor,
+      textColor: Color.font2,
     };
   }
 
@@ -95,21 +100,19 @@ class DeckPropertyTitle extends Component {
 
   renderHeader = () => {
     const { navigation } = this.props;
-    return (
-      <HeaderWithBack
-        title="Title"
-        navigation={navigation}
-      />
-    );
-  }
+    return <HeaderWithBack title="Title" navigation={navigation} />;
+  };
 
   renderTextbox = () => {
-    const { title, count } = this.state;
+    const { title, count, inputColor, textColor} = this.state;
     return (
       <View style={style.textBox}>
         <TouchableOpacity
           style={style.deleteContainer}
-          onPress={() => { this.setState({ title: '', count: '0' }); this.inputRef.focus(); }}
+          onPress={() => {
+            this.setState({ title: '', count: '0' });
+            this.inputRef.focus();
+          }}
           ref={inputRef => {
             this.inputRef = inputRef;
           }}
@@ -124,11 +127,23 @@ class DeckPropertyTitle extends Component {
           )
         </Text>
         <TextInput
-          style={style.input}
+          style={[
+            style.input,
+            { backgroundColor: inputColor,
+              color: textColor,
+            },
+          ]}
           value={title}
-          onChangeText={
-            title => { this.setState({ title }); this.setState({ count: title.length }); }
+          onFocus={() =>
+            this.setState({ inputColor: Color.background2, textColor: mainColor })
           }
+          onBlur={() =>
+            this.setState({ inputColor: mainColor, textColor: Color.font1})
+          }
+          onChangeText={title => {
+            this.setState({ title });
+            this.setState({ count: title.length });
+          }}
           maxLength={titleMaxLength}
           ref={inputRef => {
             this.inputRef = inputRef;
@@ -136,7 +151,7 @@ class DeckPropertyTitle extends Component {
         />
       </View>
     );
-  }
+  };
 
   save = () => {
     const { title } = this.state;

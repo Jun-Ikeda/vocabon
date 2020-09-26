@@ -74,12 +74,27 @@ class EachPage extends Component {
       <DeckSwiper
         cards={arraytest}
         renderCard={(card, index) => (
-          <PageContent
-            {...this.props}
-            card={card}
-            index={index}
-            setStateInputs={state => this.setState(state)}
-          />
+          // <PageContent
+          //   {...this.props}
+          //   card={card}
+          //   index={index}
+          //   setStateInputs={state => this.setState(state)}
+          // />
+          <View style={styles.card}>
+            <TextInput
+              value={texttest}
+              onChangeText={text =>
+                this.setState(
+                  { texttest: text },
+                  /* prev => {
+                  const state = prev;
+                  state.arraytest[index] = text;
+                  this.setState({ arraytest: state.arraytest });
+                }, () => this.validate() */
+                )
+              }
+            />
+          </View>
         )}
         onSwiped={async cardIndex => {
           await this.setState(prev => {
@@ -92,8 +107,8 @@ class EachPage extends Component {
           });
           console.log(this.state.arraytest);
         }}
-        onSwipeRight={this.onSwipeRight}
-        onSwipeLeft={this.onSwipeLeft}
+        onSwipedRight={this.onSwipedRight}
+        onSwipedLeft={this.onSwipedLeft}
         onSwipedAll={() => console.log('onSwipedAll')}
         // horizontalThreshold={width / 8}
         cardIndex={0}
@@ -142,8 +157,8 @@ class EachPage extends Component {
 
 export default EachPage;
 
-
-{ /* <View style={styles.card}>
+{
+  /* <View style={styles.card}>
 <TextInput
   value={texttest}
   onChangeText={
@@ -158,4 +173,5 @@ export default EachPage;
       )
   }
 />
-</View> */ }
+</View> */
+}

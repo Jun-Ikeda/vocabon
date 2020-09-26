@@ -287,14 +287,14 @@ class DeckMenu extends Component {
             }}
           >
             {/* <GestureRecognizer
-              onSwipeUp={() => {
+              onSwipedUp={() => {
                 this.scrollview.scrollTo({
                   x: 0,
                   y: max - headerMinPadding,
                   animated: true,
                 });
               }}
-              onSwipeDown={() => navigation.goBack()}
+              onSwipedDown={() => navigation.goBack()}
               config={{
                 velocityThreshold: 0.01,
                 gestureIsClickThreshold: 0.1,

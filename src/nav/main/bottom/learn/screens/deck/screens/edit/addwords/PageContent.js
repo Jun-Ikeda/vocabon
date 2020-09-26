@@ -7,17 +7,54 @@ const style = StyleSheet.create({
   },
 });
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  card: {
+    flex: 1,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#E8E8E8',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  text: {
+    textAlign: 'center',
+    fontSize: 50,
+    backgroundColor: 'transparent',
+  },
+});
+
 export default class PageContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      texttest: '',
     };
   }
 
   render() {
+    const { texttest } = this.state;
     return (
       <View style={style.container}>
-        {this.renderTextInputs()}
+        <View style={styles.card}>
+          <TextInput
+            value={texttest}
+            onChangeText={text =>
+              this.setState(
+                { texttest: text },
+                /* prev => {
+                    const state = prev;
+                    state.arraytest[index] = text;
+                    this.setState({ arraytest: state.arraytest });
+                  }, () => this.validate() */
+              )
+            }
+          />
+        </View>
+        {/* {this.renderTextInputs()} */}
       </View>
     );
   }
@@ -27,28 +64,28 @@ export default class PageContent extends Component {
     setStateInputs({ texttest: card });
   }
 
-    renderTextInputs = () => {
-      const {
-        page: { word, def, eg, syn, ant, cf },
-        setState,
-      } = this.props;
-      const inputs = [
-        { title: 'Word', setState: word => setState({ word }), value: word },
-        {
-          title: 'Definition',
-          setState: def => setState({ def }),
-          value: def,
-        },
-        { title: 'Example', setState: eg => setState({ eg }), value: eg },
-        { title: 'Synonym', setState: syn => setState({ syn }), value: syn },
-        { title: 'Antonyms', setState: ant => setState({ ant }), value: ant },
-        { title: 'cf', setState: cf => setState({ cf }), value: cf },
-      ];
-      return inputs.map(input => (
-        <View style={style.inputContainer}>
-          <Text>{input.title}</Text>
-          <TextInput onChangeText={input.setState} value={input.value} />
-        </View>
-      ));
-    }
+  renderTextInputs = () => {
+    const {
+      page: { word, def, eg, syn, ant, cf },
+      setState,
+    } = this.props;
+    const inputs = [
+      { title: 'Word', setState: word => setState({ word }), value: word },
+      {
+        title: 'Definition',
+        setState: def => setState({ def }),
+        value: def,
+      },
+      { title: 'Example', setState: eg => setState({ eg }), value: eg },
+      { title: 'Synonym', setState: syn => setState({ syn }), value: syn },
+      { title: 'Antonyms', setState: ant => setState({ ant }), value: ant },
+      { title: 'cf', setState: cf => setState({ cf }), value: cf },
+    ];
+    return inputs.map(input => (
+      <View style={style.inputContainer}>
+        <Text>{input.title}</Text>
+        <TextInput onChangeText={input.setState} value={input.value} />
+      </View>
+    ));
+  };
 }

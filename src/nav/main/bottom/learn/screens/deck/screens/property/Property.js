@@ -110,7 +110,7 @@ class DeckProperty extends Component {
       {
         title: 'Title',
         onPress: () => {
-          navigation.navigate('deckpropertytitle', {
+          navigation.navigate('title', {
             ti: deckinfo.ti,
             updateDeckInfo: this.updateDeckInfo.bind(this),
           });
@@ -132,7 +132,7 @@ class DeckProperty extends Component {
       },
       {
         title: 'Tags',
-        onPress: () => navigation.navigate('decktags'),
+        onPress: () => navigation.navigate('tags'),
         icon: {
           collection: 'Ionicons',
           name: 'md-pricetags',

@@ -209,7 +209,7 @@ class BottomNavComponent extends Component {
     );
   };
 
-  OnSwipeLeft = () => {
+  OnSwipedLeft = () => {
     if (this.currentScreen >= 0) {
       if (!(this.currentScreen === BottomTabs.names.length - 1)) {
         this.navigate(this.currentScreen + 1);
@@ -217,7 +217,7 @@ class BottomNavComponent extends Component {
     }
   };
 
-  OnSwipeRight = () => {
+  OnSwipedRight = () => {
     if (this.currentScreen > 0) {
       this.navigate(this.currentScreen - 1);
     } else {

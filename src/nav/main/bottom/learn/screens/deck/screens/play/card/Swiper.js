@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, TouchableOpacity/* , Text */ } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity /* , Text */,
+} from 'react-native';
 // import SwipeCards from 'react-native-swipeable-cards';
 import DeckSwiper from 'react-native-deck-swiper';
 
@@ -29,6 +35,10 @@ const style = StyleSheet.create({
   icon: {
     fontSize: 30,
   },
+  final: {
+    flexDirection: 'row',
+    fontWeight: 800,
+  },
 });
 
 class Swiper extends Component {
@@ -38,10 +48,39 @@ class Swiper extends Component {
     this.state = {
       layout: { height: 0, width: 0 },
       onLayout: false,
+      rightSwipedIndex: [],
+      leftSwipedIndex: [],
+      isAdditionalButtonsVisible: false,
     };
   }
 
-  render() {
+  render = () => {
+    const {
+      isAdditionalButtonsVisible,
+      rightSwipedIndex,
+      leftSwipedIndex,
+    } = this.state;
+    if (isAdditionalButtonsVisible) {
+      return (
+        <View style={style.container}>
+          <Text style={style.final}>
+            Congraturations!
+            <br />
+            Achievement:
+            {rightSwipedIndex.length}/
+            {rightSwipedIndex.length + leftSwipedIndex.length}
+            words
+            <br />
+            Rate:
+            {Math.floor(
+              (100 * rightSwipedIndex.length) /
+                (rightSwipedIndex.length + leftSwipedIndex.length),
+            )}
+            %
+          </Text>
+        </View>
+      );
+    }
     return (
       <View style={style.container}>
         {this.renderCardsContainer()}
@@ -51,7 +90,7 @@ class Swiper extends Component {
         </TouchableOpacity> */}
       </View>
     );
-  }
+  };
 
   renderCardsContainer = () => (
     <View
@@ -61,6 +100,7 @@ class Swiper extends Component {
           layout: Functions.onLayoutContainer(e),
           onLayout: true,
         });
+        console.log('swiperContainer rendered');
       }}
     >
       {this.renderCards()}
@@ -98,7 +138,8 @@ class Swiper extends Component {
         mark: [],
       },
     ];
-    const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
+    // const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
+    const cardsDev = cardsForWeb;
     if (onLayout) {
       return (
         <DeckSwiper
@@ -108,9 +149,11 @@ class Swiper extends Component {
               console.log(cardIndex);
               console.log({ height: typeof height });
             }} */
-          onSwipeRight={this.onSwipeRight}
-          onSwipeLeft={this.onSwipeLeft}
-          onSwipedAll={() => console.log('onSwipedAll')}
+          onSwipedRight={this.onSwipedRight}
+          onSwipedLeft={this.onSwipedLeft}
+          disableTopSwipe
+          disableBottomSwipe
+          onSwipedAll={this.onSwipedAll}
           horizontalThreshold={width / 8}
           cardIndex={0}
           backgroundColor="#4FD0E9"
@@ -139,7 +182,8 @@ class Swiper extends Component {
       {
         collection: 'AntDesign',
         name: 'back',
-        onPress: () => this.swiperRef.swipeBack(this.swiperRef.previousCardIndex),
+        onPress: () =>
+          this.swiperRef.swipeBack(this.swiperRef.previousCardIndex),
       },
       {
         collection: 'Entypo',
@@ -157,8 +201,7 @@ class Swiper extends Component {
               <IconComponent name={name} style={style.icon} />
             </TouchableOpacity>
           );
-        })
-        }
+        })}
       </View>
     );
 
@@ -166,16 +209,35 @@ class Swiper extends Component {
     // <Buttons swiperRef={this.swiperRef} />
   };
 
-  onSwipeRight(card) {
-    console.log(`Yup for ${card.word}`);
-  }
+  onSwipedRight = index => {
+    const { rightSwipedIndex } = this.state;
+    rightSwipedIndex.push(index);
+    this.setState({ rightSwipedIndex });
+    console.log(`Yup for ${index}`);
+    console.log(rightSwipedIndex);
+  };
 
-  onSwipeLeft(card) {
-    console.log(`Nope for ${card.word}`);
-  }
+  onSwipedLeft = index => {
+    const { leftSwipedIndex } = this.state;
+    leftSwipedIndex.push(index);
+    this.setState({ leftSwipedIndex });
+    console.log(`Nope for ${index}`);
+    console.log(leftSwipedIndex);
+  };
 
-  onSwipeUp(card) {
-    console.log(`Maybe for ${card.word}`);
+  onSwipedAll = () => {
+    const { rightSwipedIndex } = this.state;
+    const { leftSwipedIndex } = this.state;
+    this.setState(prev => ({
+      isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
+    }));
+    console.log('onSwipedAll');
+    console.log(rightSwipedIndex);
+    console.log(leftSwipedIndex);
+  };
+
+  onSwipedUp(index) {
+    console.log(`Maybe for ${index}`);
   }
 }
 
@@ -193,9 +255,9 @@ export default Swiper;
 //           />
 //         )}
 //         renderNoMoreCards={() => <NoMoreCards navigation={navigation} />}
-//         onSwipeRight={this.handleYup}
-//         onSwipeLeft={this.handleNope}
-//         onSwipeUp={this.handleMaybe}
+//         onSwipedRight={this.handleYup}
+//         onSwipedLeft={this.handleNope}
+//         onSwipedUp={this.handleMaybe}
 //         overlayRightText="😃"
 //         overlayLeftText="🤔"
 //         stackOffsetX=""

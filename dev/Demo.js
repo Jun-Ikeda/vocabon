@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Item from '../src/components/item/Item';
 import ItemWithIcon from '../src/components/item/ItemWithIcon';
 import ItemWithDescriptionRight from '../src/components/item/ItemWithDescriptionRight';
+import { TextInput } from 'react-native';
 // import SettingItem from '../src/components/item/material/SettingItem';
 
 const style = StyleSheet.create({
@@ -27,8 +28,12 @@ const style = StyleSheet.create({
 
 class Demo extends Component {
   render() {
-    return <View style={style.container}>{this.renderItemComponent()}</View>;
+    return <View style={style.container}>{this.renderKeyCode()}</View>;
   }
+
+  renderKeyCode = () => {
+    return <textarea onKeyDown={ (e) => props.onKeyDown(e) } />
+  };
 
   renderItemComponent = () => (
     <View style={{ flex: 1 }}>
