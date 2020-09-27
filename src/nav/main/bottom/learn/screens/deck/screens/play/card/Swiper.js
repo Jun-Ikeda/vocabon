@@ -73,9 +73,9 @@ class Swiper extends Component {
           <Text style={style.final}>
             Rate:
             {Math.floor(
-              (100 * rightSwipedIndex.length) /
-                (rightSwipedIndex.length + leftSwipedIndex.length),
-            )}
+            (100 * rightSwipedIndex.length) /
+            (rightSwipedIndex.length + leftSwipedIndex.length),
+          )}
             %
           </Text>
           {/* <br /> */}
@@ -150,7 +150,7 @@ class Swiper extends Component {
               ref={ref => {
                 this.cardRef = ref;
               }}
-              setStateCardFront={bool => this.setState({ isCardFront: bool })}
+              setStateFlip={() => this.setState(prev => ({ isCardFront: !prev.isCardFront }))}
             />
           )}
           onSwipedRight={this.onSwipedRight}

@@ -41,7 +41,7 @@ class Demo extends Component {
   renderPopUpMenu = () => {
     const { menuVisible } = this.state;
     return (
-      <View>
+      <View style={{flex: 1}}>
         <PopUpMenu
           isVisible={menuVisible}
           setVisible={bool => this.setState({ menuVisible: bool })}

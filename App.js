@@ -30,15 +30,13 @@ export default class App extends Component {
     // return <PracticeIH />;
     return (
       <View style={{ flex: 1 }}>
-        <View style={style.container}>
-          {/* <PracticeNav /> */}
+        {/* <View style={style.container}>
           <Nav />
-        </View>
-        <ControlPanel />
-        {/* <View style={{ flex: 1 }}>
-          <Demo />
-          <PracticeIH />
         </View> */}
+        <ControlPanel />
+        <View style={{ flex: 1, backgroundColor: 'green' }}>
+          <Demo />
+        </View>
       </View>
     );
   }

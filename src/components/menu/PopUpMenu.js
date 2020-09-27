@@ -4,7 +4,11 @@ import { StyleConst } from '../../config/Const';
 
 const style = StyleSheet.create({
   container: {
-    ...StyleConst.absoluteFullScreen,
+    position: 'absolute',
+    right: 0,
+    left: 0,
+    bottom: 0,
+    top: 0,
     backgroundColor: 'red',
   },
   overlay: {
@@ -33,7 +37,7 @@ class PopUpMenu extends Component {
         </View>
       );
     }
-    return null;
+    return <View />;
   }
 
   // renderMenu = () => {

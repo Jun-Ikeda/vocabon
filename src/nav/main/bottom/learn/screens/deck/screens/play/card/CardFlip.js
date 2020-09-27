@@ -62,8 +62,9 @@ class EachCard extends Component {
   };
 
   flip = () => {
-    const { word } = this.props;
+    const { word, setStateFlip } = this.props;
     this[`card${word}`].flip();
+    setStateFlip();
   };
 }
 

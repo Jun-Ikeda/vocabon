@@ -22,9 +22,6 @@ export default class Buttons extends Component {
   render() {
     return (
       <View style={style.buttonContainer}>
-        <TouchableOpacity onPress={() => this.props.onPress()}>
-          <Text>a</Text>
-        </TouchableOpacity>
         {this.renderBar()}
       </View>
     );
@@ -32,10 +29,26 @@ export default class Buttons extends Component {
 
   renderBar = () => {
     const { isFront } = this.props;
-    return this.renderButtons();
+    if (isFront) {
+      return this.renderFlipButton();
+    }
+    return this.renderSwipeButtons();
   };
 
-  renderButtons = () => {
+  renderFlipButton = () => {
+    const { onPress, isFront } = this.props;
+    return (
+      <TouchableOpacity onPress={() => {
+        onPress();
+        console.log(isFront);
+      }}
+      >
+        <Text>a</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderSwipeButtons = () => {
     const { onPressLeft, onPressCenter, onPressRight } = this.props;
     const buttons = [
       {
