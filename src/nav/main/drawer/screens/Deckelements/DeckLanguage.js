@@ -118,6 +118,12 @@ class DeckLanguage extends Component {
       {
         title: 'German',
       },
+      {
+        title: 'Latin',
+      },
+      {
+        title: 'Dutch',
+      },
     ];
     return items.map(item => (
       <TouchableOpacity

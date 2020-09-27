@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import Item from '../src/components/item/Item';
 import ItemWithIcon from '../src/components/item/ItemWithIcon';
 import ItemWithDescriptionRight from '../src/components/item/ItemWithDescriptionRight';
-import { TextInput } from 'react-native';
 // import SettingItem from '../src/components/item/material/SettingItem';
+import PopUpMenu from '../src/components/menu/PopUpMenu';
 
 const style = StyleSheet.create({
   container: {
@@ -27,13 +27,34 @@ const style = StyleSheet.create({
 });
 
 class Demo extends Component {
-  render() {
-    return <View style={style.container}>{this.renderKeyCode()}</View>;
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuVisible: false,
+    };
   }
 
-  renderKeyCode = () => {
-    return <textarea onKeyDown={ (e) => props.onKeyDown(e) } />
+  render() {
+    return <View style={style.container}>{this.renderPopUpMenu()}</View>;
+  }
+
+  renderPopUpMenu = () => {
+    const { menuVisible } = this.state;
+    return (
+      <View>
+        <PopUpMenu
+          isVisible={menuVisible}
+          setVisible={bool => this.setState({ menuVisible: bool })}
+          overlayStyle={{ /* backgroundColor: 'blue' */ }}
+        />
+        <TouchableOpacity onPress={() => this.setState({ menuVisible: true })}>
+          <Text>a</Text>
+        </TouchableOpacity>
+      </View>
+    );
   };
+
+  // renderKeyCode = () => <textarea onKeyDown={e => props.onKeyDown(e)} />;
 
   renderItemComponent = () => (
     <View style={{ flex: 1 }}>

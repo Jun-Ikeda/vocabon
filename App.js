@@ -11,12 +11,13 @@ import { Functions } from './src/config/Const';
 // --------------------------------------------
 
 // import PracticeNav from './dev/Practice/PracticeNavigator';
+import PracticeIH from './dev/Practice/PracticeIH';
 
 // --------------------------------------------
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
   },
 });
 
@@ -26,14 +27,18 @@ export default class App extends Component {
   }
 
   render() {
+    // return <PracticeIH />;
     return (
       <View style={{ flex: 1 }}>
         <View style={style.container}>
-          {/* <Demo /> */}
           {/* <PracticeNav /> */}
           <Nav />
         </View>
         <ControlPanel />
+        {/* <View style={{ flex: 1 }}>
+          <Demo />
+          <PracticeIH />
+        </View> */}
       </View>
     );
   }

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import TagInput from 'react-native-tags-input';
 import Icon from '../../../../../../../../components/Icon';
 import Color from '../../../../../../../../config/Color';
-import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
+import HeaderWithBackSave from '../../../../../../../../components/header/HeaderWithBackSave';
+import Deck from '../../../../../../../../config/Firebase/Deck';
 
 const mainColor = Color.primary6;
 
@@ -19,7 +20,6 @@ const style = StyleSheet.create({
     marginTop: 8,
     borderRadius: 5,
     alignSelf: 'stretch',
-    padding: 3,
   },
   taginput: {
     flex: 1,
@@ -36,6 +36,11 @@ const style = StyleSheet.create({
     color: Color.font5,
     fontSize: 25,
   },
+  inputview: {
+    flex: 3,
+    padding: 20,
+    justifyContent: 'center',
+  },
 });
 
 class DeckTags extends Component {
@@ -49,6 +54,7 @@ class DeckTags extends Component {
       tagsColor: mainColor,
       tagsText: Color.font1,
     };
+    this.inputRef = {};
   }
 
   updateTagState = state => {
@@ -57,49 +63,108 @@ class DeckTags extends Component {
     });
   };
 
-  // サイズ系直す
   render() {
     const { tags, tagsColor, tagsText } = this.state;
     return (
       <View style={style.container}>
         {this.renderHeader()}
-        <TagInput
-          updateState={this.updateTagState}
-          tags={tags}
-          placeholder="Tags..."
-          label="Press space to add a tag"
-          labelStyle={{ color: Color.font1 }}
-          // leftElement={
-          //   <Icon.Ionicons name="md-pricetags" style={style.deleteIcon} />
-          // }
-          leftElementContainerStyle={{ marginLeft: 3 }}
-          containerStyle={style.taginput}
-          inputContainerStyle={[
-            style.textInput,
-            { backgroundColor: tagsColor },
-          ]}
-          inputStyle={{ color: tagsText }}
-          onFocus={() =>
-            this.setState({ tagsColor: Color.background2, tagsText: mainColor })
-          }
-          onBlur={() =>
-            this.setState({ tagsColor: mainColor, tagsText: '#fff' })
-          }
-          autoCorrect={false}
-          tagStyle={style.tag}
-          tagTextStyle={style.tagText}
-          // keysForTag=","
-          deleteElement={
-            <Icon.Ionicons name="md-close" style={style.deleteIcon} />
-          }
-        />
+        <View style={style.inputview}>
+          <TagInput
+            updateState={this.updateTagState}
+            tags={tags}
+            placeholder="Tags..."
+            label="Press space to add a tag"
+            labelStyle={{ color: Color.font1 }}
+            // leftElement={
+            //   <Icon.Ionicons name="md-pricetags" style={style.deleteIcon} />
+            // }
+            leftElementContainerStyle={{ marginLeft: 3 }}
+            containerStyle={style.taginput}
+            inputContainerStyle={[
+              style.textInput,
+              { backgroundColor: tagsColor },
+            ]}
+            inputStyle={{ color: tagsText }}
+            onFocus={() =>
+              this.setState({
+                tagsColor: Color.background2,
+                tagsText: mainColor,
+              })
+            }
+            onBlur={() =>
+              this.setState({ tagsColor: mainColor, tagsText: '#fff' })
+            }
+            autoCorrect={false}
+            tagStyle={style.tag}
+            tagTextStyle={style.tagText}
+            // keysForTag=","
+            deleteElement={
+              <Icon.Ionicons name="md-close" style={style.deleteIcon} />
+            }
+            ref={inputRef => {
+              this.inputRef = inputRef;
+            }}
+          />
+        </View>
+        <View style={{ flex: 3 }} />
       </View>
     );
   }
 
   renderHeader = () => {
     const { navigation } = this.props;
-    return <HeaderWithBack title="Tags" navigation={navigation} />;
+    return (
+      <HeaderWithBackSave
+        title="Tags"
+        navigation={navigation}
+        onPressRight={this.save}
+      />
+    );
+  };
+
+  componentDidMount() {
+    this.inputRef.focus();
+    const { navigation } = this.props;
+    const deckinfo = navigation.getParam('deckinfo');
+    const { tag } = deckinfo;
+    const pretagsArray = Object.keys(tag);
+    this.setState({ tags: { tag: '', tagsArray: pretagsArray } });
+    // this.inputRef.focus();
+    // const { navigation } = this.props;
+    // const tag = navigation.getParam('tag');
+    // const pretagsArray = Object.keys(tag);
+    // this.setState({ tags: { tag: '', tagsArray: pretagsArray } });
+  }
+
+  save = () => {
+    const {
+      tags: { tagsArray },
+    } = this.state;
+    console.log(tagsArray);
+    const { navigation } = this.props;
+    const updateDeckInfo = navigation.getParam('updateDeckInfo');
+    const deckinfo = navigation.getParam('deckinfo');
+    const newTagsObject = {};
+    tagsArray.forEach(tag => {
+      newTagsObject[tag] = true;
+    });
+    deckinfo.tag = newTagsObject;
+    console.log({ newTagsObject });
+    updateDeckInfo(deckinfo);
+    navigation.goBack();
+    // const {
+    //   tags: { tagsArray },
+    // } = this.state;
+    // console.log(tagsArray);
+    // const { navigation } = this.props;
+    // const updateDeckInfo = navigation.getParam('updateDeckInfo');
+    // const newTagsObject = {};
+    // tagsArray.forEach(tag => {
+    //   newTagsObject[tag] = true;
+    // });
+    // console.log({ newTagsObject });
+    // updateDeckInfo({ tag: newTagsObject });
+    // navigation.goBack();
   };
 }
 

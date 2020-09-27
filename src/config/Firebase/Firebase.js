@@ -25,18 +25,18 @@ firestore.enablePersistence();
 
 const load = async ({ collection, id, expires }) => {
   const data = await Storage.Function.load({ key: collection, id });
-  return data.data;
-  // const updated = await up.load({ collection, id });
-  // let result;
+  // return data.data;
+  const updated = await up.load({ collection, id });
+  let result;
 
-  // if (data && updated === data.up) {
-  //   console.log(`not loaded { collection: ${collection}, id: ${id} }`);
-  //  result = data.data;
-  // } else {
-  //   console.log(`loaded { collection: ${collection}, id: ${id} }`);
-  //   result = await update({ collection, id, updated, expires });
-  // }
-  // return result;
+  if (data && updated === data.up) {
+    console.log(`not loaded { collection: ${collection}, id: ${id} }`);
+    result = data.data;
+  } else {
+    console.log(`loaded { collection: ${collection}, id: ${id} }`);
+    result = await update({ collection, id, updated, expires });
+  }
+  return result;
 };
 
 const update = async ({ collection, id, updated, expires }) => {
@@ -104,7 +104,7 @@ const up = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => { } }) => {
+  setListener: ({ collection, id, callback = () => {} }) => {
     database.ref(`/${collection}/${id}/up`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);
@@ -125,7 +125,7 @@ const v = {
     });
     return data;
   },
-  setListener: ({ collection, id, callback = () => { } }) => {
+  setListener: ({ collection, id, callback = () => {} }) => {
     database.ref(`/${collection}/${id}/v`).on('value', snapshot => {
       const data = snapshot.val();
       callback(data);

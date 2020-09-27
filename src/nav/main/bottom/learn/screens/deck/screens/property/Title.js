@@ -10,7 +10,7 @@ import {
 import Color from '../../../../../../../../config/Color';
 import { titleMaxLength } from '../../../../../../../../config/Const';
 
-import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
+import HeaderWithBackSave from '../../../../../../../../components/header/HeaderWithBackSave';
 import Icon from '../../../../../../../../components/Icon';
 
 const mainColor = Color.primary6;
@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     width: 150,
     height: 50,
     borderRadius: 25,
-    backgroundColor: Color.background5,
+    backgroundColor: Color.background2,
   },
   buttonText: {
     justifyContent: 'center',
@@ -89,9 +89,9 @@ class DeckPropertyTitle extends Component {
         {this.renderHeader()}
         {this.renderTextbox()}
         <View style={{ flex: 1 }} />
-        <TouchableOpacity onPress={this.save} style={style.button}>
+        {/* <TouchableOpacity onPress={this.save} style={style.button}>
           <Text style={style.buttonText}>Save</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={{ flex: 2 }} />
         <View style={{ flex: 8 }} />
       </View>
@@ -100,11 +100,17 @@ class DeckPropertyTitle extends Component {
 
   renderHeader = () => {
     const { navigation } = this.props;
-    return <HeaderWithBack title="Title" navigation={navigation} />;
+    return (
+      <HeaderWithBackSave
+        title="Title"
+        navigation={navigation}
+        onPressRight={this.save}
+      />
+    );
   };
 
   renderTextbox = () => {
-    const { title, count, inputColor, textColor} = this.state;
+    const { title, count, inputColor, textColor } = this.state;
     return (
       <View style={style.textBox}>
         <TouchableOpacity
@@ -120,29 +126,25 @@ class DeckPropertyTitle extends Component {
           <Icon.Ionicons name="md-close" style={style.deleteIcon} />
         </TouchableOpacity>
         <Text style={style.length}>
-          (
-          {count}
-          /
-          {titleMaxLength}
-          )
+          ({count}/{titleMaxLength})
         </Text>
         <TextInput
           style={[
             style.input,
-            { backgroundColor: inputColor,
-              color: textColor,
-            },
+            { backgroundColor: inputColor, color: textColor },
           ]}
           value={title}
           onFocus={() =>
-            this.setState({ inputColor: Color.background2, textColor: mainColor })
+            this.setState({
+              inputColor: Color.background2,
+              textColor: mainColor,
+            })
           }
           onBlur={() =>
-            this.setState({ inputColor: mainColor, textColor: Color.font1})
+            this.setState({ inputColor: mainColor, textColor: Color.font1 })
           }
           onChangeText={title => {
-            this.setState({ title });
-            this.setState({ count: title.length });
+            this.setState({ title, count: title.length });
           }}
           maxLength={titleMaxLength}
           ref={inputRef => {
@@ -157,16 +159,22 @@ class DeckPropertyTitle extends Component {
     const { title } = this.state;
     const { navigation } = this.props;
     const updateDeckInfo = navigation.getParam('updateDeckInfo');
-    updateDeckInfo({ ti: title });
+    const deckinfo = navigation.getParam('deckinfo');
+    deckinfo.ti = title;
+    updateDeckInfo(deckinfo);
     navigation.goBack();
   };
 
   componentDidMount() {
     const { navigation } = this.props;
-    const title = navigation.getParam('ti');
+    const deckinfo = navigation.getParam('deckinfo');
+    const title = deckinfo.ti;
     this.setState({ title, count: title.length });
-    console.log(title.length);
     this.inputRef.focus();
+    // const { navigation } = this.props;
+    // const title = navigation.getParam('ti');
+    // this.setState({ title, count: title.length });
+    // this.inputRef.focus();
   }
 }
 

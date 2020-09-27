@@ -62,7 +62,6 @@ class ControlButtons extends Component {
 
   bundleSave = () => {
     this.bundleNext();
-    // const { bundle } = this.state;
     const { navigation, bundle } = this.props;
     const deckid = navigation.getParam('id');
     const deckinfo = navigation.getParam('deckinfo');

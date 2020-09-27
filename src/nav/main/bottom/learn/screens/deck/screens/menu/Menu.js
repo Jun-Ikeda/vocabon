@@ -326,6 +326,10 @@ class DeckMenu extends Component {
           <Text>{deckinfo.ti}</Text>
           <Text>{`${deckinfo.num} words ${v} viewed`}</Text>
           <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
+          <Text>
+            Tags:
+            {returnTagsInString({ tag: deckinfo.tag })}
+          </Text>
         </View>
         <TouchableOpacity
           pointerEvents="box-none"
@@ -376,6 +380,12 @@ class DeckMenu extends Component {
 }
 
 export default DeckMenu;
+
+const returnTagsInString = ({ tag }) => {
+  const tags = Object.keys(tag);
+  const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
+  return tagString;
+};
 
 /*
 

@@ -52,6 +52,8 @@ const style = StyleSheet.create({
   textinputContainer: {
     height: 70,
     marginVertical: 5,
+    borderWidth: 1,
+    borderColor: Color.font3,
   },
   textinput: {
     flex: 1,
@@ -73,33 +75,32 @@ const style = StyleSheet.create({
     color: Color.font5,
     fontSize: 25,
   },
-  forthose: {
-    color: Color.font5,
-    fontSize: 15,
-    paddingTop: 30,
-  },
+  // forthose: {
+  //   color: Color.font5,
+  //   fontSize: 15,
+  //   paddingTop: 30,
+  // },
   buttonContainer: {
     alignSelf: 'center',
     marginTop: 20,
   },
   buttonContainer2: {
-    flex: 1,
     flexDirection: 'row',
     marginTop: 30,
     borderWidth: 1,
     borderColor: Color.font3,
-    height: 40,
+    height: 50,
   },
   chooselan: {
     color: Color.font3,
-    fontSize: 15,
-    paddingTop: 10,
-    paddingRight: 50,
-    paddingLeft: 10,
+    fontSize: 20,
+    marginTop: 15,
+    marginLeft: 10,
   },
   buttonIcon: {
     fontSize: 20,
-    paddingTop: 10,
+    marginTop: 15,
+    marginLeft: 10,
     color: 'white',
   },
   button: {
@@ -109,14 +110,14 @@ const style = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 150,
   },
   language: {
     color: Color.font3,
     textAlign: 'center',
-    fontSize: 15,
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 10,
+    fontSize: 20,
+    marginTop: 15,
+    marginLeft: 125,
   },
   buttonTitle: {
     fontSize: 20,
@@ -135,10 +136,11 @@ export default class NewDeck extends Component {
         {this.renderBackground()}
         {this.renderHeader()}
         <View style={style.formContainer}>
-          <Text style={style.title}>New Deck</Text>
+          <Text style={style.title}>Create New Deck</Text>
           {this.renderTitleTextInput()}
-          <Text style={style.forthose}>For those who ...</Text>
+          {/* <Text style={style.forthose}>For those who ...</Text> */}
           {this.renderDeckLanguage()}
+          {this.renderDeckLanguage2()}
         </View>
         <View style={style.buttonContainer}>
           {this.renderCreateButton()}
@@ -174,6 +176,9 @@ export default class NewDeck extends Component {
           style={style.textinput}
           placeholder="TITLE"
           maxLength={20}
+          ref={inputRef => {
+            this.inputRef = inputRef;
+          }}
         />
         <TouchableOpacity
           style={style.deleteContainer}
@@ -189,21 +194,43 @@ export default class NewDeck extends Component {
     const { navigation } = this.props;
     const { learn } = this.state;
     return (
-      <View style={style.buttonContainer2}>
-        <Text style={style.chooselan}>Language Type</Text>
-        <Text style={style.language}>{learn}</Text>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('decklanguage', {
-              setState: state => this.setState(state),
-            })}
-        >
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('decklanguage', {
+            setState: state => this.setState(state),
+          })}
+      >
+        <View style={style.buttonContainer2}>
+          <Text style={style.chooselan}>Language Type1</Text>
           <Icon.AntDesign
             name="down"
             style={style.buttonIcon}
           />
-        </TouchableOpacity>
-      </View>
+          <Text style={style.language}>{learn}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  renderDeckLanguage2 = () => {
+    const { navigation } = this.props;
+    const { understand } = this.state;
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('decklanguage', {
+            setState: state => this.setState(state),
+          })}
+      >
+        <View style={style.buttonContainer2}>
+          <Text style={style.chooselan}>Language Type2</Text>
+          <Icon.AntDesign
+            name="down"
+            style={style.buttonIcon}
+          />
+          <Text style={style.language}>{understand}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 
@@ -228,4 +255,8 @@ export default class NewDeck extends Component {
     await Deck.save({ deckid, data: { th }, expires: null });
     navigateNav('bottom');
   };
+
+  componentDidMount() {
+    this.inputRef.focus();
+  }
 }

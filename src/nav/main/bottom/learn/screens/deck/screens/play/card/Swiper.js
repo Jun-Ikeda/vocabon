@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 // import SwipeCards from 'react-native-swipeable-cards';
 import DeckSwiper from 'react-native-deck-swiper';
+import Color from '../../../../../../../../../config/Color';
 
 import { Functions } from '../../../../../../../../../config/Const';
 
@@ -36,8 +37,10 @@ const style = StyleSheet.create({
     fontSize: 30,
   },
   final: {
+    backgroundColor: '#4FD0E9',
     flexDirection: 'row',
     fontWeight: 800,
+    justifyContent: 'center',
   },
 });
 
@@ -50,39 +53,14 @@ class Swiper extends Component {
       onLayout: false,
       rightSwipedIndex: [],
       leftSwipedIndex: [],
-      isAdditionalButtonsVisible: false,
+      isFinishedScreenVisible: false,
     };
   }
 
   render = () => {
-    const {
-      isAdditionalButtonsVisible,
-      rightSwipedIndex,
-      leftSwipedIndex,
-    } = this.state;
-    if (isAdditionalButtonsVisible) {
-      return (
-        <View style={style.container}>
-          <Text style={style.final}>
-            Congraturations!
-            <br />
-            Achievement:
-            {rightSwipedIndex.length}/
-            {rightSwipedIndex.length + leftSwipedIndex.length}
-            words
-            <br />
-            Rate:
-            {Math.floor(
-              (100 * rightSwipedIndex.length) /
-                (rightSwipedIndex.length + leftSwipedIndex.length),
-            )}
-            %
-          </Text>
-        </View>
-      );
-    }
     return (
       <View style={style.container}>
+        {this.renderFinalAnnouncement()}
         {this.renderCardsContainer()}
         {this.renderButtons()}
         {/* <TouchableOpacity onPress={() => this.swiperRef.swipeLeft()}>
@@ -91,6 +69,45 @@ class Swiper extends Component {
       </View>
     );
   };
+
+  renderFinalAnnouncement() {
+    const {
+      isFinishedScreenVisible,
+      rightSwipedIndex,
+      leftSwipedIndex,
+    } = this.state;
+    if (isFinishedScreenVisible) {
+      return (
+        <Text style={style.final}>
+          Congraturations!
+          <br />
+          Achievement:
+          {rightSwipedIndex.length}
+          /
+          {rightSwipedIndex.length + leftSwipedIndex.length}
+          words
+          <br />
+          Rate:
+          {Math.floor(
+            (100 * rightSwipedIndex.length) /
+              (rightSwipedIndex.length + leftSwipedIndex.length),
+          )}
+          %
+          <br />
+          {this.renderPerfectMessage()}
+        </Text>
+      );
+    }
+    return null;
+  }
+
+  renderPerfectMessage() {
+    const { leftSwipedIndex } = this.state;
+    if ((leftSwipedIndex.length) === 0) {
+      return <Text style={style.final}>perfect!</Text>;
+    }
+    return null;
+  }
 
   renderCardsContainer = () => (
     <View
@@ -151,6 +168,7 @@ class Swiper extends Component {
             }} */
           onSwipedRight={this.onSwipedRight}
           onSwipedLeft={this.onSwipedLeft}
+          onPressedBack={this.onPressedBack}
           disableTopSwipe
           disableBottomSwipe
           onSwipedAll={this.onSwipedAll}
@@ -176,21 +194,25 @@ class Swiper extends Component {
     const buttons = [
       {
         collection: 'Entypo',
-        name: 'check',
+        name: 'cross',
         onPress: () => this.swiperRef.swipeLeft(),
       },
       {
         collection: 'AntDesign',
         name: 'back',
-        onPress: () =>
-          this.swiperRef.swipeBack(this.swiperRef.previousCardIndex),
+        onPress: () => {
+          this.swiperRef.swipeBack(this.swiperRef.previousCardIndex);
+          console.log('back');
+          this.onPressedBack();
+        },
       },
       {
         collection: 'Entypo',
-        name: 'cross',
+        name: 'check',
         onPress: () => this.swiperRef.swipeRight(),
       },
     ];
+
     return (
       <View style={style.buttonContainer}>
         {buttons.map(button => {
@@ -210,30 +232,52 @@ class Swiper extends Component {
   };
 
   onSwipedRight = index => {
-    const { rightSwipedIndex } = this.state;
+    const { rightSwipedIndex, leftSwipedIndex } = this.state;
     rightSwipedIndex.push(index);
     this.setState({ rightSwipedIndex });
     console.log(`Yup for ${index}`);
-    console.log(rightSwipedIndex);
+    console.log('Yup:', rightSwipedIndex);
+    console.log('Nope:', leftSwipedIndex);
   };
 
   onSwipedLeft = index => {
-    const { leftSwipedIndex } = this.state;
+    const { rightSwipedIndex, leftSwipedIndex } = this.state;
     leftSwipedIndex.push(index);
     this.setState({ leftSwipedIndex });
     console.log(`Nope for ${index}`);
-    console.log(leftSwipedIndex);
+    console.log('Yup:', rightSwipedIndex);
+    console.log('Nope:', leftSwipedIndex);
+  };
+
+  onPressedBack = () => {
+    const { rightSwipedIndex, leftSwipedIndex } = this.state;
+    const newrightSwipedIndex = rightSwipedIndex.filter(
+      hello => hello !== rightSwipedIndex.length + leftSwipedIndex.length - 1,
+    );
+    const newleftSwipedIndex = leftSwipedIndex.filter(
+      goodbye =>
+        goodbye !== rightSwipedIndex.length + leftSwipedIndex.length - 1,
+    );
+    this.setState({
+      rightSwipedIndex: newrightSwipedIndex,
+      leftSwipedIndex: newleftSwipedIndex,
+    });
+    console.log(
+      `deleted the ${rightSwipedIndex.length + leftSwipedIndex.length - 1}`,
+    );
+    console.log('Yup:', newrightSwipedIndex);
+    console.log('Nope:', newleftSwipedIndex);
   };
 
   onSwipedAll = () => {
     const { rightSwipedIndex } = this.state;
     const { leftSwipedIndex } = this.state;
     this.setState(prev => ({
-      isAdditionalButtonsVisible: !prev.isAdditionalButtonsVisible,
+      isFinishedScreenVisible: !prev.isFinishedScreenVisible,
     }));
     console.log('onSwipedAll');
-    console.log(rightSwipedIndex);
-    console.log(leftSwipedIndex);
+    console.log('Yup:', rightSwipedIndex);
+    console.log('Nopes:', leftSwipedIndex);
   };
 
   onSwipedUp(index) {
@@ -242,6 +286,14 @@ class Swiper extends Component {
 }
 
 export default Swiper;
+
+/* var items = ["リンゴ", "バナナ", "メロン", "バナナ"];
+
+var result = items.filter(item => item !== 'バナナ');
+
+console.log( result );
+
+-> ["リンゴ","メロン"] */
 
 // ,
 //       {/* <SwipeCards

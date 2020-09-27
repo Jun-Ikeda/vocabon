@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import Color from '../../../../../../../../config/Color';
 import { Functions } from '../../../../../../../../config/Const';
@@ -16,7 +12,7 @@ import DeckPropertyItem from './Item';
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.background2,
+    backgroundColor: '#f2f2f7',
   },
   headerIcon: {
     color: Color.font2,
@@ -49,7 +45,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 10,
     paddingLeft: 35,
-    backgroundColor: Color.background5,
+    backgroundColor: Color.background2,
     borderRadius: 10,
   },
   iconStyle: {
@@ -103,7 +99,7 @@ class DeckProperty extends Component {
     );
   }
 
-  renderButtons =() => {
+  renderButtons = () => {
     const { navigation } = this.props;
     const { deckinfo } = this.state;
     const buttons = [
@@ -111,7 +107,7 @@ class DeckProperty extends Component {
         title: 'Title',
         onPress: () => {
           navigation.navigate('title', {
-            ti: deckinfo.ti,
+            deckinfo,
             updateDeckInfo: this.updateDeckInfo.bind(this),
           });
         },
@@ -132,16 +128,56 @@ class DeckProperty extends Component {
       },
       {
         title: 'Tags',
-        onPress: () => navigation.navigate('tags'),
+        onPress: () =>
+          navigation.navigate('tags', {
+            deckinfo,
+            updateDeckInfo: this.updateDeckInfo.bind(this),
+          }),
         icon: {
           collection: 'Ionicons',
           name: 'md-pricetags',
         },
         descriptionBelow: 'Tags',
       },
+      // {
+      //   title: 'Title',
+      //   onPress: () => {
+      //     navigation.navigate('title', {
+      //       ti: deckinfo.ti,
+      //       updateDeckInfo: this.updateDeckInfo.bind(this),
+      //     });
+      //   },
+      //   icon: {
+      //     collection: 'MaterialCommunityIcons',
+      //     name: 'format-title',
+      //   },
+      //   descriptionBelow: deckinfo.ti,
+      // },
+      // {
+      //   title: 'Style',
+      //   onPress: () => console.log('STYLE'),
+      //   icon: {
+      //     collection: 'Foundation',
+      //     name: 'page-edit',
+      //   },
+      //   descriptionBelow: 'Style',
+      // },
+      // {
+      //   title: 'Tags',
+      //   onPress: () =>
+      //     navigation.navigate('tags', {
+      //       tag: deckinfo.tag,
+      //       updateDeckInfo: this.updateDeckInfo.bind(this),
+      //     }),
+      //   icon: {
+      //     collection: 'Ionicons',
+      //     name: 'md-pricetags',
+      //   },
+      //   descriptionBelow: 'Tags',
+      // },
     ];
     return this.renderItems(buttons);
-  }
+  };
 
   renderItems = items => (
     <View style={style.itemsContainer}>
@@ -165,7 +201,6 @@ class DeckProperty extends Component {
   returnTags = () => {
     const { deckinfo } = this.state;
     const tags = Object.keys(deckinfo.tag);
-    // const tags = Object.keys(deckinfo.tag).reduce((a, b) => `${a}, ${b}`, '');
     console.log(tags);
     const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
     return <Text>{tagString}</Text>;
@@ -184,18 +219,19 @@ class DeckProperty extends Component {
   };
 
   updateDeckInfo = newDeckinfo => {
-    this.setState(({ deckinfo }) => {
-      const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
-      return { deckinfo: mergedDeckInfo };
-    });
-    this.setState({ isupdated: true });
+    // this.setState(({ deckinfo }) => {
+    //   // const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
+    //   const shallowMergedDeckInfo = Object.assign(deckinfo, newDeckinfo);
+    //   return { deckinfo: shallowMergedDeckInfo };
+    // });
+    this.setState({ isupdated: true, deckinfo: newDeckinfo });
   };
 
   goBack = async () => {
     const { isupdated, id, deckinfo } = this.state;
     const { navigation } = this.props;
     if (isupdated) {
-      await Deck.save({ deckid: id, data: deckinfo });
+      await Deck.save({ deckid: id, data: deckinfo, merge: false });
     }
     navigation.goBack();
   };
