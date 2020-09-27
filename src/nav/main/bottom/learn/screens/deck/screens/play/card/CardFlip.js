@@ -62,9 +62,8 @@ class EachCard extends Component {
   };
 
   flip = () => {
-    const { onFliped, word } = this.props;
+    const { word } = this.props;
     this[`card${word}`].flip();
-    onFliped();
   };
 }
 

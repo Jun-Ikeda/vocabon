@@ -7,7 +7,7 @@ import { Functions } from '../../../../../../../../config/Const';
 import Header from '../../../../../../../../components/header/Header';
 import Icon from '../../../../../../../../components/Icon';
 import Deck from '../../../../../../../../config/Firebase/Deck';
-import DeckPropertyItem from './Item';
+import PropertyItem from './Item';
 
 const style = StyleSheet.create({
   container: {
@@ -63,7 +63,7 @@ const style = StyleSheet.create({
   },
 });
 
-class DeckProperty extends Component {
+class Property extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +75,6 @@ class DeckProperty extends Component {
 
   UNSAFE_componentWillMount() {
     const { navigation } = this.props;
-    // const {} = this.state;
     const id = navigation.getParam('id');
     const deckinfo = navigation.getParam('deckinfo');
     this.setState({ id, deckinfo });
@@ -83,8 +82,6 @@ class DeckProperty extends Component {
   }
 
   render() {
-    // const { navigation } = this.props;
-    // const {} = this.state;
     return (
       <View style={style.container}>
         <Header
@@ -137,73 +134,27 @@ class DeckProperty extends Component {
           collection: 'Ionicons',
           name: 'md-pricetags',
         },
-        descriptionBelow: 'Tags',
+        descriptionBelow: Functions.returnTagsInString({ tag: deckinfo.tag }),
       },
-      // {
-      //   title: 'Title',
-      //   onPress: () => {
-      //     navigation.navigate('title', {
-      //       ti: deckinfo.ti,
-      //       updateDeckInfo: this.updateDeckInfo.bind(this),
-      //     });
-      //   },
-      //   icon: {
-      //     collection: 'MaterialCommunityIcons',
-      //     name: 'format-title',
-      //   },
-      //   descriptionBelow: deckinfo.ti,
-      // },
-      // {
-      //   title: 'Style',
-      //   onPress: () => console.log('STYLE'),
-      //   icon: {
-      //     collection: 'Foundation',
-      //     name: 'page-edit',
-      //   },
-      //   descriptionBelow: 'Style',
-      // },
-      // {
-      //   title: 'Tags',
-      //   onPress: () =>
-      //     navigation.navigate('tags', {
-      //       tag: deckinfo.tag,
-      //       updateDeckInfo: this.updateDeckInfo.bind(this),
-      //     }),
-      //   icon: {
-      //     collection: 'Ionicons',
-      //     name: 'md-pricetags',
-      //   },
-      //   descriptionBelow: 'Tags',
-      // },
     ];
-    return this.renderItems(buttons);
-  };
-
-  renderItems = items => (
-    <View style={style.itemsContainer}>
-      {items.map(button => (
-        <DeckPropertyItem
-          title={button.title}
-          titleStyle={style.titleStyle}
-          onPress={button.onPress}
-          containerStyle={style.itemContainer}
-          icon={button.icon}
-          iconStyle={style.iconStyle}
-          descriptionBelow={button.descriptionBelow}
-          descBStyle={style.descBStyle}
-          BelowStyle={style.BelowStyle}
-          containerLine={style.containerLine}
-        />
-      ))}
-    </View>
-  );
-
-  returnTags = () => {
-    const { deckinfo } = this.state;
-    const tags = Object.keys(deckinfo.tag);
-    console.log(tags);
-    const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
-    return <Text>{tagString}</Text>;
+    return (
+      <View style={style.itemsContainer}>
+        {buttons.map(button => (
+          <PropertyItem
+            title={button.title}
+            titleStyle={style.titleStyle}
+            onPress={button.onPress}
+            containerStyle={style.itemContainer}
+            icon={button.icon}
+            iconStyle={style.iconStyle}
+            descriptionBelow={button.descriptionBelow}
+            descBStyle={style.descBStyle}
+            BelowStyle={style.BelowStyle}
+            containerLine={style.containerLine}
+          />
+        ))}
+      </View>
+    );
   };
 
   returnSampleWord = () => {
@@ -219,12 +170,10 @@ class DeckProperty extends Component {
   };
 
   updateDeckInfo = newDeckinfo => {
-    // this.setState(({ deckinfo }) => {
-    //   // const mergedDeckInfo = Functions.deepMerge(deckinfo, newDeckinfo);
-    //   const shallowMergedDeckInfo = Object.assign(deckinfo, newDeckinfo);
-    //   return { deckinfo: shallowMergedDeckInfo };
-    // });
-    this.setState({ isupdated: true, deckinfo: newDeckinfo });
+    this.setState(prev => {
+      const isupdated = Functions.objectEqual(prev.deckinfo, newDeckinfo);
+      return { isupdated, deckinfo: newDeckinfo };
+    });
   };
 
   goBack = async () => {
@@ -237,4 +186,4 @@ class DeckProperty extends Component {
   };
 }
 
-export default DeckProperty;
+export default Property;

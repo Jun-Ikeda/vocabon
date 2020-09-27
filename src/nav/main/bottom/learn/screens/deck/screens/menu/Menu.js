@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-import { HeaderConst, StyleConst } from '../../../../../../../../config/Const';
+import { Functions, HeaderConst, StyleConst } from '../../../../../../../../config/Const';
 import Color from '../../../../../../../../config/Color';
 
 import Header from '../../../../../../../../components/header/Header';
@@ -328,7 +328,7 @@ class DeckMenu extends Component {
           <Text>{`Learn ${deckinfo.lang1} In ${deckinfo.lang2}`}</Text>
           <Text>
             Tags:
-            {returnTagsInString({ tag: deckinfo.tag })}
+            {Functions.returnTagsInString({ tag: deckinfo.tag })}
           </Text>
         </View>
         <TouchableOpacity
@@ -380,12 +380,6 @@ class DeckMenu extends Component {
 }
 
 export default DeckMenu;
-
-const returnTagsInString = ({ tag }) => {
-  const tags = Object.keys(tag);
-  const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
-  return tagString;
-};
 
 /*
 

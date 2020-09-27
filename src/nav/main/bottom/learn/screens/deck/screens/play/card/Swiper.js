@@ -16,30 +16,16 @@ import CardFlip from './CardFlip';
 
 // import Buttons from '../Buttons';
 import Icon from '../../../../../../../../../components/Icon';
+import Buttons from './Buttons';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
   },
-  buttonContainer: {
-    // marginHorizontal: 20,
-    marginVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  // buttonContainer: {
-  //   flexDirection: 'row',
-  //   flex: 1,
-  //   justifyContent: 'space-between',
-  //   alignSelf: 'center',
-  // },
-  icon: {
-    fontSize: 30,
-  },
   final: {
     backgroundColor: '#4FD0E9',
     flexDirection: 'row',
-    fontWeight: 800,
+    fontWeight: '800',
     justifyContent: 'center',
   },
 });
@@ -48,27 +34,24 @@ class Swiper extends Component {
   constructor(props) {
     super(props);
     this.swiperRef = {};
+    this.cardRef = {};
     this.state = {
       layout: { height: 0, width: 0 },
       onLayout: false,
       rightSwipedIndex: [],
       leftSwipedIndex: [],
       isFinishedScreenVisible: false,
+      isCardFront: true,
     };
   }
 
-  render = () => {
-    return (
-      <View style={style.container}>
-        {this.renderFinalAnnouncement()}
-        {this.renderCardsContainer()}
-        {this.renderButtons()}
-        {/* <TouchableOpacity onPress={() => this.swiperRef.swipeLeft()}>
-          <Text>test</Text>
-        </TouchableOpacity> */}
-      </View>
-    );
-  };
+  render = () => (
+    <View style={style.container}>
+      {this.renderFinalAnnouncement()}
+      {this.renderCardsContainer()}
+      {this.renderButtons()}
+    </View>
+  );
 
   renderFinalAnnouncement() {
     const {
@@ -78,24 +61,26 @@ class Swiper extends Component {
     } = this.state;
     if (isFinishedScreenVisible) {
       return (
-        <Text style={style.final}>
-          Congraturations!
-          <br />
-          Achievement:
-          {rightSwipedIndex.length}
-          /
-          {rightSwipedIndex.length + leftSwipedIndex.length}
-          words
-          <br />
-          Rate:
-          {Math.floor(
-            (100 * rightSwipedIndex.length) /
-              (rightSwipedIndex.length + leftSwipedIndex.length),
-          )}
-          %
-          <br />
+        <View>
+          <Text style={style.final}>Congraturations!</Text>
+          <Text style={style.final}>
+            Achievement:
+            {rightSwipedIndex.length}
+            /
+            {rightSwipedIndex.length + leftSwipedIndex.length}
+            words
+          </Text>
+          <Text style={style.final}>
+            Rate:
+            {Math.floor(
+              (100 * rightSwipedIndex.length) /
+                (rightSwipedIndex.length + leftSwipedIndex.length),
+            )}
+            %
+          </Text>
+          {/* <br /> */}
           {this.renderPerfectMessage()}
-        </Text>
+        </View>
       );
     }
     return null;
@@ -103,7 +88,7 @@ class Swiper extends Component {
 
   renderPerfectMessage() {
     const { leftSwipedIndex } = this.state;
-    if ((leftSwipedIndex.length) === 0) {
+    if (leftSwipedIndex.length === 0) {
       return <Text style={style.final}>perfect!</Text>;
     }
     return null;
@@ -117,7 +102,6 @@ class Swiper extends Component {
           layout: Functions.onLayoutContainer(e),
           onLayout: true,
         });
-        console.log('swiperContainer rendered');
       }}
     >
       {this.renderCards()}
@@ -155,20 +139,23 @@ class Swiper extends Component {
         mark: [],
       },
     ];
-    // const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
-    const cardsDev = cardsForWeb;
+    const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
     if (onLayout) {
       return (
         <DeckSwiper
           cards={cardsDev}
-          renderCard={card => <CardFlip {...card} />}
-          /* onSwiped={cardIndex => {
-              console.log(cardIndex);
-              console.log({ height: typeof height });
-            }} */
+          renderCard={card => (
+            <CardFlip
+              {...card}
+              ref={ref => {
+                this.cardRef = ref;
+              }}
+              setStateCardFront={bool => this.setState({ isCardFront: bool })}
+            />
+          )}
           onSwipedRight={this.onSwipedRight}
           onSwipedLeft={this.onSwipedLeft}
-          onPressedBack={this.onPressedBack}
+          onSwiped={() => this.setState({ isCardFront: true })}
           disableTopSwipe
           disableBottomSwipe
           onSwipedAll={this.onSwipedAll}
@@ -177,7 +164,6 @@ class Swiper extends Component {
           backgroundColor="#4FD0E9"
           ref={swiperRef => {
             this.swiperRef = swiperRef;
-            // this.setState({ a: true });
           }}
           stackSize={1}
           cardVerticalMargin={20}
@@ -190,83 +176,43 @@ class Swiper extends Component {
   };
 
   renderButtons = () => {
-    // const swiperRef = this.swiperRef;
-    const buttons = [
-      {
-        collection: 'Entypo',
-        name: 'cross',
-        onPress: () => this.swiperRef.swipeLeft(),
-      },
-      {
-        collection: 'AntDesign',
-        name: 'back',
-        onPress: () => {
-          this.swiperRef.swipeBack(this.swiperRef.previousCardIndex);
-          console.log('back');
-          this.onPressedBack();
-        },
-      },
-      {
-        collection: 'Entypo',
-        name: 'check',
-        onPress: () => this.swiperRef.swipeRight(),
-      },
-    ];
-
+    const { isCardFront } = this.state;
     return (
-      <View style={style.buttonContainer}>
-        {buttons.map(button => {
-          const { collection, name, onPress } = button;
-          const IconComponent = Icon[collection];
-          return (
-            <TouchableOpacity onPress={onPress}>
-              <IconComponent name={name} style={style.icon} />
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <Buttons
+        onPress={() => this.cardRef.flip()}
+        isFront={isCardFront}
+        onPressLeft={() => this.swiperRef.swipeLeft()}
+        onPressCenter={() => this.onPressedBack()}
+        onPressRight={() => this.swiperRef.swipeRight()}
+      />
     );
-
-    // const {} = this.state;
-    // <Buttons swiperRef={this.swiperRef} />
   };
 
   onSwipedRight = index => {
-    const { rightSwipedIndex, leftSwipedIndex } = this.state;
+    const { rightSwipedIndex } = this.state;
     rightSwipedIndex.push(index);
     this.setState({ rightSwipedIndex });
-    console.log(`Yup for ${index}`);
-    console.log('Yup:', rightSwipedIndex);
-    console.log('Nope:', leftSwipedIndex);
   };
 
   onSwipedLeft = index => {
-    const { rightSwipedIndex, leftSwipedIndex } = this.state;
+    const { leftSwipedIndex } = this.state;
     leftSwipedIndex.push(index);
     this.setState({ leftSwipedIndex });
-    console.log(`Nope for ${index}`);
-    console.log('Yup:', rightSwipedIndex);
-    console.log('Nope:', leftSwipedIndex);
   };
 
   onPressedBack = () => {
-    const { rightSwipedIndex, leftSwipedIndex } = this.state;
-    const newrightSwipedIndex = rightSwipedIndex.filter(
-      hello => hello !== rightSwipedIndex.length + leftSwipedIndex.length - 1,
+    this.swiperRef.swipeBack(this.swiperRef.previousCardIndex);
+    const { rightSwipedIndex: rIndex, leftSwipedIndex: lIndex } = this.state;
+    const newRIndex = rIndex.filter(
+      hello => hello !== rIndex.length + lIndex.length - 1,
     );
-    const newleftSwipedIndex = leftSwipedIndex.filter(
-      goodbye =>
-        goodbye !== rightSwipedIndex.length + leftSwipedIndex.length - 1,
+    const newLIndex = lIndex.filter(
+      goodbye => goodbye !== rIndex.length + lIndex.length - 1,
     );
     this.setState({
-      rightSwipedIndex: newrightSwipedIndex,
-      leftSwipedIndex: newleftSwipedIndex,
+      rightSwipedIndex: newRIndex,
+      leftSwipedIndex: newLIndex,
     });
-    console.log(
-      `deleted the ${rightSwipedIndex.length + leftSwipedIndex.length - 1}`,
-    );
-    console.log('Yup:', newrightSwipedIndex);
-    console.log('Nope:', newleftSwipedIndex);
   };
 
   onSwipedAll = () => {
@@ -275,47 +221,9 @@ class Swiper extends Component {
     this.setState(prev => ({
       isFinishedScreenVisible: !prev.isFinishedScreenVisible,
     }));
-    console.log('onSwipedAll');
     console.log('Yup:', rightSwipedIndex);
     console.log('Nopes:', leftSwipedIndex);
   };
-
-  onSwipedUp(index) {
-    console.log(`Maybe for ${index}`);
-  }
 }
 
 export default Swiper;
-
-/* var items = ["リンゴ", "バナナ", "メロン", "バナナ"];
-
-var result = items.filter(item => item !== 'バナナ');
-
-console.log( result );
-
--> ["リンゴ","メロン"] */
-
-// ,
-//       {/* <SwipeCards
-//         cards={cardsDev}
-//         renderCard={cardData => (
-//           <EachCard
-//             {...cardData}
-//             layout={{ height, width }}
-//             isFront={isFront}
-//             onFliped={() => this.setState(prev => ({ isFront: !prev.isFront }))}
-//           />
-//         )}
-//         renderNoMoreCards={() => <NoMoreCards navigation={navigation} />}
-//         onSwipedRight={this.handleYup}
-//         onSwipedLeft={this.handleNope}
-//         onSwipedUp={this.handleMaybe}
-//         overlayRightText="😃"
-//         overlayLeftText="🤔"
-//         stackOffsetX=""
-//         dragY={false}
-//         ref={swiperRef => {
-//           this.swiperRef = swiperRef;
-//         }}
-//         hasMaybeAction
-//       /> */}

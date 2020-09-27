@@ -87,8 +87,32 @@ export const Functions = {
   onLayoutContainer: e => {
     const { layout } = e.nativeEvent;
     const { height, width } = layout;
-    console.log({ height, width });
     return { height, width };
+  },
+
+  objectSort: ({ obj }) => {
+    const keys = Object.keys(obj).sort();
+    const map = {};
+    keys.forEach(key => {
+      let val = obj[key];
+      if (typeof val === 'object') {
+        val = Functions.objectSort(val);
+      }
+      map[key] = val;
+    });
+    return map;
+  },
+
+  objectEqual: (obj1, obj2) => {
+    const aJSON = JSON.stringify(Functions.objectSort(obj1));
+    const bJSON = JSON.stringify(Functions.objectSort(obj2));
+    return aJSON === bJSON;
+  },
+
+  returnTagsInString: ({ tag }) => {
+    const tags = Object.keys(tag);
+    const tagString = tags.reduce((a, b) => `${a}, ${b}`, '').slice(2);
+    return tagString;
   },
 };
 
