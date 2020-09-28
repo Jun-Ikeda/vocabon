@@ -6,11 +6,12 @@ import ItemWithIcon from '../src/components/item/ItemWithIcon';
 import ItemWithDescriptionRight from '../src/components/item/ItemWithDescriptionRight';
 // import SettingItem from '../src/components/item/material/SettingItem';
 import PopUpMenu from '../src/components/menu/PopUpMenu';
+import Color from '../src/config/Color';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
   },
   item: {
     borderWidth: 1,
@@ -41,15 +42,16 @@ class Demo extends Component {
   renderPopUpMenu = () => {
     const { menuVisible } = this.state;
     return (
-      <View style={{flex: 1}}>
-        <PopUpMenu
-          isVisible={menuVisible}
-          setVisible={bool => this.setState({ menuVisible: bool })}
-          overlayStyle={{ /* backgroundColor: 'blue' */ }}
-        />
+      <View style={{ flex: 1/* , backgroundColor: 'purple' */ }}>
         <TouchableOpacity onPress={() => this.setState({ menuVisible: true })}>
           <Text>a</Text>
         </TouchableOpacity>
+        <PopUpMenu
+          isVisible={menuVisible}
+          setVisible={bool => this.setState({ menuVisible: bool })}
+          overlayStyle={{ backgroundColor: Color.background3 }}
+          renderMenu={() => (<View style={{ height: 200, width: 150, backgroundColor: 'white' }}><Text>Contents</Text></View>)}
+        />
       </View>
     );
   };

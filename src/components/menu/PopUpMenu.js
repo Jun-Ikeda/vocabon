@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { StyleConst } from '../../config/Const';
 
 const style = StyleSheet.create({
   container: {
-    position: 'absolute',
-    right: 0,
-    left: 0,
-    bottom: 0,
-    top: 0,
-    backgroundColor: 'red',
+    // position: 'absolute',
+    // right: 0,
+    // left: 0,
+    // bottom: 0,
+    // top: 0,
+    // flex: 1,
+    // backgroundColor: 'red',
+    ...StyleConst.absoluteFullScreen,
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
   },
 });
 
@@ -28,25 +30,17 @@ class PopUpMenu extends Component {
     if (isVisible) {
       return (
         <View style={style.container}>
-          <TouchableWithoutFeedback
+          <TouchableOpacity
             style={[style.overlay, overlayStyle]}
-            onPress={() => setVisible(true)}
+            onPress={() => setVisible(false)}
           >
             {renderMenu()}
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       );
     }
     return <View />;
   }
-
-  // renderMenu = () => {
-  //   const { renderMenu } = this.props;
-  //   return;
-  //   {
-  //     this.renderMenu();
-  //   }
-  // };
 }
 
 PopUpMenu.defaultProps = {
