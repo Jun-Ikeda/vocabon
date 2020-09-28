@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { StyleConst } from '../../config/Const';
+import { Functions, StyleConst } from '../../config/Const';
 
 const style = StyleSheet.create({
   container: {
@@ -22,17 +22,26 @@ const style = StyleSheet.create({
 class PopUpMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      layout: { height: 0, width: 0 },
+    };
   }
 
   render() {
-    const { isVisible, renderMenu, overlayStyle, setVisible } = this.props;
+    const {
+      isVisible,
+      renderMenu,
+      overlayStyle,
+      setVisible,
+      onLayout,
+    } = this.props;
     if (isVisible) {
       return (
         <View style={style.container}>
           <TouchableOpacity
             style={[style.overlay, overlayStyle]}
             onPress={() => setVisible(false)}
+            onLayout={onLayout}
           >
             {renderMenu()}
           </TouchableOpacity>

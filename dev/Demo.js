@@ -7,6 +7,7 @@ import ItemWithDescriptionRight from '../src/components/item/ItemWithDescription
 // import SettingItem from '../src/components/item/material/SettingItem';
 import PopUpMenu from '../src/components/menu/PopUpMenu';
 import Color from '../src/config/Color';
+import PopUpMenuWithItems from '../src/components/menu/PopUpMenuWithItems';
 
 const style = StyleSheet.create({
   container: {
@@ -46,11 +47,11 @@ class Demo extends Component {
         <TouchableOpacity onPress={() => this.setState({ menuVisible: true })}>
           <Text>a</Text>
         </TouchableOpacity>
-        <PopUpMenu
+        <PopUpMenuWithItems
           isVisible={menuVisible}
           setVisible={bool => this.setState({ menuVisible: bool })}
           overlayStyle={{ backgroundColor: Color.background3 }}
-          renderMenu={() => (<View style={{ height: 200, width: 150, backgroundColor: 'white' }}><Text>Contents</Text></View>)}
+          // renderMenu={() => (<TouchableOpacity onPress={() => console.log('test')} style={{ height: 200, width: 150, backgroundColor: 'white' }}><Text>Contents</Text></TouchableOpacity>)}
         />
       </View>
     );

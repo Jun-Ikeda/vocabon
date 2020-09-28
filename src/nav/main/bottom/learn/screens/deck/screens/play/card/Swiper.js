@@ -37,7 +37,6 @@ class Swiper extends Component {
     this.cardRef = {};
     this.state = {
       layout: { height: 0, width: 0 },
-      onLayout: false,
       rightSwipedIndex: [],
       leftSwipedIndex: [],
       isFinishedScreenVisible: false,
@@ -73,9 +72,9 @@ class Swiper extends Component {
           <Text style={style.final}>
             Rate:
             {Math.floor(
-            (100 * rightSwipedIndex.length) /
-            (rightSwipedIndex.length + leftSwipedIndex.length),
-          )}
+              (100 * rightSwipedIndex.length) /
+                (rightSwipedIndex.length + leftSwipedIndex.length),
+            )}
             %
           </Text>
           {/* <br /> */}
@@ -100,7 +99,6 @@ class Swiper extends Component {
       onLayout={e => {
         this.setState({
           layout: Functions.onLayoutContainer(e),
-          onLayout: true,
         });
       }}
     >
@@ -109,7 +107,7 @@ class Swiper extends Component {
   );
 
   renderCards = () => {
-    const { layout, onLayout } = this.state;
+    const { layout } = this.state;
     const { height, width } = layout;
     const { cards } = this.props;
     const cardsForWeb = [
@@ -140,7 +138,7 @@ class Swiper extends Component {
       },
     ];
     const cardsDev = Platform.OS === 'web' ? cardsForWeb : cards;
-    if (onLayout) {
+    if (!(height === 0)) {
       return (
         <DeckSwiper
           cards={cardsDev}
@@ -150,7 +148,9 @@ class Swiper extends Component {
               ref={ref => {
                 this.cardRef = ref;
               }}
-              setStateFlip={() => this.setState(prev => ({ isCardFront: !prev.isCardFront }))}
+              setStateFlip={() =>
+                this.setState(prev => ({ isCardFront: !prev.isCardFront }))
+              }
             />
           )}
           onSwipedRight={this.onSwipedRight}

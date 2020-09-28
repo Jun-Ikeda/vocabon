@@ -4,12 +4,13 @@ import Icon from '../../../../../../../../../components/Icon';
 
 const style = StyleSheet.create({
   buttonContainer: {
-    marginVertical: 10,
+    // marginVertical: 10,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
   },
   icon: {
     fontSize: 30,
+    alignSelf: 'center',
   },
 });
 
@@ -20,11 +21,7 @@ export default class Buttons extends Component {
   }
 
   render() {
-    return (
-      <View style={style.buttonContainer}>
-        {this.renderBar()}
-      </View>
-    );
+    return <View style={style.buttonContainer}>{this.renderBar()}</View>;
   }
 
   renderBar = () => {
@@ -36,25 +33,29 @@ export default class Buttons extends Component {
   };
 
   renderFlipButton = () => {
-    const { onPress, isFront } = this.props;
+    const { onPress } = this.props;
     return (
-      <TouchableOpacity onPress={() => {
-        onPress();
-        console.log(isFront);
-      }}
+      <TouchableOpacity
+        style={{ borderWidth: 2, flex: 1 }}
+        onPress={() => onPress()}
       >
-        <Text>a</Text>
+        <Icon.MaterialIcons name="flip" style={style.icon} />
       </TouchableOpacity>
     );
-  }
+  };
 
   renderSwipeButtons = () => {
-    const { onPressLeft, onPressCenter, onPressRight } = this.props;
+    const { onPressLeft, onPressCenter, onPressRight, onPress } = this.props;
     const buttons = [
       {
         collection: 'Entypo',
         name: 'cross',
         onPress: () => onPressLeft(),
+      },
+      {
+        collection: 'MaterialIcons',
+        name: 'flip',
+        onPress: () => onPress(),
       },
       {
         collection: 'AntDesign',
@@ -72,7 +73,7 @@ export default class Buttons extends Component {
       const { collection, name, onPress } = button;
       const IconComponent = Icon[collection];
       return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity style={{ borderWidth: 2, flex: 1 }} onPress={onPress}>
           <IconComponent name={name} style={style.icon} />
         </TouchableOpacity>
       );
