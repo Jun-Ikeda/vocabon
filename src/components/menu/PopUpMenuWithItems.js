@@ -34,27 +34,7 @@ export default class PopUpMenuWithItems extends Component {
     const {
       layout: { width },
     } = this.state;
-    const { menuContainerStyle } = this.props;
-    const items = [
-      {
-        title: 'test1',
-        onPress: () => {
-          console.log('test1');
-        },
-      },
-      {
-        title: 'test2',
-        onPress: () => {
-          console.log('test2');
-        },
-      },
-      {
-        title: 'test3',
-        onPress: () => {
-          console.log('test3');
-        },
-      },
-    ];
+    const { menuContainerStyle, items } = this.props;
     return (
       <View
         style={[style.menuContainer, { width: width / 3 }, menuContainerStyle]}
@@ -62,11 +42,16 @@ export default class PopUpMenuWithItems extends Component {
         {items.map(item => (
           <Item
             {...item}
-            titleStyle={{ color: 'black', backgroundColor: 'blue', margin: 20, borderWidth: 2 }}
-            containerStyle={{ flex: 0, backgroundColor: 'red' }}
+            titleStyle={{ color: 'black', /* backgroundColor: 'blue', */ margin: 15 }}
+            containerStyle={{ flex: 0 /* , backgroundColor: 'red' */ }}
           />
         ))}
       </View>
     );
   };
+}
+
+PopUpMenuWithItems.defaultProps = {
+  items: [],
+
 }

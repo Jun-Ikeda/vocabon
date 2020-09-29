@@ -10,6 +10,7 @@ import Icon from '../../../../../../../../components/Icon';
 
 import Swiper from './card/Swiper';
 import HeaderWithBack from '../../../../../../../../components/header/HeaderWithBack';
+import PopUpMenuWithItems from '../../../../../../../../components/menu/PopUpMenuWithItems';
 
 const style = StyleSheet.create({
   container: {
@@ -30,6 +31,7 @@ class DeckPlay extends Component {
     this.state = {
       cards: [],
       loaded: false,
+      menuVisible: false,
     };
   }
 
@@ -40,8 +42,8 @@ class DeckPlay extends Component {
         <HeaderWithBack
           navigation={navigation}
           title="Play"
-          renderRight={this.renderRightIcon}
-          onPressRight={this.onPressRightIcon}
+          renderRight={() => <Icon.Entypo name="dots-three-vertical" />}
+          onPressRight={() => this.setState({ menuVisible: true })}
         />
         {this.renderContent()}
         {this.renderMenuOverlay()}
@@ -96,10 +98,36 @@ class DeckPlay extends Component {
     // </Menu>
   );
 
-  onPressRightIcon = () => {};
-
   renderMenuOverlay = () => {
-    return <View />;
+    const { menuVisible } = this.state;
+    return (
+      <PopUpMenuWithItems
+        isVisible={menuVisible}
+        setVisible={bool => this.setState({ menuVisible: bool })}
+        overlayStyle={{ backgroundColor: 'rgba(230,230,230,0)' }}
+        menuContainerStyle={{ position: 'absolute', right: 0 }}
+        items={[
+          {
+            title: 'test1',
+            onPress: () => {
+              console.log('test1');
+            },
+          },
+          {
+            title: 'test2aaaaaaaaaaaaaa',
+            onPress: () => {
+              console.log('test2');
+            },
+          },
+          {
+            title: 'test3',
+            onPress: () => {
+              console.log('test3');
+            },
+          },
+        ]}
+      />
+    );
   };
 }
 

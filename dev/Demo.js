@@ -43,7 +43,7 @@ class Demo extends Component {
   renderPopUpMenu = () => {
     const { menuVisible } = this.state;
     return (
-      <View style={{ flex: 1/* , backgroundColor: 'purple' */ }}>
+      <View style={{ flex: 1 /* , backgroundColor: 'purple' */ }}>
         <TouchableOpacity onPress={() => this.setState({ menuVisible: true })}>
           <Text>a</Text>
         </TouchableOpacity>
@@ -51,6 +51,26 @@ class Demo extends Component {
           isVisible={menuVisible}
           setVisible={bool => this.setState({ menuVisible: bool })}
           overlayStyle={{ backgroundColor: Color.background3 }}
+          items={[
+            {
+              title: 'test1',
+              onPress: () => {
+                console.log('test1');
+              },
+            },
+            {
+              title: 'test2aaaaaaaaaaaaaa',
+              onPress: () => {
+                console.log('test2');
+              },
+            },
+            {
+              title: 'test3',
+              onPress: () => {
+                console.log('test3');
+              },
+            },
+          ]}
           // renderMenu={() => (<TouchableOpacity onPress={() => console.log('test')} style={{ height: 200, width: 150, backgroundColor: 'white' }}><Text>Contents</Text></TouchableOpacity>)}
         />
       </View>
