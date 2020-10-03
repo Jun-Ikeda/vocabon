@@ -53,5 +53,4 @@ export default class PopUpMenuWithItems extends Component {
 
 PopUpMenuWithItems.defaultProps = {
   items: [],
-
 }

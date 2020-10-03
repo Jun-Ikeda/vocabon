@@ -38,14 +38,14 @@ class EachCard extends Component {
       >
         <TouchableOpacity
           style={[style.card]}
-          onPress={() => this[`card${word}`].flip()}
+          onPress={() => this.flip()}
         >
           <Text style={style.label}>{word}</Text>
           <Text style={style.label}>{eg}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[style.card]}
-          onPress={() => this[`card${word}`].flip()}
+          onPress={() => this.flip()}
         >
           <Text style={style.label}>{def}</Text>
           <Text style={style.label}>{`cf: ${cf}`}</Text>
