@@ -17,6 +17,7 @@ import CardFlip from './CardFlip';
 // import Buttons from '../Buttons';
 import Icon from '../../../../../../../../../components/Icon';
 import Buttons from './Buttons';
+import FinishedScreen from './FinishedScreen';
 
 const style = StyleSheet.create({
   container: {
@@ -39,8 +40,8 @@ class Swiper extends Component {
       layout: { height: 0, width: 0 },
       rightSwipedIndex: [],
       leftSwipedIndex: [],
-      isFinishedScreenVisible: false,
-      isCardFront: true,
+      isFinished: false,
+      // isCardFront: true,
     };
   }
 
@@ -53,42 +54,35 @@ class Swiper extends Component {
   );
 
   renderFinalAnnouncement() {
-    const {
-      isFinishedScreenVisible,
-      rightSwipedIndex,
-      leftSwipedIndex,
-    } = this.state;
-    if (isFinishedScreenVisible) {
+    const { isFinished, rightSwipedIndex, leftSwipedIndex } = this.state;
+    const { navigation } = this.props;
+    if (isFinished) {
       return (
-        <View>
-          <Text style={style.final}>Congraturations!</Text>
-          <Text style={style.final}>
-            Achievement:
-            {rightSwipedIndex.length}
-            /
-            {rightSwipedIndex.length + leftSwipedIndex.length}
-            words
-          </Text>
-          <Text style={style.final}>
-            Rate:
-            {Math.floor(
-              (100 * rightSwipedIndex.length) /
-                (rightSwipedIndex.length + leftSwipedIndex.length),
-            )}
-            %
-          </Text>
-          {/* <br /> */}
-          {this.renderPerfectMessage()}
-        </View>
+        <FinishedScreen
+          rightSwipedIndex={rightSwipedIndex}
+          leftSwipedIndex={leftSwipedIndex}
+          navigation={navigation}
+        />
+        // <View>
+        //   <Text style={style.final}>Congraturations!</Text>
+        //   <Text style={style.final}>
+        //     Achievement:
+        //     {rightSwipedIndex.length}
+        //     /
+        //     {rightSwipedIndex.length + leftSwipedIndex.length}
+        //     words
+        //   </Text>
+        //   <Text style={style.final}>
+        //     Rate:
+        //     {Math.floor(
+        //       (100 * rightSwipedIndex.length) /
+        //         (rightSwipedIndex.length + leftSwipedIndex.length),
+        //     )}
+        //     %
+        //   </Text>
+        //   {this.renderPerfectMessage()}
+        // </View>
       );
-    }
-    return null;
-  }
-
-  renderPerfectMessage() {
-    const { leftSwipedIndex } = this.state;
-    if (leftSwipedIndex.length === 0) {
-      return <Text style={style.final}>perfect!</Text>;
     }
     return null;
   }
@@ -148,14 +142,14 @@ class Swiper extends Component {
               ref={ref => {
                 this.cardRef = ref;
               }}
-              setStateFlip={() =>
-                this.setState(prev => ({ isCardFront: !prev.isCardFront }))
-              }
+              // setStateFlip={() =>
+              //   this.setState(prev => ({ isCardFront: !prev.isCardFront }))
+              // }
             />
           )}
           onSwipedRight={this.onSwipedRight}
           onSwipedLeft={this.onSwipedLeft}
-          onSwiped={() => this.setState({ isCardFront: true })}
+          // onSwiped={() => this.setState({ isCardFront: true })}
           disableTopSwipe
           disableBottomSwipe
           onSwipedAll={this.onSwipedAll}
@@ -176,16 +170,19 @@ class Swiper extends Component {
   };
 
   renderButtons = () => {
-    const { isCardFront } = this.state;
-    return (
-      <Buttons
-        onPress={() => this.cardRef.flip()}
-        isFront={isCardFront}
-        onPressLeft={() => this.swiperRef.swipeLeft()}
-        onPressCenter={() => this.onPressedBack()}
-        onPressRight={() => this.swiperRef.swipeRight()}
-      />
-    );
+    const { isFinished } = this.state;
+    if (!isFinished) {
+      return (
+        <Buttons
+          flip={() => this.cardRef.flip()}
+          // isFront={isCardFront}
+          swipeLeft={() => this.swiperRef.swipeLeft()}
+          swipeBack={() => this.onPressedBack()}
+          swipeRight={() => this.swiperRef.swipeRight()}
+        />
+      );
+    }
+    return null;
   };
 
   onSwipedRight = index => {
@@ -219,7 +216,7 @@ class Swiper extends Component {
     const { rightSwipedIndex } = this.state;
     const { leftSwipedIndex } = this.state;
     this.setState(prev => ({
-      isFinishedScreenVisible: !prev.isFinishedScreenVisible,
+      isFinished: !prev.isFinished,
     }));
     console.log('Yup:', rightSwipedIndex);
     console.log('Nopes:', leftSwipedIndex);

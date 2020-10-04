@@ -34,7 +34,7 @@ const style = StyleSheet.create({
   },
   deleteIcon: {
     color: Color.font5,
-    fontSize: 20,
+    fontSize: 18,
   },
   inputview: {
     flex: 3,
@@ -73,7 +73,7 @@ class DeckTags extends Component {
             updateState={this.updateTagState}
             tags={tags}
             placeholder="Tags..."
-            label="Press space to add a tag"
+            label="Press Space or Enter to add a tag.When you finished, press Save Button!"
             labelStyle={{ color: Color.font1 }}
             // leftElement={
             //   <Icon.Ionicons name="md-pricetags" style={style.deleteIcon} />

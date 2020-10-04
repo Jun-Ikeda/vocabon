@@ -52,14 +52,17 @@ const style = StyleSheet.create({
     color: Color.font2,
     fontSize: 25,
   },
-  buttonIcon: {
-    fontSize: 20,
-    paddingHorizontal: 50,
-    color: Color.background4,
-  },
+  // buttonIcon: {
+  //   fontSize: 20,
+  //   paddingHorizontal: 50,
+  //   color: Color.background4,
+  // },
   containerLine: {
     paddingVertical: 10, // 固定値だから変える
     flexDirection: 'row', // 縦に並べるやつ
+  },
+  containerLineB: {
+    paddingVertical: 10, // 固定値だから変え
   },
 });
 
@@ -153,6 +156,7 @@ class Property extends Component {
             descBStyle={style.descBStyle}
             BelowStyle={style.BelowStyle}
             containerLine={style.containerLine}
+            containerLineB={style.containerLineB}
           />
         ))}
       </View>

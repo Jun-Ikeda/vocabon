@@ -21,51 +21,51 @@ export default class Buttons extends Component {
   }
 
   render() {
-    return <View style={style.buttonContainer}>{this.renderBar()}</View>;
+    return <View style={style.buttonContainer}>{this.renderSwipeButtons()}</View>;
   }
 
-  renderBar = () => {
-    const { isFront } = this.props;
-    if (isFront) {
-      return this.renderFlipButton();
-    }
-    return this.renderSwipeButtons();
-  };
+  // renderBar = () => {
+  //   const { isFront } = this.props;
+  //   if (isFront) {
+  //     return this.renderFlipButton();
+  //   }
+  //   return this.renderSwipeButtons();
+  // };
 
-  renderFlipButton = () => {
-    const { onPress } = this.props;
-    return (
-      <TouchableOpacity
-        style={{ borderWidth: 2, flex: 1 }}
-        onPress={() => onPress()}
-      >
-        <Icon.MaterialIcons name="flip" style={style.icon} />
-      </TouchableOpacity>
-    );
-  };
+  // renderFlipButton = () => {
+  //   const { flip } = this.props;
+  //   return (
+  //     <TouchableOpacity
+  //       style={{ borderWidth: 2, flex: 1 }}
+  //       onPress={() => flip()}
+  //     >
+  //       <Icon.MaterialIcons name="flip" style={style.icon} />
+  //     </TouchableOpacity>
+  //   );
+  // };
 
   renderSwipeButtons = () => {
-    const { onPressLeft, onPressCenter, onPressRight, onPress } = this.props;
+    const { flip, swipeLeft, swipeBack, swipeRight } = this.props;
     const buttons = [
       {
         collection: 'Entypo',
         name: 'cross',
-        onPress: () => onPressLeft(),
+        onPress: () => swipeLeft(),
       },
       {
         collection: 'MaterialIcons',
         name: 'flip',
-        onPress: () => onPress(),
+        onPress: () => flip(),
       },
       {
         collection: 'AntDesign',
         name: 'back',
-        onPress: () => onPressCenter(),
+        onPress: () => swipeBack(),
       },
       {
         collection: 'Entypo',
         name: 'check',
-        onPress: () => onPressRight(),
+        onPress: () => swipeRight(),
       },
     ];
 

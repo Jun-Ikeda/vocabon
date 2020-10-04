@@ -22,7 +22,7 @@ const style = StyleSheet.create({
 
 class Item extends Component {
   render() {
-    const { title, onPress, titleStyle, containerStyle, containerLine } = this.props;
+    const { title, onPress, titleStyle, containerStyle, containerLine, containerLineB } = this.props;
     try {
       return (
         <TouchableOpacity
@@ -36,7 +36,7 @@ class Item extends Component {
             </View>
             {this.renderRight()}
           </View>
-          <View style={[style.line, containerLine]}>
+          <View style={[style.line, containerLineB]}>
             {this.renderBelow()}
           </View>
         </TouchableOpacity>

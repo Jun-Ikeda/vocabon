@@ -22,7 +22,8 @@ const style = StyleSheet.create({
 });
 
 export default class App extends Component {
-  UNSAFE_componentWillMount() { // renderと同じでもともとComponentに用意されている関数、renderの前に呼び出される
+  UNSAFE_componentWillMount() {
+    // renderと同じでもともとComponentに用意されている関数、renderの前に呼び出される
     console.log(Functions.getTime());
   }
 
@@ -30,15 +31,15 @@ export default class App extends Component {
     // return <PracticeIH />;
     return (
       <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{flex: 2, olor: 'blue'}}>
+        <View style={{ flex: 2 }}>
           <View style={style.container}>
             <Nav />
           </View>
           <ControlPanel />
         </View>
-        <View style={{ flex: 1 }}>
+        {/* <View style={{ flex: 1 }}>
           <Demo />
-        </View>
+        </View> */}
       </View>
     );
   }

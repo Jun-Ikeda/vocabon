@@ -17,27 +17,55 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  buttonIcon: {
-    fontSize: 20,
-    paddingHorizontal: 50,
-    color: Color.background1,
-  },
   itemsContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
     marginVertical: 50,
     marginHorizontal: 30,
-    // borderWidth: 2,
-    // borderColor: 'white',
   },
   itemContainer: {
-    flex: 1,
     justifyContent: 'center',
-    // borderBottomWidth: 2,
-    // borderBottomColor: Color.background1,
-    // borderBottomEndRadius: 50,
-    // borderBottomStartRadius: 50,
+    marginVertical: 10,
+    paddingLeft: 35,
+    backgroundColor: Color.background2,
   },
+  iconStyle: {
+    color: Color.font2,
+    fontSize: 25,
+  },
+  containerLine: {
+    paddingVertical: 10, // 固定値だから変える
+    flexDirection: 'row', // 縦に並べるやつ
+    // borderWidth: 1,
+  },
+  containerLineB: {
+    height: 0,
+  },
+  titleStyle: {
+    color: Color.font2,
+  },
+  // buttonIcon: {
+  //   fontSize: 20,
+  //   paddingHorizontal: 50,
+  //   color: Color.background1,
+  // },
+  // itemsContainer: {
+  //   flex: 1,
+  //   justifyContent: 'space-between',
+  //   marginVertical: 50,
+  //   marginHorizontal: 30,
+  //   // borderWidth: 2,
+  //   // borderColor: 'white',
+  // },
+  // itemContainer: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   // borderBottomWidth: 2,
+  //   // borderBottomColor: Color.background1,
+  //   // borderBottomEndRadius: 50,
+  //   // borderBottomStartRadius: 50,
+  // },
 });
 
 class Setting extends Component {
@@ -54,7 +82,7 @@ class Setting extends Component {
         <View style={style.container} pointerEvents="box-none">
           <View style={style.itemsContainer}>{this.renderItem()}</View>
         </View>
-      </Gesture>
+  
     );
   }
 
@@ -106,7 +134,13 @@ class Setting extends Component {
     ];
     return items.map(item => (
       <View style={style.itemContainer}>
-        <SettingItem {...item} />
+        <SettingItem
+          {...item}
+          titleStyle={style.titleStyle}
+          iconStyle={style.iconStyle}
+          containerLine={style.containerLine}
+          containerLineB={style.containerLineB}
+        />
       </View>
     ));
   };

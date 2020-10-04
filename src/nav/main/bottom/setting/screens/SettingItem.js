@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Icon from '../../../../../components/Icon';
 import ItemWithIcon from '../../../../../components/item/ItemWithIcon';
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    // height: 120,
-    borderWidth: 1,
-    borderColor: 'white',
   },
-  iconStyle: {
-    fontSize: 30,
+  headerIcon: {
+    transform: [{ rotate: '180deg' }],
+    fontSize: 25,
   },
-  iconContainerStyle: {
-    width: 60,
-    // backgroundColor: 'red',
-  },
-  titleStyle: {
-    fontSize: 26,
-  },
+  // iconContainerStyle: {
+  //   width: 60,
+  //   // backgroundColor: 'red',
+  // },
+  // titleStyle: {
+  //   fontSize: 26,
+  // },
 });
 
-class SettingItem extends Component {
+export default class SettingItem extends Component {
   render() {
     return (
       <ItemWithIcon
@@ -29,11 +28,15 @@ class SettingItem extends Component {
         iconContainerStyle={style.iconContainerStyle}
         titleStyle={style.titleStyle}
         {...this.props}
-        containerStyle={style.container}
-        // icon={{ collection: 'Ionicons', name: 'md-notifications' }}
+        // containerStyle={styile.Style}
+        // {...this.props}
+        renderRight={() => (
+          <Icon.Ionicons
+            name="ios-arrow-back"
+            style={style.headerIcon}
+          />
+        )}
       />
     );
   }
 }
-
-export default SettingItem;

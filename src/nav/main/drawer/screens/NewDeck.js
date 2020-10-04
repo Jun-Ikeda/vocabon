@@ -12,10 +12,10 @@ import Color from '../../../../config/Color';
 import Deck from '../../../../config/Firebase/Deck';
 import { getRandomImage } from '../../../../config/Unsplash';
 
-import Header from '../../../../components/header/Header';
+import HeaderWithBack from '../../../../components/header/HeaderWithBack';
 import Icon from '../../../../components/Icon';
 import Background from '../../../../components/Background';
-import ItemWithDescriptionRight from '../../../../components/item/ItemWithDescriptionRight'
+import ItemWithR from '../../../../components/item/ItemWithDescriptionRight';
 
 import { navigateNav } from '../../../Nav';
 
@@ -27,7 +27,7 @@ const style = StyleSheet.create({
   },
   headerIcon: {
     fontSize: 25,
-    color: Color.font3,
+    color: 'white',
   },
   background: {
     flex: 1,
@@ -86,20 +86,19 @@ const style = StyleSheet.create({
   },
   buttonContainer2: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 30,
-    borderWidth: 1,
     borderColor: Color.font3,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    // borderStyle: 'inset',
     height: 50,
-    justifyContent: 'flex-start',
-    alignContent: 'end',
+    alignItems: 'center',
   },
   chooselan: {
     color: Color.font3,
     fontSize: 20,
-  },
-  buttonIcon: {
-    fontSize: 20,
-    color: 'white',
+    // marginLeft: 'auto',
   },
   button: {
     backgroundColor: Color.background2,
@@ -135,11 +134,8 @@ export default class NewDeck extends Component {
           {this.renderTitleTextInput()}
           {/* <Text style={style.forthose}>For those who ...</Text> */}
           {this.renderDeckLanguage()}
-          {this.renderDeckLanguage2()}
         </View>
-        <View style={style.buttonContainer}>
-          {this.renderCreateButton()}
-        </View>
+        <View style={style.buttonContainer}>{this.renderCreateButton()}</View>
       </View>
     );
   }
@@ -150,16 +146,18 @@ export default class NewDeck extends Component {
       imageStyle={style.background}
       overlayStyle={style.backgroundOverlay}
     />
-  )
+  );
 
-  renderHeader = () => (
-    <Header
-      renderLeft={() => (
-        <Icon.Ionicons name="md-close" style={style.headerIcon} />
-      )}
-      onPressLeft={this.cancel}
-    />
-  )
+  renderHeader = () => {
+    const { navigation } = this.props;
+    return (
+      <HeaderWithBack
+        navigation={navigation}
+        style={style.headerIcon}
+        onPressLeft={this.cancel}
+      />
+    );
+  };
 
   renderTitleTextInput = () => {
     const { title } = this.state;
@@ -177,13 +175,16 @@ export default class NewDeck extends Component {
         />
         <TouchableOpacity
           style={style.deleteContainer}
-          onPress={() => this.setState({ title: '' })}
+          onPress={() => {
+            this.setState({ title: '' });
+            this.inputRef.focus();
+          }}
         >
           <Icon.Ionicons name="md-close" style={style.deleteIcon} />
         </TouchableOpacity>
       </View>
     );
-  }
+  };
 
   renderDeckLanguage = () => {
     const { navigation } = this.props;
@@ -193,47 +194,25 @@ export default class NewDeck extends Component {
         onPress={() =>
           navigation.navigate('decklanguage', {
             setState: state => this.setState(state),
-          })}
+          })
+        }
       >
         <View style={style.buttonContainer2}>
           <Text style={style.chooselan}>Language Type1</Text>
-          <Icon.AntDesign
-            name="down"
-            style={style.buttonIcon}
-          />
-          <Text style={style.language}>{learn}</Text>
+          <Text style={style.language}>
+            {learn}
+            <Icon.AntDesign style={style.chooselan} name="right" />
+          </Text>
         </View>
       </TouchableOpacity>
     );
-  }
-
-  renderDeckLanguage2 = () => {
-    const { navigation } = this.props;
-    const { understand } = this.state;
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('decklanguage', {
-            setState: state => this.setState(state),
-          })}
-      >
-        <View style={style.buttonContainer2}>
-          <Text style={style.chooselan}>Language Type2</Text>
-          <Icon.AntDesign
-            name="down"
-            style={style.buttonIcon}
-          />
-          <Text style={style.language}>{understand}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
+  };
 
   renderCreateButton = () => (
     <TouchableOpacity style={style.button} onPress={this.createDeck}>
       <Text style={style.buttonTitle}>Create</Text>
     </TouchableOpacity>
-  )
+  );
 
   cancel = () => {
     navigateNav('bottom');

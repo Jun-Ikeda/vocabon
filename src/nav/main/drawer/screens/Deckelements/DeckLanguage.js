@@ -9,9 +9,7 @@ import {
 import Color from '../../../../../config/Color';
 
 import Header from '../../../../../components/header/Header';
-import Icon from '../../../../../components/Icon';
 import Background from '../../../../../components/Background';
-
 const letterpress = require('../../../../../../assets/background/letterpress.jpg');
 
 const style = StyleSheet.create({
@@ -31,11 +29,17 @@ const style = StyleSheet.create({
     marginBottom: 40,
   },
   content: {
-    color: Color.font5,
-    textAlign: 'center',
+    color: Color.font3,
     fontSize: 15,
-    marginTop: 10,
-    marginBottom: 15,
+    justifySelf: 'center',
+    marginLeft: 5,
+  },
+  languageContainer: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: Color.font3,
+    height: 50,
+    justifyContent: 'center',
   },
   background: {
     flex: 1,
@@ -134,7 +138,9 @@ class DeckLanguage extends Component {
           navigation.goBack();
         }}
       >
-        <Text style={style.content}>{item.title}</Text>
+        <View style={style.languageContainer}>
+          <Text style={style.content}>{item.title}</Text>
+        </View>
       </TouchableOpacity>
     ));
   };

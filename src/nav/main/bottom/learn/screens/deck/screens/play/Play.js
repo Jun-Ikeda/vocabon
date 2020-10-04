@@ -13,41 +13,50 @@ const style = StyleSheet.create({
 export default class Play extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      mode: true,
+    };
   }
 
   render() {
-    const { navigation, renderItem } = this.props;
+    const { navigation } = this.props;
     return (
       <View style={style.container}>
         <HeaderWithBack navigation={navigation} title="Play" />
         <TouchableOpacity onPress={this.gotoNormalPlay}>
           <Text>Play</Text>
         </TouchableOpacity>
-        <br />
-        <Text>front is</Text>
-        {this.renderItem()}
+        <Text>
+          {'front is '}
+          {this.renderModeIndication()}
+        </Text>
+        {this.renderMode()}
       </View>
     );
   }
 
-  renderItem = () => {
-    const items = [
-      {title: 'word' },
-      {title: 'meaning' },
-    ];
-    return items.map(item => (
+  renderMode = () => {
+    const { mode } = this.state;
+    // const items = [{ title: 'word' }, { title: 'meaning' }];
+    return (
       <TouchableOpacity
         onPress={() => {
-          const { navigation } = this.props;
-          const setState = navigation.getParam('setState');
-          setState({ learn: items.title });
-          navigation.goBack();
+          this.setState(prev => ({
+            mode: !prev.mode,
+          }));
         }}
       >
-        <Text style={style.container}>{item.title}</Text>
+        <Text>change the mode</Text>
       </TouchableOpacity>
-    ));
+    );
+  };
+
+  renderModeIndication = () => {
+    const { mode } = this.state;
+    if (mode) {
+      return <Text>word</Text>;
+    }
+    return <Text>meaning</Text>;
   };
 
   gotoNormalPlay = () => {
