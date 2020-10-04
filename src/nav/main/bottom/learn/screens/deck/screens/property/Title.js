@@ -163,7 +163,7 @@ class DeckPropertyTitle extends Component {
     const { title } = this.state;
     const { navigation } = this.props;
     const updateDeckInfo = navigation.getParam('updateDeckInfo');
-    const deckinfo = navigation.getParam('deckinfo');
+    // const deckinfo = navigation.getParam('deckinfo');
     // deckinfo.ti = title;
     updateDeckInfo({ ti: title });
     navigation.goBack();

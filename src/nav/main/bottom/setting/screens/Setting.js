@@ -13,7 +13,7 @@ import TopHeader from '../../TopHeader';
 import Color from '../../../../../config/Color';
 import Item from '../../../../../components/item/Item';
 
-const mameimg = require('../../../../../../assets/illustrations/Aboutusmame.png');
+// const mameimg = require('../../../../../../assets/illustrations/Aboutusmame.png');
 
 const style = StyleSheet.create({
   container: {
@@ -164,26 +164,26 @@ class Setting extends Component {
     ));
   };
 
-  renderTest = () => {
-    return (
-      <Item
-        renderLeft={() => (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              // backgroundColor: 'blue',
-            }}
-          >
-            <Image
-              source={mameimg}
-              style={{ flex: 1, resizeMode: 'cover', width: 'auto' }}
-            />
-          </View>
-        )}
-      />
-    );
-  };
+  // renderTest = () => {
+  //   return (
+  //     <Item
+  //       renderLeft={() => (
+  //         <View
+  //           style={{
+  //             flex: 1,
+  //             justifyContent: 'center',
+  //             // backgroundColor: 'blue',
+  //           }}
+  //         >
+  //           <Image
+  //             source={mameimg}
+  //             style={{ flex: 1, resizeMode: 'cover', width: 'auto' }}
+  //           />
+  //         </View>
+  //       )}
+  //     />
+  //   );
+  // };
 }
 
 export default withNavigationFocus(Setting);

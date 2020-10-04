@@ -31,7 +31,7 @@ const style = StyleSheet.create({
   content: {
     color: Color.font3,
     fontSize: 15,
-    justifySelf: 'center',
+    // justifySelf: 'center',
     marginLeft: 5,
   },
   languageContainer: {
