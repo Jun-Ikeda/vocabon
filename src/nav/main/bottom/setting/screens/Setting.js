@@ -83,10 +83,6 @@ class Setting extends Component {
           <View style={style.itemsContainer}>{this.renderItem()}</View>
         </View>
   
-    );
-  }
-
-  renderItem = () => {
     const { navigation } = this.props;
     const items = [
       {

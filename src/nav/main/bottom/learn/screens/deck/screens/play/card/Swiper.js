@@ -63,25 +63,6 @@ class Swiper extends Component {
           leftSwipedIndex={leftSwipedIndex}
           navigation={navigation}
         />
-        // <View>
-        //   <Text style={style.final}>Congraturations!</Text>
-        //   <Text style={style.final}>
-        //     Achievement:
-        //     {rightSwipedIndex.length}
-        //     /
-        //     {rightSwipedIndex.length + leftSwipedIndex.length}
-        //     words
-        //   </Text>
-        //   <Text style={style.final}>
-        //     Rate:
-        //     {Math.floor(
-        //       (100 * rightSwipedIndex.length) /
-        //         (rightSwipedIndex.length + leftSwipedIndex.length),
-        //     )}
-        //     %
-        //   </Text>
-        //   {this.renderPerfectMessage()}
-        // </View>
       );
     }
     return null;
