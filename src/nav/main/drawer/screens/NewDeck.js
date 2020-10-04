@@ -90,17 +90,15 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.font3,
     height: 50,
+    justifyContent: 'flex-start',
+    alignContent: 'end',
   },
   chooselan: {
     color: Color.font3,
     fontSize: 20,
-    marginTop: 15,
-    marginLeft: 10,
   },
   buttonIcon: {
     fontSize: 20,
-    marginTop: 15,
-    marginLeft: 10,
     color: 'white',
   },
   button: {
@@ -114,10 +112,7 @@ const style = StyleSheet.create({
   },
   language: {
     color: Color.font3,
-    textAlign: 'center',
     fontSize: 20,
-    marginTop: 15,
-    marginLeft: 125,
   },
   buttonTitle: {
     fontSize: 20,

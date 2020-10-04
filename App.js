@@ -17,7 +17,7 @@ import PracticeIH from './dev/Practice/PracticeIH';
 
 const style = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
   },
 });
 
@@ -29,14 +29,16 @@ export default class App extends Component {
   render() {
     // return <PracticeIH />;
     return (
-      <View style={{ flex: 1 }}>
-        <View style={style.container}>
-          <Nav />
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{flex: 2, olor: 'blue'}}>
+          <View style={style.container}>
+            <Nav />
+          </View>
+          <ControlPanel />
         </View>
-        <ControlPanel />
-        {/* <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
           <Demo />
-        </View> */}
+        </View>
       </View>
     );
   }

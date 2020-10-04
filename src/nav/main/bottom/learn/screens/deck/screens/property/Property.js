@@ -116,7 +116,9 @@ class Property extends Component {
       },
       {
         title: 'Style',
-        onPress: () => console.log('STYLE'),
+        onPress: () => {
+          navigation.navigate('style');
+        },
         icon: {
           collection: 'Foundation',
           name: 'page-edit',

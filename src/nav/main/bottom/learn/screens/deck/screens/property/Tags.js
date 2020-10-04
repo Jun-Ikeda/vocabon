@@ -34,7 +34,7 @@ const style = StyleSheet.create({
   },
   deleteIcon: {
     color: Color.font5,
-    fontSize: 25,
+    fontSize: 20,
   },
   inputview: {
     flex: 3,

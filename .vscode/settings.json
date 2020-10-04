@@ -1,8 +1,8 @@
 {
   "files.exclude": {
-    "**/.expo": true,
-    "**/.expo-shared": true,
-    "**/web-build": true
+    "**/.expo": false,
+    "**/.expo-shared": false,
+    "**/web-build": false
   },
   "extensions.ignoreRecommendations": true,
   "files.autoSave": "off",
