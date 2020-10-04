@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
 // import Color from '../../../../../config/Color';
@@ -11,6 +11,9 @@ import TopHeader from '../../TopHeader';
 
 // import SettingItem from './SettingItem';
 import Color from '../../../../../config/Color';
+import Item from '../../../../../components/item/Item';
+
+const mameimg = require('../../../../../../assets/illustrations/Aboutusmame.png');
 
 const style = StyleSheet.create({
   container: {
@@ -27,8 +30,9 @@ const style = StyleSheet.create({
   itemContainer: {
     justifyContent: 'center',
     marginVertical: 10,
-    paddingLeft: 35,
+    paddingLeft: 20,
     backgroundColor: Color.background2,
+    borderRadius: 10,
   },
   iconStyle: {
     color: Color.font2,
@@ -36,7 +40,7 @@ const style = StyleSheet.create({
   },
   containerLine: {
     paddingVertical: 10, // 固定値だから変える
-    flexDirection: 'row', // 縦に並べるやつ
+    flexDirection: 'row',
     // borderWidth: 1,
   },
   containerLineB: {
@@ -80,9 +84,16 @@ class Setting extends Component {
       <Gesture style={{ opacity: isFocused ? 1 : 0 }}>
         <TopHeader title="Setting" />
         <View style={style.container} pointerEvents="box-none">
-          <View style={style.itemsContainer}>{this.renderItem()}</View>
+          <View style={style.itemsContainer}>
+            {this.renderItem()}
+            {this.renderTest()}
+          </View>
         </View>
-  
+      </Gesture>
+    );
+  }
+
+  renderItem = () => {
     const { navigation } = this.props;
     const items = [
       {
@@ -127,7 +138,19 @@ class Setting extends Component {
         },
         onPress: () => {},
       },
+      // {
+      //   title: 'About Us',
+      //   renderLeft: () => (
+      //     <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'blue' }}>
+      //       <Image
+      //         source={mameimg}
+      //         style={{ flex: 1, resizeMode: 'cover', width: 'auto' }}
+      //       />
+      //     </View>
+      //   ),
+      // },
     ];
+
     return items.map(item => (
       <View style={style.itemContainer}>
         <SettingItem
@@ -139,6 +162,27 @@ class Setting extends Component {
         />
       </View>
     ));
+  };
+
+  renderTest = () => {
+    return (
+      <Item
+        renderLeft={() => (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              // backgroundColor: 'blue',
+            }}
+          >
+            <Image
+              source={mameimg}
+              style={{ flex: 1, resizeMode: 'cover', width: 'auto' }}
+            />
+          </View>
+        )}
+      />
+    );
   };
 }
 

@@ -175,10 +175,15 @@ class Property extends Component {
     ));
   };
 
-  updateDeckInfo = newDeckinfo => {
+  updateDeckInfo = newDeckInfo => {
+    const key = Object.keys(newDeckInfo)[0];
+    const value = Object.values(newDeckInfo)[0];
     this.setState(prev => {
-      const isupdated = Functions.objectEqual(prev.deckinfo, newDeckinfo);
-      return { isupdated, deckinfo: newDeckinfo };
+      const { deckinfo } = prev;
+      console.log({ prev: prev.deckinfo[key], value });
+      const isupdated = Functions.objectEqual(prev.deckinfo[key], value);
+      deckinfo[key] = value;
+      return { isupdated, deckinfo };
     });
   };
 

@@ -13,6 +13,7 @@ import Deck from '../src/config/Firebase/Deck';
 import Unsplash, {
   /* getRandomImage,  */ toJson,
 } from '../src/config/Unsplash';
+import { Functions } from '../src/config/Const';
 
 const Button = [
   {
@@ -351,9 +352,42 @@ const Button = [
     },
   },
   {
-    title: 'test',
+    title: 'objectSort',
     onPress: () => {
-      console.log('aaa');
+      const a = {
+        card:
+          'https://firebasestorage.googleapis.com/v0/b/vocabon02.appspot.com/o/Deck%2FIq%7Be8XvIF%2B.json?alt=media&token=bedafae4-f8ed-4020-a920-2bd633492348',
+        lang1: 'Japanese',
+        lang2: 'English',
+        num: 0,
+        smp: [],
+        style: 0,
+        tag: { a: true, e: true, b: true, c: true },
+        th: {
+          uri:
+            'photo-1563200663-1406f5f6e542?ixlib=rb-1.2.1&q=80&…ysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzU4MX0',
+        },
+        ti: 'Deck Renamed',
+        user: 'JWo0d8JGD4ehxC1Nsw5kI1nnYbQ2',
+      };
+      const b = {
+        card:
+          'https://firebasestorage.googleapis.com/v0/b/vocabon02.appspot.com/o/Deck%2FIq%7Be8XvIF%2B.json?alt=media&token=bedafae4-f8ed-4020-a920-2bd633492348',
+        lang1: 'Japanese',
+        lang2: 'English',
+        num: 0,
+        smp: [],
+        style: 0,
+        tag: { a: true, e: true, b: true, c: true },
+        th: {
+          uri:
+            'photo-1563200663-1406f5f6e542?ixlib=rb-1.2.1&q=80&…ysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzNzU4MX0',
+        },
+        ti: 'Deck Renamed',
+        user: 'JWo0d8JGD4ehxC1Nsw5kI1nnYbQ2',
+      };
+      const isEqual = Functions.objectEqual(a, b);
+      console.log({ isEqual });
     },
   },
 

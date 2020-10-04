@@ -11,10 +11,10 @@ const style = StyleSheet.create({
     transform: [{ rotate: '180deg' }],
     fontSize: 25,
   },
-  // iconContainerStyle: {
-  //   width: 60,
-  //   // backgroundColor: 'red',
-  // },
+  renderright: {
+    marginRight: 30,
+    // backgroundColor: 'red',
+  },
   // titleStyle: {
   //   fontSize: 26,
   // },
@@ -31,10 +31,12 @@ export default class SettingItem extends Component {
         // containerStyle={styile.Style}
         // {...this.props}
         renderRight={() => (
-          <Icon.Ionicons
-            name="ios-arrow-back"
-            style={style.headerIcon}
-          />
+          <View style={style.renderright}>
+            <Icon.Ionicons
+              name="ios-arrow-back"
+              style={style.headerIcon}
+            />
+          </View>
         )}
       />
     );

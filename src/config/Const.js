@@ -104,8 +104,8 @@ export const Functions = {
   },
 
   objectEqual: (obj1, obj2) => {
-    const aJSON = JSON.stringify(Functions.objectSort(obj1));
-    const bJSON = JSON.stringify(Functions.objectSort(obj2));
+    const aJSON = JSON.stringify(Functions.objectSort({ obj: obj1 }));
+    const bJSON = JSON.stringify(Functions.objectSort({ obj: obj2 }));
     return aJSON === bJSON;
   },
 

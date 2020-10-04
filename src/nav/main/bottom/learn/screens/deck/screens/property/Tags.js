@@ -143,14 +143,14 @@ class DeckTags extends Component {
     console.log(tagsArray);
     const { navigation } = this.props;
     const updateDeckInfo = navigation.getParam('updateDeckInfo');
-    const deckinfo = navigation.getParam('deckinfo');
+    // const deckinfo = navigation.getParam('deckinfo');
     const newTagsObject = {};
     tagsArray.forEach(tag => {
       newTagsObject[tag] = true;
     });
-    deckinfo.tag = newTagsObject;
+    // deckinfo.tag = newTagsObject;
     console.log({ newTagsObject });
-    updateDeckInfo(deckinfo);
+    updateDeckInfo({ tag: newTagsObject });
     navigation.goBack();
     // const {
     //   tags: { tagsArray },
